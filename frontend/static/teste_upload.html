@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Teste Upload CNIS</title></head>
+<body style="font-family:Arial;padding:40px;max-width:600px;margin:auto">
+  <h1>Teste de Upload CNIS</h1>
+  <p>Selecione o PDF do CNIS:</p>
+  <input type="file" id="pdf" accept=".pdf" style="font-size:18px;margin:20px 0">
+  <br>
+  <button onclick="enviar()" style="font-size:18px;padding:10px 30px;background:#2563eb;color:#fff;border:none;border-radius:8px;cursor:pointer">
+    Enviar
+  </button>
+  <div id="resultado" style="margin-top:20px;padding:15px;border-radius:8px;display:none"></div>
+
+  <script>
+  async function enviar() {
+    const input = document.getElementById('pdf');
+    const res_div = document.getElementById('resultado');
+
+    if (!input.files[0]) {
+      res_div.style.display = 'block';
+      res_div.style.background = '#fee';
+      res_div.innerHTML = 'Selecione um arquivo primeiro!';
+      return;
+    }
+
+    res_div.style.display = 'block';
+    res_div.style.background = '#eef';
+    res_div.innerHTML = 'Processando... aguarde...';
+
+    const fd = new FormData();
+    fd.append('arquivo', input.files[0]);
+
+    try {
+      const resp = await fetch('/api/v1/upload/cnis', { method: 'POST', body: fd });
+      const data = await resp.json();
+
+      if (data.sucesso && data.segurado) {
+        const dp = data.segurado.dados_pessoais;
+        const nv = data.segurado.vinculos.length;
+        res_div.style.background = '#efe';
+        res_div.innerHTML = `
+          <h2>SUCESSO!</h2>
+          <p><strong>Nome:</strong> ${dp.nome}</p>
+          <p><strong>Sexo:</strong> ${dp.sexo}</p>
+          <p><strong>Nascimento:</strong> ${dp.data_nascimento}</p>
+          <p><strong>CPF:</strong> ${dp.cpf || 'N/A'}</p>
+          <p><strong>Vinculos:</strong> ${nv}</p>
+          <ul>${data.segurado.vinculos.map(v =>
+            '<li>' + v.tipo_vinculo + ' - ' + (v.empregador_nome||'') + ' (' + v.data_inicio + ' a ' + (v.data_fim||'atual') + ') - ' + v.contribuicoes.length + ' contribs</li>'
+          ).join('')}</ul>
+          <p><strong>Avisos:</strong> ${data.avisos?.length || 0}</p>
+        `;
+      } else {
+        res_div.style.background = '#fee';
+        res_div.innerHTML = '<h2>ERRO</h2><p>' + (data.erros?.join('<br>') || 'Falha desconhecida') + '</p>';
+      }
+    } catch(err) {
+      res_div.style.background = '#fee';
+      res_div.innerHTML = '<h2>ERRO DE CONEXAO</h2><p>' + err.message + '</p>';
+    }
+  }
+  </script>
+</body>
+</html>

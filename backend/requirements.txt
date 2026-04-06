@@ -1,0 +1,27 @@
+# ── Servidor Web ───────────────────────────────────────────────────────────
+fastapi>=0.111.0
+uvicorn[standard]>=0.29.0
+python-multipart>=0.0.9    # upload de arquivos
+
+# ── Validação ──────────────────────────────────────────────────────────────
+pydantic>=2.7.0
+
+# ── Parsing de PDF ─────────────────────────────────────────────────────────
+pdfplumber>=0.11.0
+
+# ── OCR Pipeline (documentos escaneados) ──────────────────────────────────
+pytesseract>=0.3.10        # interface Python para Tesseract OCR
+pdf2image>=1.17.0          # renderiza páginas PDF como imagem (requer Poppler)
+opencv-python-headless>=4.9.0  # pré-processamento de imagem (sem GUI)
+Pillow>=10.0.0             # manipulação de imagem
+
+# ── Geração de PDF (relatório) ─────────────────────────────────────────────
+weasyprint>=62.0           # opcional — necessário apenas para /relatorio/pdf
+
+# ── Utilitários ────────────────────────────────────────────────────────────
+python-dateutil>=2.9.0
+
+# ── Testes ─────────────────────────────────────────────────────────────────
+pytest>=8.2.0
+pytest-asyncio>=0.23.0
+httpx>=0.27.0              # cliente HTTP para testes da API

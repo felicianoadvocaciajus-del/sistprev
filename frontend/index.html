@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema Previdenciário — SistPrev</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <div id="app">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <span class="brand-icon">⚖️</span>
+        <span class="brand-name">SistPrev</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-page="upload">📄 Importar Documentos</a>
+        <a href="#" class="nav-item" data-page="segurado">👤 Dados do Segurado</a>
+        <a href="#" class="nav-item" data-page="calculo">🧮 Calcular Benefício</a>
+        <a href="#" class="nav-item" data-page="planejamento">📅 Planejamento</a>
+        <a href="#" class="nav-item" data-page="revisoes">🔍 Revisões</a>
+        <a href="#" class="nav-item" data-page="pcd">♿ Aposentadoria PcD</a>
+        <a href="#" class="nav-item" data-page="atrasados">💰 Parcelas Atrasadas</a>
+        <a href="#" class="nav-item" data-page="estudos">📂 Estudos Salvos</a>
+        <a href="#" class="nav-item" data-page="relatorio">📋 Relatório Pericial</a>
+      </nav>
+      <div class="sidebar-footer">
+        <div id="save-indicator" class="save-indicator">💾 Salvo</div>
+        <small>Lei 8.213/91 · EC 103/2019<br>CJF Res. 963/2025</small>
+      </div>
+    </aside>
+
+    <main class="main-content">
+
+      <!-- ── IMPORTAR ── -->
+      <section id="page-upload" class="page active">
+        <h1 class="page-title">Importar Documentos</h1>
+        <p class="page-subtitle">Faça o upload do CNIS, Carta de Concessão ou CTPS Digital para extrair os dados automaticamente.</p>
+        <div class="upload-grid">
+          <div class="upload-card" id="card-cnis">
+            <div class="upload-icon">📑</div>
+            <h3>CNIS</h3>
+            <p>Cadastro Nacional de Informações Sociais</p>
+            <label class="btn btn-primary upload-label">Selecionar PDF<input type="file" accept=".pdf" id="input-cnis" hidden /></label>
+            <div class="upload-status" id="status-cnis"></div>
+          </div>
+          <div class="upload-card" id="card-carta">
+            <div class="upload-icon">📃</div>
+            <h3>Carta de Concessão</h3>
+            <p>Documento de concessão do benefício pelo INSS</p>
+            <label class="btn btn-secondary upload-label">Selecionar PDF<input type="file" accept=".pdf" id="input-carta" hidden /></label>
+            <div class="upload-status" id="status-carta"></div>
+          </div>
+          <div class="upload-card" id="card-ctps">
+            <div class="upload-icon">📘</div>
+            <h3>CTPS Digital</h3>
+            <p>Carteira de Trabalho Digital (MTE)</p>
+            <label class="btn btn-secondary upload-label">Selecionar PDF<input type="file" accept=".pdf" id="input-ctps" hidden /></label>
+            <div class="upload-status" id="status-ctps"></div>
+          </div>
+        </div>
+        <div class="alert alert-info">💡 Após o upload, os dados são preenchidos automaticamente e <strong>salvos no navegador</strong> — não se perdem ao fechar.</div>
+      </section>
+
+      <!-- ── SEGURADO ── -->
+      <section id="page-segurado" class="page">
+        <h1 class="page-title">Dados do Segurado</h1>
+        <div class="card">
+          <h3 class="card-title">Dados Pessoais</h3>
+          <div class="form-grid">
+            <div class="form-group"><label>Nome Completo *</label><input type="text" id="seg-nome" placeholder="MARIA DA SILVA" /></div>
+            <div class="form-group"><label>CPF</label><input type="text" id="seg-cpf" placeholder="000.000.000-00" maxlength="14" /></div>
+            <div class="form-group"><label>Data de Nascimento *</label><input type="text" id="seg-dn" placeholder="DD/MM/AAAA" maxlength="10" /></div>
+            <div class="form-group"><label>Sexo *</label><select id="seg-sexo"><option value="MASCULINO">Masculino</option><option value="FEMININO">Feminino</option></select></div>
+            <div class="form-group"><label>NIT / PIS / PASEP</label><input type="text" id="seg-nit" placeholder="000.00000.00-0" /></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header-row">
+            <h3 class="card-title">Vínculos Empregatícios</h3>
+            <button class="btn btn-sm btn-primary" id="btn-add-vinculo">+ Adicionar Vínculo</button>
+          </div>
+          <div id="vinculos-list"><p class="empty-state">Nenhum vínculo. Importe o CNIS ou adicione manualmente.</p></div>
+        </div>
+        <div class="actions-row">
+          <button class="btn btn-success" id="btn-calcular-resumo">📊 Ver Resumo</button>
+          <button class="btn btn-secondary" id="btn-limpar-dados">🗑️ Limpar Dados</button>
+        </div>
+        <div id="resumo-segurado" class="resumo-box hidden"></div>
+      </section>
+
+      <!-- ── CALCULAR ── -->
+      <section id="page-calculo" class="page">
+        <h1 class="page-title">Calcular Benefício</h1>
+        <div class="card">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Tipo de Benefício *</label>
+              <select id="calc-tipo">
+                <optgroup label="Aposentadoria">
+                  <option value="transicao">Aposentadoria — Todas as Regras de Transição</option>
+                  <option value="idade">Aposentadoria por Idade</option>
+                  <option value="especial_15">Aposentadoria Especial 15 anos</option>
+                  <option value="especial_20">Aposentadoria Especial 20 anos</option>
+                  <option value="especial_25">Aposentadoria Especial 25 anos</option>
+                </optgroup>
+                <optgroup label="Outros Benefícios">
+                  <option value="auxilio_doenca">Auxílio por Incapacidade Temporária (B31)</option>
+                  <option value="auxilio_acidente">Auxílio Acidentário (B91)</option>
+                  <option value="invalidez">Aposentadoria por Incapacidade (B32)</option>
+                  <option value="invalidez_acidentaria">Incapacidade Acidentária (B92)</option>
+                  <option value="pensao">Pensão por Morte (B21)</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>DER *</label>
+              <input type="text" id="calc-der" placeholder="DD/MM/AAAA" maxlength="10" />
+              <div id="calc-der-sugestoes" class="hidden" style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:8px 12px;margin-top:6px;font-size:11px;color:#1e40af;"></div>
+            </div>
+            <div class="form-group hidden" id="grupo-pensao"><label>Data do Óbito</label><input type="text" id="calc-obito" placeholder="DD/MM/AAAA" maxlength="10" /></div>
+            <div class="form-group hidden" id="grupo-dependentes"><label>Nº de Dependentes</label><input type="number" id="calc-dependentes" value="1" min="1" max="10" /></div>
+          </div>
+          <div class="actions-row">
+            <button class="btn btn-success btn-lg" id="btn-calcular">⚡ Calcular</button>
+          </div>
+        </div>
+        <div id="resultado-calculo" class="hidden"></div>
+      </section>
+
+      <!-- ── PLANEJAMENTO ── -->
+      <section id="page-planejamento" class="page">
+        <h1 class="page-title" id="plan-titulo">Planejamento Previdenciário</h1>
+        <p class="page-subtitle" id="plan-subtitulo">Descubra quando você poderá se aposentar por cada regra e qual é a melhor estratégia.</p>
+        <!-- Alerta automático: modo detectado pelo CNIS -->
+        <div id="plan-modo-alerta" class="hidden" style="margin-bottom:16px;"></div>
+        <!-- Painel fixo: benefício ativo detectado -->
+        <div id="plan-beneficio-ativo" class="hidden" style="margin-bottom:16px;background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:#fff;padding:16px 20px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;"></div>
+        <div class="card">
+          <div class="form-grid">
+            <div class="form-group">
+              <label id="plan-der-label">Data de Referência *</label>
+              <input type="text" id="plan-der" placeholder="DD/MM/AAAA" maxlength="10" />
+              <small id="plan-der-hint" style="color:#6b7280;font-size:11px;margin-top:4px;display:none;"></small>
+            </div>
+            <div class="form-group" id="plan-der-original-group" style="display:none;">
+              <label>DER Original (INSS)</label>
+              <input type="text" id="plan-der-original" readonly style="background:#f3f4f6;color:#374151;font-weight:700;cursor:not-allowed;" />
+              <small style="color:#7c3aed;font-size:11px;margin-top:4px;">Data do requerimento original — usada para revisão</small>
+            </div>
+            <div class="form-group">
+              <label>Salário de Contribuição Futuro (R$)</label>
+              <input type="text" id="plan-salario" placeholder="Deixe em branco = usa a média atual" />
+            </div>
+            <div class="form-group">
+              <label>Seu Nome (para o relatório)</label>
+              <input type="text" id="plan-advogado" placeholder="Dr. João Silva — OAB/SP 123.456" />
+            </div>
+          </div>
+          <div class="actions-row">
+            <button class="btn btn-success btn-lg" id="btn-planejar">📅 Calcular Planejamento</button>
+          </div>
+        </div>
+        <div id="resultado-planejamento" class="hidden"></div>
+      </section>
+
+      <!-- ── REVISÕES ── -->
+      <section id="page-revisoes" class="page">
+        <h1 class="page-title">Revisões de Benefício</h1>
+        <div class="tabs" style="flex-wrap:wrap;">
+          <button class="tab active" data-tab="teto">Revisão do Teto</button>
+          <button class="tab" data-tab="melhor-beneficio">Melhor Benefício</button>
+          <button class="tab" data-tab="especial-revisao">Atividade Especial</button>
+          <button class="tab" data-tab="vida-toda">Vida Toda</button>
+        </div>
+
+        <!-- TETO -->
+        <div class="tab-content active" id="tab-teto">
+          <div class="card">
+            <p class="card-desc">Verifica direito à readequação pelas EC 20/98 (R$ 1.200) e EC 41/03 (R$ 2.400).</p>
+            <div class="form-grid">
+              <div class="form-group"><label>DIB *</label><input type="text" id="teto-dib" placeholder="DD/MM/AAAA" maxlength="10" /></div>
+              <div class="form-group"><label>RMI Original (R$) *</label><input type="text" id="teto-rmi" placeholder="0,00" /></div>
+              <div class="form-group"><label>Salário de Benefício (R$) *</label><input type="text" id="teto-sb" placeholder="0,00" /></div>
+              <div class="form-group"><label>Data da Revisão *</label><input type="text" id="teto-der" placeholder="DD/MM/AAAA" maxlength="10" /></div>
+            </div>
+            <button class="btn btn-primary" id="btn-teto">🔍 Calcular Revisão do Teto</button>
+          </div>
+          <div id="resultado-teto" class="hidden"></div>
+        </div>
+
+        <!-- MELHOR BENEFÍCIO -->
+        <div class="tab-content" id="tab-melhor-beneficio">
+          <div class="card">
+            <div style="background:#eff6ff;border-left:4px solid #2563eb;padding:12px 16px;border-radius:6px;margin-bottom:16px;">
+              <div style="font-weight:700;font-size:13px;color:#1e40af;">Art. 687, IN PRES/INSS 128/2022 — Princípio do Melhor Benefício</div>
+              <div style="font-size:12px;color:#1e3a8a;margin-top:4px;">STF Tema 334 (RE 630.501/RS): O INSS deve conceder o benefício mais vantajoso dentre todas as regras a que o segurado faz jus na DER. Se concedeu por regra menos favorável, cabe revisão.</div>
+            </div>
+            <p class="card-desc">Recalcula a RMI por TODAS as regras vigentes na DER e compara com o que o INSS concedeu. Usa os vínculos já importados.</p>
+            <div class="form-grid">
+              <div class="form-group"><label>DER do Benefício *</label><input type="text" id="rev-mb-der" placeholder="DD/MM/AAAA" maxlength="10" /></div>
+              <div class="form-group"><label>RMI Concedida pelo INSS (R$) *</label><input type="text" id="rev-mb-rmi" placeholder="0,00" /></div>
+              <div class="form-group"><label>Espécie Concedida</label>
+                <select id="rev-mb-especie">
+                  <option value="42">B42 — Aposentadoria por Tempo de Contribuição</option>
+                  <option value="41">B41 — Aposentadoria por Idade</option>
+                  <option value="46">B46 — Aposentadoria Especial</option>
+                  <option value="57">B57 — Aposentadoria da PCD</option>
+                  <option value="99">B99 — Aposentadoria (EC 103/2019)</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-lg" id="btn-rev-melhor">🔍 Verificar Melhor Benefício</button>
+          </div>
+          <div id="resultado-rev-melhor" class="hidden"></div>
+        </div>
+
+        <!-- ATIVIDADE ESPECIAL -->
+        <div class="tab-content" id="tab-especial-revisao">
+          <div class="card">
+            <div style="background:#fef3c7;border-left:4px solid #f59e0b;padding:12px 16px;border-radius:6px;margin-bottom:16px;">
+              <div style="font-weight:700;font-size:13px;color:#92400e;">Revisão para Reconhecimento de Atividade Especial</div>
+              <div style="font-size:12px;color:#78350f;margin-top:4px;">
+                Art. 57 e 58 da Lei 8.213/91 — O segurado que exerceu atividade com exposição a agentes nocivos pode converter o tempo especial em comum (fator 1.4 masc / 1.2 fem para 25 anos) e obter RMI maior. Se o INSS não reconheceu períodos especiais devidos, cabe revisão.
+              </div>
+            </div>
+            <p class="card-desc">Marque os vínculos com atividade especial na aba "Vínculos" (Tipo de Atividade = Especial 15/20/25 anos), depois clique abaixo para recalcular com a conversão do tempo especial.</p>
+            <div class="form-grid">
+              <div class="form-group"><label>DER do Benefício *</label><input type="text" id="rev-esp-der" placeholder="DD/MM/AAAA" maxlength="10" /></div>
+              <div class="form-group"><label>RMI Concedida pelo INSS (R$)</label><input type="text" id="rev-esp-rmi" placeholder="0,00 (para comparar)" /></div>
+            </div>
+            <div id="rev-esp-vinculos-especiais" style="margin:12px 0;"></div>
+            <button class="btn btn-warning btn-lg" id="btn-rev-especial">⚡ Recalcular com Atividade Especial</button>
+          </div>
+          <div id="resultado-rev-especial" class="hidden"></div>
+        </div>
+
+        <!-- VIDA TODA -->
+        <div class="tab-content" id="tab-vida-toda">
+          <div class="card">
+            <div style="background:#fef2f2;border-left:4px solid #dc2626;padding:12px 16px;border-radius:6px;margin-bottom:16px;">
+              <div style="font-weight:700;font-size:13px;color:#991b1b;">ENCERRADA — Revisão da Vida Toda</div>
+              <div style="font-size:12px;color:#7f1d1d;margin-top:4px;">
+                O STF, em 21/03/2025 (Tema 1102), modulou os efeitos e encerrou definitivamente esta tese. Apenas ações ajuizadas antes de 21/03/2025 podem ser beneficiadas, desde que a DIB seja anterior a 13/11/2019.
+              </div>
+            </div>
+            <p class="card-desc" style="color:#6b7280;">Esta revisão pretendia incluir contribuições anteriores a julho/1994 no PBC. Como foi encerrada pelo STF, mantemos apenas para consulta informativa e acompanhamento de ações já ajuizadas.</p>
+            <div class="form-grid">
+              <div class="form-group"><label>DER *</label><input type="text" id="rev-vt-der" placeholder="DD/MM/AAAA" maxlength="10" /></div>
+              <div class="form-group"><label>RMI Concedida (R$)</label><input type="text" id="rev-vt-rmi" placeholder="0,00" /></div>
+              <div class="form-group"><label>Data do Ajuizamento</label><input type="text" id="rev-vt-ajuiz" placeholder="DD/MM/AAAA" maxlength="10" /></div>
+            </div>
+            <button class="btn btn-secondary" id="btn-rev-vidatoda" disabled>Revisão Encerrada (STF 21/03/2025)</button>
+          </div>
+          <div id="resultado-rev-vidatoda" class="hidden"></div>
+        </div>
+      </section>
+
+      <!-- ── ATRASADOS ── -->
+      <section id="page-atrasados" class="page">
+        <h1 class="page-title">Parcelas Atrasadas</h1>
+        <p class="page-subtitle">Liquidação de sentença com correção pelo INPC e juros de mora (SELIC pós-EC 113/2021). Os atrasados incidem sobre a DIFERENÇA entre a RMI correta e a RMI paga.</p>
+        <div class="card">
+          <div style="background:#eff6ff;border-left:4px solid #2563eb;padding:10px 14px;border-radius:6px;margin-bottom:16px;font-size:12px;color:#1e40af;">
+            <strong>Como funciona:</strong> Se o INSS pagava uma RMI errada (ex: R$ 1.200) e a correta é R$ 1.500, os atrasados são sobre a DIFERENÇA (R$ 300/mês), não sobre o benefício inteiro. Preencha os dois campos abaixo.
+          </div>
+          <div class="form-grid">
+            <div class="form-group"><label>DIB *</label><input type="text" id="at-dib" placeholder="DD/MM/AAAA" maxlength="10" /></div>
+            <div class="form-group"><label>RMI Correta (R$) * <small style="color:#6b7280">— como deveria ser</small></label><input type="text" id="at-rmi" placeholder="0,00" /></div>
+            <div class="form-group"><label>RMI Paga pelo INSS (R$) <small style="color:#6b7280">— deixe vazio se não concedido</small></label><input type="text" id="at-rmi-paga" placeholder="0,00 (opcional)" /></div>
+            <div class="form-group"><label>Data de Atualização *</label><input type="text" id="at-atualizacao" placeholder="DD/MM/AAAA" maxlength="10" /></div>
+            <div class="form-group"><label>Data do Ajuizamento (prescrição 5 anos)</label><input type="text" id="at-ajuizamento" placeholder="DD/MM/AAAA (opcional)" maxlength="10" /></div>
+            <div class="form-group"><label><input type="checkbox" id="at-juros" checked /> Incluir juros de mora</label></div>
+          </div>
+          <button class="btn btn-success btn-lg" id="btn-atrasados">💰 Calcular Atrasados</button>
+        </div>
+        <div id="resultado-atrasados" class="hidden"></div>
+      </section>
+
+      <!-- ── RELATÓRIO ── -->
+      <section id="page-relatorio" class="page">
+        <h1 class="page-title">Relatório Pericial</h1>
+        <p class="page-subtitle">Relatório técnico-pericial completo para uso judicial ou entrega ao cliente.</p>
+        <div class="card">
+          <ul class="feature-list">
+            <li>✅ Dados do segurado identificados</li>
+            <li>✅ Quadro de vínculos e contribuições</li>
+            <li>✅ Cálculo do Tempo de Contribuição (TC)</li>
+            <li>✅ Período Básico de Cálculo (PBC) com todos os salários</li>
+            <li>✅ Memória de cálculo passo a passo</li>
+            <li>✅ Comparativo de todas as regras de transição</li>
+            <li>✅ Fundamentação legal de cada etapa</li>
+            <li>✅ Projeção de datas de aposentadoria</li>
+            <li>✅ Argumentos explicativos para o cliente</li>
+          </ul>
+          <div class="actions-row">
+            <button class="btn btn-primary btn-lg" id="btn-gerar-relatorio">📋 Gerar Relatório (PDF)</button>
+            <button class="btn btn-secondary" id="btn-exportar-json">⬇️ Exportar JSON</button>
+          </div>
+        </div>
+        <div id="preview-relatorio" class="hidden"></div>
+      </section>
+
+      <!-- ── APOSENTADORIA PcD ── -->
+      <section id="page-pcd" class="page">
+        <h1 class="page-title">Aposentadoria da Pessoa com Deficiencia</h1>
+        <p class="page-subtitle">Calculo diferenciado conforme LC 142/2013 — preservado pela EC 103/2019 (Art. 22). Tempo reduzido conforme grau de deficiencia.</p>
+        <div class="card">
+          <h3 class="card-title">Dados da Deficiencia</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Grau de Deficiencia Atual</label>
+              <select id="pcd-grau">
+                <option value="">Selecione...</option>
+                <option value="GRAVE">Grave</option>
+                <option value="MODERADA">Moderada</option>
+                <option value="LEVE">Leve</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Data de Referencia (DER)</label>
+              <input type="text" id="pcd-der" placeholder="DD/MM/AAAA">
+            </div>
+          </div>
+          <h4 style="margin-top:16px;margin-bottom:8px;color:#1a3c6e;">Periodos com Deficiencia</h4>
+          <p style="font-size:12px;color:#6b7280;margin-bottom:12px;">Adicione os periodos em que o segurado tinha cada grau de deficiencia. O sistema converte automaticamente entre graus.</p>
+          <div id="pcd-periodos-lista"></div>
+          <button class="btn btn-secondary" onclick="adicionarPeriodoPcD()" style="margin-top:8px;">+ Adicionar Periodo</button>
+        </div>
+        <div class="actions-row" style="margin-top:16px;">
+          <button class="btn btn-primary" id="btn-calcular-pcd">♿ Calcular Aposentadoria PcD</button>
+        </div>
+        <div id="resultado-pcd" class="hidden" style="margin-top:20px;"></div>
+      </section>
+
+      <!-- ── ESTUDOS SALVOS ── -->
+      <section id="page-estudos" class="page">
+        <h1 class="page-title">Estudos Salvos</h1>
+        <p class="page-subtitle">Histórico de planejamentos previdenciários dos seus clientes.</p>
+        <div class="card">
+          <div class="actions-row" style="margin-bottom:16px;">
+            <button class="btn btn-primary" id="btn-atualizar-estudos" onclick="carregarEstudos()">🔄 Atualizar Lista</button>
+          </div>
+          <div id="lista-estudos">
+            <p style="color:#9ca3af;text-align:center;padding:32px;">Carregando estudos...</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Modal Vínculo -->
+  <div class="modal-overlay hidden" id="modal-vinculo">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Vínculo Empregatício</h3>
+        <button class="modal-close" id="btn-fechar-modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group"><label>Empregador</label><input type="text" id="v-nome" placeholder="Razão Social" /></div>
+          <div class="form-group"><label>CNPJ</label><input type="text" id="v-cnpj" placeholder="00.000.000/0000-00" /></div>
+          <div class="form-group"><label>Data de Início *</label><input type="text" id="v-inicio" placeholder="DD/MM/AAAA" maxlength="10" /></div>
+          <div class="form-group"><label>Data de Fim</label><input type="text" id="v-fim" placeholder="DD/MM/AAAA (em branco = em aberto)" maxlength="10" /></div>
+          <div class="form-group">
+            <label>Tipo de Vínculo</label>
+            <select id="v-tipo">
+              <option value="EMPREGADO">Empregado (CLT)</option>
+              <option value="EMPREGADO_DOMESTICO">Empregado Doméstico</option>
+              <option value="CONTRIBUINTE_INDIVIDUAL">Contribuinte Individual / Autônomo</option>
+              <option value="MEI">MEI</option>
+              <option value="FACULTATIVO">Facultativo</option>
+              <option value="TRABALHADOR_AVULSO">Trabalhador Avulso</option>
+              <option value="SEGURADO_ESPECIAL">Segurado Especial (Rural)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tipo de Atividade</label>
+            <select id="v-atividade">
+              <option value="NORMAL">Normal</option>
+              <option value="ESPECIAL_15">Especial 15 anos</option>
+              <option value="ESPECIAL_20">Especial 20 anos</option>
+              <option value="ESPECIAL_25">Especial 25 anos</option>
+            </select>
+          </div>
+        </div>
+        <div class="contribuicoes-section">
+          <div class="card-header-row">
+            <h4>Contribuições Mensais</h4>
+            <button class="btn btn-sm btn-secondary" id="btn-add-contrib">+ Competência</button>
+          </div>
+          <div id="contrib-list"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btn-cancelar-modal">Cancelar</button>
+        <button class="btn btn-primary" id="btn-salvar-vinculo">Salvar Vínculo</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
