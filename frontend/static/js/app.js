@@ -1178,6 +1178,73 @@ function renderizarPlanejamento(data, container) {
     htmlAlertas += `<div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:8px 14px;border-radius:6px;margin-bottom:12px;font-size:12px;color:#166534;">Calculo validado — nenhum alerta fatal detectado.</div>`;
   }
 
+  // ── Classificação FATO / PROJEÇÃO / TESE ───────────────────────────────────
+  if (data.classificacao_dados) {
+    const cd = data.classificacao_dados;
+    htmlAlertas += `<div class="card" style="border:2px solid #1d4ed8;margin-bottom:16px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;right:0;background:#1d4ed8;color:#fff;padding:4px 12px;border-radius:0 0 0 8px;font-size:10px;font-weight:700;letter-spacing:1px;">TRANSPARÊNCIA</div>
+      <h3 class="card-title" style="margin-bottom:4px;">📋 Classificação dos Dados: FATO · PROJEÇÃO · TESE</h3>
+      <p style="font-size:11px;color:#6b7280;margin-bottom:14px;">${cd.disclaimer_geral || ''}</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;">`;
+
+    // FATOS
+    if (cd.fatos?.length) {
+      htmlAlertas += `<div style="background:#f0fdf4;border-radius:10px;padding:14px;border-left:4px solid #16a34a;">
+        <div style="font-size:12px;font-weight:800;color:#065f46;margin-bottom:10px;letter-spacing:0.5px;">📌 FATOS — Dados Documentais</div>`;
+      cd.fatos.forEach(f => {
+        if (!f.valor || f.valor === '?') return;
+        const confCor = f.confianca === 'ALTA' ? '#065f46' : f.confianca === 'MEDIA' ? '#b45309' : '#991b1b';
+        htmlAlertas += `<div style="margin-bottom:8px;padding:6px 8px;background:#fff;border-radius:6px;border:1px solid #dcfce7;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:12px;font-weight:600;color:#374151;">${f.descricao}</span>
+            <span style="font-size:10px;color:${confCor};font-weight:700;background:${confCor}15;padding:1px 6px;border-radius:3px;">${f.confianca}</span>
+          </div>
+          <div style="font-size:13px;font-weight:700;color:#065f46;margin-top:2px;">${f.valor}</div>
+          ${f.fonte ? `<div style="font-size:10px;color:#9ca3af;margin-top:2px;">Fonte: ${f.fonte}</div>` : ''}
+        </div>`;
+      });
+      htmlAlertas += `</div>`;
+    }
+
+    // PROJEÇÕES
+    if (cd.projecoes?.length) {
+      htmlAlertas += `<div style="background:#eff6ff;border-radius:10px;padding:14px;border-left:4px solid #2563eb;">
+        <div style="font-size:12px;font-weight:800;color:#1e40af;margin-bottom:10px;letter-spacing:0.5px;">📊 PROJEÇÕES — Estimativas Futuras</div>`;
+      cd.projecoes.forEach(p => {
+        const confCor = p.confianca === 'ALTA' ? '#065f46' : p.confianca === 'MEDIA' ? '#b45309' : '#991b1b';
+        htmlAlertas += `<div style="margin-bottom:8px;padding:6px 8px;background:#fff;border-radius:6px;border:1px solid #dbeafe;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:12px;font-weight:600;color:#374151;">${p.descricao}</span>
+            <span style="font-size:10px;color:${confCor};font-weight:700;background:${confCor}15;padding:1px 6px;border-radius:3px;">${p.confianca}</span>
+          </div>
+          <div style="font-size:13px;font-weight:700;color:#1e40af;margin-top:2px;">${p.valor}</div>
+          ${p.disclaimer ? `<div style="font-size:10px;color:#9ca3af;margin-top:2px;font-style:italic;">⚠️ ${p.disclaimer}</div>` : ''}
+        </div>`;
+      });
+      htmlAlertas += `</div>`;
+    }
+
+    // TESES
+    if (cd.teses?.length) {
+      htmlAlertas += `<div style="background:#faf5ff;border-radius:10px;padding:14px;border-left:4px solid #7c3aed;">
+        <div style="font-size:12px;font-weight:800;color:#5b21b6;margin-bottom:10px;letter-spacing:0.5px;">⚖️ TESES — Argumentos Estratégicos</div>`;
+      cd.teses.forEach(t => {
+        const confCor = t.confianca === 'ALTA' ? '#065f46' : t.confianca === 'MEDIA' ? '#b45309' : '#991b1b';
+        htmlAlertas += `<div style="margin-bottom:8px;padding:6px 8px;background:#fff;border-radius:6px;border:1px solid #ede9fe;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:12px;font-weight:600;color:#374151;">${t.descricao}</span>
+            <span style="font-size:10px;color:${confCor};font-weight:700;background:${confCor}15;padding:1px 6px;border-radius:3px;">${t.confianca}</span>
+          </div>
+          <div style="font-size:13px;font-weight:700;color:#5b21b6;margin-top:2px;">${t.valor}</div>
+          ${t.disclaimer ? `<div style="font-size:10px;color:#9ca3af;margin-top:2px;font-style:italic;">⚠️ ${t.disclaimer}</div>` : ''}
+        </div>`;
+      });
+      htmlAlertas += `</div>`;
+    }
+
+    htmlAlertas += `</div></div>`;
+  }
+
   // ── Hero: situacao atual ──────────────────────────────────────────────────
   let html = htmlAlertas + `
   <div class="plan-hero">

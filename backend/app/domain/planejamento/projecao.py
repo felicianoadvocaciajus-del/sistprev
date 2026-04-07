@@ -264,6 +264,10 @@ def calcular_planejamento(
         "analise_especial": analise_especial,
         "memoria_calculo": memoria,
         "regime_aplicado": "PRE_REFORMA" if der_base < _DC.EC_103_2019 else "POS_REFORMA_EC103",
+        "classificacao_dados": _classificar_fato_projecao_tese(
+            segurado, der_base, tc_atual, carencia_meses, qualidade,
+            projecoes_list, melhor_rmi, melhor_regra_nome, melhor_data,
+        ),
     }
 
     # VALIDACAO ANTIALUCINACAO — audita o resultado antes de devolver
@@ -394,6 +398,166 @@ def _formatar_periodo(anos: int, meses: int) -> str:
     if not partes:
         return "menos de 1 mês"
     return " e ".join(partes)
+
+
+def _classificar_fato_projecao_tese(
+    segurado: Segurado, der_base: date, tc_atual, carencia_meses: int,
+    qualidade: dict, projecoes: list, melhor_rmi, melhor_regra_nome, melhor_data,
+) -> dict:
+    """
+    Separa TODAS as informações do planejamento em 3 categorias claras:
+
+    FATO — Dados extraídos dos documentos, verificáveis e objetivos.
+           Confiança: ALTA (se de CNIS/CTPS) ou MEDIA (se manual).
+    PROJEÇÃO — Estimativas futuras baseadas em premissas.
+               Confiança: MEDIA (premissas explícitas) ou BAIXA (muitas variáveis).
+    TESE — Argumentos jurídicos/estratégicos derivados dos fatos.
+           Confiança: variável (depende da jurisprudência e do caso).
+
+    Cada item tem: categoria, descricao, valor, confianca, fonte, disclaimer.
+    """
+    from ..constantes import DatasCorte as _DC
+
+    idade_anos = 0
+    if segurado.data_nascimento:
+        delta = der_base - segurado.data_nascimento
+        idade_anos = round(delta.days / 365.25, 1)
+
+    regime = "PRE_REFORMA" if der_base < _DC.EC_103_2019 else "POS_REFORMA_EC103"
+
+    fatos = [
+        {
+            "descricao": "Tempo de Contribuição atual",
+            "valor": f"{tc_atual.anos}a {tc_atual.meses_restantes}m {tc_atual.dias_restantes}d ({tc_atual.dias_total} dias)",
+            "confianca": "ALTA",
+            "fonte": "CNIS / Vínculos importados",
+            "disclaimer": "Contagem conforme Art. 60 Decreto 3.048/99. Sujeita a conferência pelo INSS.",
+        },
+        {
+            "descricao": "Carência",
+            "valor": f"{carencia_meses} meses de contribuição efetiva",
+            "confianca": "ALTA",
+            "fonte": "CNIS / Contribuições com recolhimento",
+            "disclaimer": "Art. 24 Lei 8.213/91. Períodos de benefício NÃO contam como carência.",
+        },
+        {
+            "descricao": "Idade na DER",
+            "valor": f"{idade_anos} anos",
+            "confianca": "ALTA",
+            "fonte": "Data de nascimento informada",
+            "disclaimer": "",
+        },
+        {
+            "descricao": "Qualidade de Segurado",
+            "valor": qualidade.get("status", "?"),
+            "confianca": "ALTA" if qualidade.get("fonte") == "BENEFICIO_ATIVO" else "MEDIA",
+            "fonte": qualidade.get("fonte", "Cálculo de período de graça"),
+            "disclaimer": "Art. 15 Lei 8.213/91. Períodos de graça variam conforme o caso.",
+        },
+        {
+            "descricao": "Regime jurídico aplicável",
+            "valor": "Pré-Reforma (Lei 8.213/91)" if regime == "PRE_REFORMA" else "Pós-Reforma (EC 103/2019)",
+            "confianca": "ALTA",
+            "fonte": f"DER: {der_base.strftime('%d/%m/%Y')} vs EC 103: 13/11/2019",
+            "disclaimer": "Princípio tempus regit actum — a lei vigente na DER rege o direito.",
+        },
+        {
+            "descricao": "Quantidade de vínculos",
+            "valor": f"{len(segurado.vinculos)} vínculos",
+            "confianca": "ALTA",
+            "fonte": "CNIS / Importação",
+            "disclaimer": "",
+        },
+    ]
+
+    projecoes_cat = []
+    for p in projecoes:
+        if p.get("data_elegibilidade"):
+            projecoes_cat.append({
+                "descricao": f"Data de elegibilidade — {p.get('regra', '?')}",
+                "valor": p.get("data_elegibilidade") if isinstance(p.get("data_elegibilidade"), str)
+                    else p["data_elegibilidade"].strftime("%d/%m/%Y") if hasattr(p.get("data_elegibilidade"), "strftime")
+                    else str(p.get("data_elegibilidade")),
+                "confianca": "MEDIA",
+                "fonte": "Projeção com contribuição contínua",
+                "disclaimer": (
+                    "PROJEÇÃO: assume contribuição ininterrupta ao salário informado. "
+                    "Mudanças legislativas, interrupções ou alterações salariais podem modificar esta data."
+                ),
+            })
+            if p.get("rmi_projetada") and p["rmi_projetada"] > 0:
+                rmi_fmt = f"R$ {p['rmi_projetada']:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                projecoes_cat.append({
+                    "descricao": f"RMI estimada — {p.get('regra', '?')}",
+                    "valor": rmi_fmt,
+                    "confianca": "BAIXA",
+                    "fonte": "Projeção com premissas atuais",
+                    "disclaimer": (
+                        "PROJEÇÃO: valor estimado com base nos salários atuais e legislação vigente. "
+                        "NÃO constitui promessa de valor. Sujeito a correção monetária, "
+                        "alterações no teto/piso e eventuais mudanças legislativas."
+                    ),
+                })
+
+    teses = []
+    if melhor_regra_nome:
+        teses.append({
+            "descricao": "Melhor estratégia identificada",
+            "valor": melhor_regra_nome,
+            "confianca": "MEDIA",
+            "fonte": "Comparação entre todas as regras aplicáveis",
+            "disclaimer": (
+                "TESE: opinião técnica baseada na análise comparativa. "
+                "A escolha final deve considerar a situação individual do segurado, "
+                "incluindo saúde, necessidade financeira e expectativa de vida."
+            ),
+        })
+
+    alcancaveis = [p for p in projecoes if p.get("data_elegibilidade")]
+    if len(alcancaveis) >= 2:
+        mais_rapida = min(alcancaveis, key=lambda x: x.get("meses_faltantes", 999))
+        mais_vantajosa = max(alcancaveis, key=lambda x: float(x.get("rmi_projetada", 0) or 0))
+        if mais_rapida.get("regra") != mais_vantajosa.get("regra"):
+            teses.append({
+                "descricao": "Trade-off: rapidez vs valor",
+                "valor": (
+                    f"Mais rápida: {mais_rapida.get('regra', '?')} "
+                    f"({mais_rapida.get('texto_faltante', '?')}). "
+                    f"Maior RMI: {mais_vantajosa.get('regra', '?')} "
+                    f"({mais_vantajosa.get('rmi_formatada', '?')})."
+                ),
+                "confianca": "MEDIA",
+                "fonte": "Análise comparativa",
+                "disclaimer": (
+                    "TESE: a decisão entre aposentar mais cedo (menor valor) ou mais tarde "
+                    "(maior valor) depende de fatores pessoais do segurado."
+                ),
+            })
+
+    if qualidade.get("status") == "EM_RISCO":
+        teses.append({
+            "descricao": "URGENTE: Qualidade de segurado em risco",
+            "valor": f"Perda prevista: {qualidade.get('data_perda_qualidade', '?')}",
+            "confianca": "ALTA",
+            "fonte": "Art. 15 Lei 8.213/91",
+            "disclaimer": (
+                "TESE: se a qualidade de segurado for perdida, o segurado precisará cumprir "
+                "novamente a carência para acessar benefícios. Ação imediata recomendada."
+            ),
+        })
+
+    return {
+        "fatos": fatos,
+        "projecoes": projecoes_cat,
+        "teses": teses,
+        "disclaimer_geral": (
+            "Este planejamento separa rigorosamente FATOS (dados documentais verificáveis), "
+            "PROJEÇÕES (estimativas baseadas em premissas explícitas) e "
+            "TESES (argumentos jurídicos/estratégicos). "
+            "Projeções NÃO são garantias. Teses são opiniões técnicas sujeitas a "
+            "interpretação judicial. Apenas FATOS são dados objetivos."
+        ),
+    }
 
 
 def _mensagem_cliente(regra: str, anos: int, meses: int, data: date, rmi: Decimal) -> str:
