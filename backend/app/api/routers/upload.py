@@ -10,7 +10,24 @@ from ..schemas import ParseCNISResponse, SeguradoSchema, DadosPessoaisSchema, Vi
 from ...services.upload_service import UploadService
 from ...domain.models.segurado import Segurado
 
+import logging
+_logger = logging.getLogger("sistprev.upload")
+
 router = APIRouter(prefix="/upload", tags=["Upload de Documentos"])
+
+
+def _extrair_texto_ocr_upload(caminho_pdf: str, nome_arquivo: str) -> str:
+    """Extrai texto via OCR para endpoints de upload."""
+    try:
+        from ...parsers.pipeline.ocr_engine import extract_document
+        doc_result = extract_document(caminho_pdf, filename=nome_arquivo)
+        if doc_result.full_text.strip():
+            return doc_result.full_text
+    except ImportError:
+        _logger.warning("Dependencias OCR nao instaladas")
+    except Exception as e:
+        _logger.warning(f"Erro OCR: {e}")
+    return ""
 
 
 @router.post("/cnis", response_model=ParseCNISResponse)
@@ -159,6 +176,242 @@ async def upload_ctps(arquivo: UploadFile = File(...)):
         "vinculos": vinculos_serializados,
         "avisos": resultado.avisos,
     }
+
+
+@router.post("/ppp")
+async def upload_ppp(arquivo: UploadFile = File(...)):
+    """
+    Faz upload do PPP (Perfil Profissiografico Previdenciario).
+    Extrai agentes nocivos, intensidades, EPI/EPC, periodos de exposicao.
+    Cruza com dados do CNIS/CTPS para fortalecer a analise especial.
+    """
+    if not arquivo.filename.lower().endswith(".pdf"):
+        raise HTTPException(status_code=400, detail="Apenas arquivos PDF sao aceitos.")
+
+    conteudo = await arquivo.read()
+    if len(conteudo) == 0:
+        raise HTTPException(status_code=400, detail="Arquivo vazio.")
+
+    import io, tempfile, os
+    # Salvar em arquivo temporario para o parser
+    tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
+    tmp.write(conteudo)
+    tmp.close()
+
+    try:
+        from ...parsers.ppp.parser import parsear_ppp_pdf
+
+        # Tentar parsing direto
+        resultado = parsear_ppp_pdf(tmp.name)
+
+        # Se falhou, tentar com OCR
+        if not resultado.sucesso:
+            texto_ocr = ""
+            try:
+                from ...services.upload_service import UploadService
+                texto_ocr = _extrair_texto_ocr_upload(tmp.name, arquivo.filename)
+            except Exception:
+                pass
+            if texto_ocr.strip():
+                resultado = parsear_ppp_pdf(tmp.name, texto_ocr=texto_ocr)
+
+        if not resultado.sucesso:
+            return {
+                "sucesso": False,
+                "erro": resultado.erros[0] if resultado.erros else "Nao foi possivel extrair dados do PPP",
+                "avisos": resultado.avisos,
+            }
+
+        # Buscar jurisprudencia para os agentes encontrados
+        juris_serial = []
+        agentes_codigos = [e.agente_nocivo for e in resultado.exposicoes if e.agente_nocivo]
+        if agentes_codigos:
+            try:
+                from ...domain.especial.jurisprudencia import buscar_jurisprudencia
+                juris = buscar_jurisprudencia(
+                    agentes_provaveis=agentes_codigos,
+                    categoria_empregador=resultado.empresa_razao_social or "",
+                    empregador_nome=resultado.empresa_razao_social or "",
+                )
+                for j in juris:
+                    juris_serial.append({
+                        "tipo": j.tipo,
+                        "numero": j.numero,
+                        "tribunal": j.tribunal,
+                        "ementa": j.ementa,
+                        "aplicabilidade": j.aplicabilidade,
+                        "url": j.url,
+                    })
+            except ImportError:
+                pass
+
+        # Serializar exposicoes
+        exposicoes_serial = []
+        for e in resultado.exposicoes:
+            exposicoes_serial.append({
+                "agente_nocivo": e.agente_nocivo,
+                "codigo_agente": e.codigo_agente,
+                "intensidade": e.intensidade,
+                "data_inicio": e.data_inicio.strftime("%d/%m/%Y") if e.data_inicio else None,
+                "data_fim": e.data_fim.strftime("%d/%m/%Y") if e.data_fim else None,
+                "epi_eficaz": e.epi_eficaz,
+                "epc_eficaz": e.epc_eficaz,
+                "ca_epi": e.ca_epi,
+                "setor": e.setor,
+                "cargo": e.cargo,
+            })
+
+        return {
+            "sucesso": True,
+            "tipo_documento": "PPP",
+            "trabalhador": {
+                "nome": resultado.nome,
+                "cpf": resultado.cpf,
+                "nit": resultado.nit,
+            },
+            "empresa": {
+                "razao_social": resultado.empresa_razao_social,
+                "cnpj": resultado.empresa_cnpj,
+                "cnae": resultado.empresa_cnae,
+                "grau_risco": resultado.empresa_grau_risco,
+            },
+            "vinculo": {
+                "cargo": resultado.cargo,
+                "cbo": resultado.cbo,
+                "setor": resultado.setor,
+                "data_admissao": resultado.data_admissao.strftime("%d/%m/%Y") if resultado.data_admissao else None,
+                "data_demissao": resultado.data_demissao.strftime("%d/%m/%Y") if resultado.data_demissao else None,
+            },
+            "exposicoes": exposicoes_serial,
+            "jurisprudencias": juris_serial,
+            "responsavel": {
+                "nome": resultado.responsavel_registros,
+                "registro": resultado.responsavel_crm_crea,
+            },
+            "data_emissao": resultado.data_emissao.strftime("%d/%m/%Y") if resultado.data_emissao else None,
+            "avisos": resultado.avisos,
+        }
+    finally:
+        os.unlink(tmp.name)
+
+
+@router.post("/documento-comprobatorio")
+async def upload_documento_comprobatorio(
+    arquivo: UploadFile = File(...),
+    tipo: str = Form("LTCAT", description="Tipo: LTCAT, CAT, LAUDO, DIRBEN, ATESTADO, OUTRO"),
+):
+    """
+    Faz upload de documento comprobatorio generico (LTCAT, CAT, laudos, etc).
+    Extrai texto via OCR e busca mencoes a agentes nocivos e periodos.
+    """
+    if not arquivo.filename.lower().endswith(".pdf"):
+        raise HTTPException(status_code=400, detail="Apenas arquivos PDF sao aceitos.")
+
+    conteudo = await arquivo.read()
+    if len(conteudo) == 0:
+        raise HTTPException(status_code=400, detail="Arquivo vazio.")
+
+    import io, tempfile, os
+    tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
+    tmp.write(conteudo)
+    tmp.close()
+
+    try:
+        # Extrair texto (nativo + OCR fallback)
+        texto = ""
+        try:
+            import pdfplumber
+            with pdfplumber.open(tmp.name) as pdf:
+                for page in pdf.pages:
+                    t = page.extract_text() or ""
+                    texto += t + "\n"
+        except Exception:
+            pass
+
+        via_ocr = False
+        if not texto.strip():
+            try:
+                from ...services.upload_service import UploadService
+                texto = _extrair_texto_ocr_upload(tmp.name, arquivo.filename)
+                via_ocr = True
+            except Exception:
+                pass
+
+        if not texto.strip():
+            return {
+                "sucesso": False,
+                "erro": "Nao foi possivel extrair texto do documento",
+                "avisos": [],
+            }
+
+        import re
+        texto_upper = texto.upper()
+
+        # Buscar agentes nocivos mencionados
+        AGENTES = {
+            r'RU[IÍ]DO': 'RUIDO', r'VIBRA[CÇ]': 'VIBRACAO', r'CALOR': 'CALOR',
+            r'FRIO': 'FRIO', r'RADIA[CÇ]': 'RADIACAO', r'ELETRICIDADE': 'ELETRICIDADE',
+            r'POEIRA': 'POEIRA', r'S[IÍ]LICA': 'SILICA', r'AMIANTO': 'AMIANTO',
+            r'BENZENO': 'BENZENO', r'HIDROCARBONETO': 'HIDROCARBONETOS',
+            r'SOLVENTE': 'SOLVENTES', r'CHUMBO': 'CHUMBO', r'MERC[UÚ]RIO': 'MERCURIO',
+            r'BIOL[OÓ]GICO|MICRO[\-\s]?ORGANISMO': 'AGENTES_BIOLOGICOS',
+            r'COMBUST[IÍ]VEL|GASOLINA': 'COMBUSTIVEIS', r'CLORO': 'CLORO',
+            r'SOLDA|FUMO\s*MET': 'FUMOS_METALICOS', r'PERICULOSIDADE': 'PERICULOSIDADE',
+        }
+        agentes_encontrados = []
+        for padrao, codigo in AGENTES.items():
+            if re.search(padrao, texto_upper):
+                agentes_encontrados.append(codigo)
+
+        # Buscar intensidades
+        intensidades = re.findall(
+            r'(\d+[\.,]?\d*)\s*(dB\s*\(?A?\)?|mg/m|ppm|[°º]C)',
+            texto, re.IGNORECASE
+        )
+
+        # Buscar empresa
+        empresa = None
+        m = re.search(r'(?:RAZ[AÃ]O\s*SOCIAL|EMPRESA|EMPREGADOR)\s*[:\-]?\s*(.{5,80})', texto, re.IGNORECASE)
+        if m:
+            empresa = m.group(1).strip()
+
+        cnpj = None
+        m = re.search(r'(\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2})', texto)
+        if m:
+            cnpj = m.group(1)
+
+        # Buscar jurisprudencia
+        juris_serial = []
+        if agentes_encontrados:
+            try:
+                from ...domain.especial.jurisprudencia import buscar_jurisprudencia
+                juris = buscar_jurisprudencia(
+                    agentes_provaveis=agentes_encontrados,
+                    categoria_empregador=empresa or "",
+                    empregador_nome=empresa or "",
+                )
+                for j in juris:
+                    juris_serial.append({
+                        "tipo": j.tipo, "numero": j.numero, "tribunal": j.tribunal,
+                        "ementa": j.ementa, "aplicabilidade": j.aplicabilidade, "url": j.url,
+                    })
+            except ImportError:
+                pass
+
+        return {
+            "sucesso": True,
+            "tipo_documento": tipo.upper(),
+            "via_ocr": via_ocr,
+            "empresa": empresa,
+            "cnpj": cnpj,
+            "agentes_encontrados": agentes_encontrados,
+            "intensidades": [f"{v} {u}" for v, u in intensidades],
+            "jurisprudencias": juris_serial,
+            "texto_resumo": texto[:500],
+            "avisos": [f"Documento {tipo} processado"] + (["Texto extraido via OCR"] if via_ocr else []),
+        }
+    finally:
+        os.unlink(tmp.name)
 
 
 # ─────────────────────────────────────────────────────────────────────────────

@@ -406,6 +406,176 @@ document.getElementById('input-ctps').addEventListener('change', async e => {
   e.target.value = '';
 });
 
+// ── Upload PPP ───────────────────────────────────────────────────────────
+document.getElementById('input-ppp').addEventListener('change', async e => {
+  const file = e.target.files[0]; if (!file) return;
+  const statusEl = document.getElementById('status-ppp');
+  const cardEl = document.getElementById('card-ppp');
+  statusEl.innerHTML = '<span class="loader"></span> Analisando PPP e buscando jurisprudencia...';
+  const fd = new FormData(); fd.append('arquivo', file);
+  try {
+    const res = await fetch(`${API}/upload/ppp`, { method: 'POST', body: fd });
+    const data = await res.json();
+    if (data.sucesso) {
+      cardEl.classList.add('success');
+      // Guardar no state para cruzamento
+      if (!state.ppps) state.ppps = [];
+      state.ppps.push(data);
+      statusEl.innerHTML = renderizarPPP(data);
+      const nAgentes = data.exposicoes?.length || 0;
+      toast(`PPP processado: ${nAgentes} agente(s) nocivo(s) encontrado(s)!`, nAgentes > 0 ? 'success' : 'info', 8000);
+    } else {
+      cardEl.classList.add('error');
+      statusEl.textContent = '❌ ' + (data.erro || 'Falha ao processar PPP');
+    }
+  } catch(err) { cardEl.classList.add('error'); statusEl.textContent = '❌ Erro: ' + (err.message || 'conexao'); }
+  e.target.value = '';
+});
+
+// ── Upload LTCAT / Documentos Comprobatorios ─────────────────────────────
+document.getElementById('input-ltcat').addEventListener('change', async e => {
+  const file = e.target.files[0]; if (!file) return;
+  const statusEl = document.getElementById('status-ltcat');
+  const cardEl = document.getElementById('card-ltcat');
+  statusEl.innerHTML = '<span class="loader"></span> Analisando documento...';
+  const fd = new FormData(); fd.append('arquivo', file);
+  // Detectar tipo pelo nome do arquivo
+  const nomeUpper = file.name.toUpperCase();
+  let tipo = 'LTCAT';
+  if (nomeUpper.includes('CAT')) tipo = 'CAT';
+  if (nomeUpper.includes('LAUDO')) tipo = 'LAUDO';
+  if (nomeUpper.includes('DIRBEN')) tipo = 'DIRBEN';
+  if (nomeUpper.includes('ATESTADO')) tipo = 'ATESTADO';
+  fd.append('tipo', tipo);
+  try {
+    const res = await fetch(`${API}/upload/documento-comprobatorio`, { method: 'POST', body: fd });
+    const data = await res.json();
+    if (data.sucesso) {
+      cardEl.classList.add('success');
+      if (!state.documentosComprobatorios) state.documentosComprobatorios = [];
+      state.documentosComprobatorios.push(data);
+      statusEl.innerHTML = renderizarDocComprobatorio(data);
+      toast(`${tipo} processado: ${data.agentes_encontrados?.length || 0} agente(s) detectado(s)`, 'success');
+    } else {
+      cardEl.classList.add('error');
+      statusEl.textContent = '❌ ' + (data.erro || 'Falha ao processar');
+    }
+  } catch(err) { cardEl.classList.add('error'); statusEl.textContent = '❌ Erro: ' + (err.message || 'conexao'); }
+  e.target.value = '';
+});
+
+function renderizarPPP(data) {
+  let html = `<div style="text-align:left;max-height:450px;overflow-y:auto;">`;
+  html += `<div style="font-size:14px;font-weight:700;color:#dc2626;margin-bottom:6px;">⚠️ PPP — Perfil Profissiografico</div>`;
+
+  // Trabalhador
+  if (data.trabalhador?.nome) {
+    html += `<div style="font-size:12px;"><strong>${data.trabalhador.nome}</strong>`;
+    if (data.trabalhador.cpf) html += ` | CPF: ${data.trabalhador.cpf}`;
+    if (data.trabalhador.nit) html += ` | NIT: ${data.trabalhador.nit}`;
+    html += `</div>`;
+  }
+
+  // Empresa
+  if (data.empresa?.razao_social) {
+    html += `<div style="font-size:11px;color:#374151;margin-top:4px;">`;
+    html += `<strong>Empresa:</strong> ${data.empresa.razao_social}`;
+    if (data.empresa.cnpj) html += ` | CNPJ: ${data.empresa.cnpj}`;
+    if (data.empresa.cnae) html += ` | CNAE: ${data.empresa.cnae}`;
+    if (data.empresa.grau_risco) html += ` | Grau de Risco: <strong style="color:#dc2626">${data.empresa.grau_risco}</strong>`;
+    html += `</div>`;
+  }
+
+  // Vinculo
+  if (data.vinculo?.cargo) {
+    html += `<div style="font-size:11px;margin-top:3px;">`;
+    html += `<strong>Cargo:</strong> ${data.vinculo.cargo}`;
+    if (data.vinculo.cbo) html += ` | CBO: ${data.vinculo.cbo}`;
+    if (data.vinculo.setor) html += ` | Setor: ${data.vinculo.setor}`;
+    html += `</div>`;
+    if (data.vinculo.data_admissao) {
+      html += `<div style="font-size:10px;color:#6b7280;">Periodo: ${data.vinculo.data_admissao} — ${data.vinculo.data_demissao || 'atual'}</div>`;
+    }
+  }
+
+  // Exposicoes — A PARTE MAIS IMPORTANTE
+  if (data.exposicoes?.length) {
+    html += `<div style="margin-top:8px;border-top:2px solid #dc2626;padding-top:6px;">`;
+    html += `<div style="font-size:12px;font-weight:800;color:#dc2626;">AGENTES NOCIVOS COMPROVADOS (${data.exposicoes.length})</div>`;
+    for (const exp of data.exposicoes) {
+      const agNome = (exp.agente_nocivo || '').replace(/_/g, ' ');
+      html += `<div style="background:#fef2f2;border-left:3px solid #dc2626;padding:6px 10px;margin-top:4px;border-radius:0 6px 6px 0;">`;
+      html += `<div style="font-weight:700;font-size:12px;color:#991b1b;">${agNome}</div>`;
+      if (exp.codigo_agente) html += `<div style="font-size:10px;">Codigo Anexo IV: ${exp.codigo_agente}</div>`;
+      if (exp.intensidade) html += `<div style="font-size:10px;">Intensidade: <strong>${exp.intensidade}</strong></div>`;
+      if (exp.data_inicio) html += `<div style="font-size:10px;">Periodo: ${exp.data_inicio} — ${exp.data_fim || 'atual'}</div>`;
+      const epi = exp.epi_eficaz === true ? '✅ Sim' : exp.epi_eficaz === false ? '❌ Nao' : '—';
+      const epc = exp.epc_eficaz === true ? '✅ Sim' : exp.epc_eficaz === false ? '❌ Nao' : '—';
+      html += `<div style="font-size:10px;">EPI eficaz: ${epi} | EPC eficaz: ${epc}</div>`;
+      if (exp.ca_epi) html += `<div style="font-size:10px;">CA do EPI: ${exp.ca_epi}</div>`;
+      html += `</div>`;
+    }
+    html += `</div>`;
+  }
+
+  // Jurisprudencias
+  if (data.jurisprudencias?.length) {
+    html += `<div style="margin-top:8px;">`;
+    html += `<div style="font-size:11px;font-weight:700;color:#1e3a5f;">Jurisprudencia aplicavel (${data.jurisprudencias.length}):</div>`;
+    for (const j of data.jurisprudencias) {
+      html += `<div style="font-size:10px;color:#1e3a5f;margin-top:3px;padding:4px 8px;background:#e0e7ff;border-radius:4px;">`;
+      html += `<strong>${j.numero}</strong> (${j.tribunal})`;
+      if (j.url) html += ` <a href="${j.url}" target="_blank" style="color:#2563eb;">[link]</a>`;
+      html += `<br><span style="color:#374151;">${j.ementa.substring(0, 180)}${j.ementa.length > 180 ? '...' : ''}</span>`;
+      html += `</div>`;
+    }
+    html += `</div>`;
+  }
+
+  if (data.avisos?.length) {
+    html += `<div style="font-size:10px;color:#92400e;margin-top:6px;">${data.avisos.join(' · ')}</div>`;
+  }
+  html += `</div>`;
+  return html;
+}
+
+function renderizarDocComprobatorio(data) {
+  let html = `<div style="text-align:left;">`;
+  html += `<div style="font-size:14px;font-weight:700;color:#7c3aed;margin-bottom:6px;">🔬 ${data.tipo_documento}${data.via_ocr ? ' (via OCR)' : ''}</div>`;
+
+  if (data.empresa) html += `<div style="font-size:11px;"><strong>Empresa:</strong> ${data.empresa}</div>`;
+  if (data.cnpj) html += `<div style="font-size:10px;color:#6b7280;">CNPJ: ${data.cnpj}</div>`;
+
+  if (data.agentes_encontrados?.length) {
+    html += `<div style="margin-top:6px;background:#fef2f2;padding:6px 10px;border-radius:6px;border-left:3px solid #dc2626;">`;
+    html += `<div style="font-size:12px;font-weight:700;color:#991b1b;">Agentes nocivos mencionados:</div>`;
+    html += `<div style="font-size:11px;color:#374151;">${data.agentes_encontrados.map(a => a.replace(/_/g,' ')).join(', ')}</div>`;
+    if (data.intensidades?.length) {
+      html += `<div style="font-size:10px;margin-top:2px;">Intensidades: ${data.intensidades.join(', ')}</div>`;
+    }
+    html += `</div>`;
+  } else {
+    html += `<div style="font-size:11px;color:#6b7280;margin-top:4px;">Nenhum agente nocivo especifico detectado no texto</div>`;
+  }
+
+  if (data.jurisprudencias?.length) {
+    html += `<div style="margin-top:6px;">`;
+    html += `<div style="font-size:11px;font-weight:700;color:#1e3a5f;">Jurisprudencia (${data.jurisprudencias.length}):</div>`;
+    for (const j of data.jurisprudencias.slice(0, 3)) {
+      html += `<div style="font-size:10px;color:#1e3a5f;margin-top:2px;padding:3px 8px;background:#e0e7ff;border-radius:4px;">`;
+      html += `<strong>${j.numero}</strong> (${j.tribunal})`;
+      html += `</div>`;
+    }
+    html += `</div>`;
+  }
+
+  if (data.avisos?.length) {
+    html += `<div style="font-size:10px;color:#92400e;margin-top:4px;">${data.avisos.join(' · ')}</div>`;
+  }
+  html += `</div>`;
+  return html;
+}
+
 // ── Segurado ──────────────────────────────────────────────────────────────
 function preencherFormularioSegurado(seg) {
   const dp = seg.dados_pessoais;
