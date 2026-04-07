@@ -446,14 +446,19 @@ def _analisar_vinculos_especial_completo(
     origem: str = "cnis",
 ) -> list:
     """
-    Analisa todos os vínculos para atividade especial, incluindo jurisprudência.
+    Analisa todos os vinculos para atividade especial com sistema de
+    classificacao por camadas de evidencia (tiers 1-5).
+
+    Cada vinculo recebe uma classificacao baseada no lastro probatorio
+    disponivel, NAO apenas no nome do empregador.
 
     Args:
         vinculos_info: Lista de tuplas (nome, cnpj, cargo, cbo, dt_inicio, dt_fim)
         origem: "cnis" ou "ctps"
 
     Returns:
-        Lista de dicts com análise completa por vínculo
+        Lista de dicts com analise completa por vinculo, incluindo tier,
+        evidencias, documentos faltantes e campos de compatibilidade.
     """
     import logging
     logger = logging.getLogger("sistprev.upload")
@@ -462,11 +467,11 @@ def _analisar_vinculos_especial_completo(
         from ...domain.especial.agentes_nocivos import verificar_possivel_especial
         from ...domain.especial.cbo_especial import analisar_cbo
         from ...domain.especial.jurisprudencia import buscar_jurisprudencia
+        from ...domain.especial.classificacao_evidencias import classificar_evidencias
     except ImportError as e:
-        logger.warning(f"Módulos de análise especial não disponíveis: {e}")
+        logger.warning(f"Modulos de analise especial nao disponiveis: {e}")
         return []
 
-    prob_ordem = {"ALTA": 3, "MEDIA": 2, "BAIXA": 1}
     resultado = []
 
     for nome, cnpj, cargo, cbo, dt_inicio, dt_fim in vinculos_info:
@@ -488,34 +493,30 @@ def _analisar_vinculos_especial_completo(
         # 3. Analisar pelo CBO
         analise_cbo_result = analisar_cbo(cbo or "", cargo or "") if cbo or cargo else None
 
-        # Combinar: usar o melhor resultado
-        melhor = analise_emp
-        via = "empregador"
-        if prob_ordem.get(analise_cargo.get("probabilidade", ""), 0) > prob_ordem.get(melhor.get("probabilidade", ""), 0):
-            melhor = analise_cargo
-            via = "cargo"
-        if analise_cbo_result and prob_ordem.get(analise_cbo_result.get("probabilidade", ""), 0) > prob_ordem.get(melhor.get("probabilidade", ""), 0):
-            melhor = analise_cbo_result
-            via = "cbo"
-
-        if melhor.get("possivel_especial"):
-            agentes = []
-            agentes_codigos = []
-            for a in melhor.get("agentes_provaveis", []):
+        # 4. Coletar agentes de todas as fontes para busca de jurisprudencia
+        agentes_codigos = set()
+        for src in [analise_emp, analise_cargo]:
+            for a in src.get("agentes_provaveis", []):
                 if isinstance(a, dict):
-                    agentes.append(a.get("descricao", str(a)))
-                    agentes_codigos.append(a.get("codigo", a.get("descricao", "")))
+                    agentes_codigos.add(a.get("codigo", a.get("descricao", "")))
                 else:
-                    agentes.append(str(a))
-                    agentes_codigos.append(str(a))
+                    agentes_codigos.add(str(a))
+        if analise_cbo_result:
+            for a in analise_cbo_result.get("agentes_provaveis", []):
+                if isinstance(a, dict):
+                    agentes_codigos.add(a.get("codigo", a.get("descricao", "")))
+                else:
+                    agentes_codigos.add(str(a))
 
-            # Buscar jurisprudência real
+        # 5. Buscar jurisprudencia
+        juris = []
+        juris_serial = []
+        if agentes_codigos or analise_emp.get("possivel_especial"):
             juris = buscar_jurisprudencia(
-                agentes_provaveis=agentes_codigos,
+                agentes_provaveis=list(agentes_codigos),
                 categoria_empregador=nome or "",
                 empregador_nome=nome or "",
             )
-            juris_serial = []
             for j in juris:
                 juris_serial.append({
                     "tipo": j.tipo,
@@ -526,20 +527,48 @@ def _analisar_vinculos_especial_completo(
                     "url": j.url,
                 })
 
-            vinc["especial"] = {
-                "possivel": True,
-                "probabilidade": melhor.get("probabilidade", "BAIXA"),
-                "via": via,
-                "agentes": agentes,
-                "fundamentacao": melhor.get("fundamentacao", ""),
-                "recomendacao": melhor.get("recomendacao", ""),
-                "fator": melhor.get("fatores_conversao", {}),
-                "anos": melhor.get("aposentadoria_especial_anos", 25),
-            }
-            vinc["jurisprudencias"] = juris_serial
-        else:
-            vinc["especial"] = {"possivel": False, "probabilidade": "NENHUMA"}
-            vinc["jurisprudencias"] = []
+        # 6. Classificar evidencias em tiers
+        # Nota: tem_ppp e tem_ltcat sao False por padrao pois CNIS/CTPS nao
+        # incluem PPP/LTCAT. Quando esses documentos sao uploaded separadamente,
+        # o sistema pode re-classificar com esses flags como True.
+        classificacao = classificar_evidencias(
+            analise_empregador=analise_emp,
+            analise_cargo=analise_cargo,
+            analise_cbo=analise_cbo_result,
+            jurisprudencias=juris,
+            tem_ppp=False,
+            ppp_confirma_agente=False,
+            ppp_empresa_match=False,
+            ppp_periodo_match=False,
+            tem_ltcat=False,
+            ltcat_confirma_exposicao=False,
+            empregador_nome=nome or "",
+            cargo=cargo or "",
+            cbo=cbo or "",
+        )
+
+        # 7. Montar resposta com campos novos + compatibilidade
+
+        # Agentes com descricao (compatibilidade)
+        agentes_desc = []
+        for a_code in classificacao.agentes:
+            agentes_desc.append(str(a_code))
+
+        # Determinar melhor fonte para "recomendacao" e "fator" (compatibilidade)
+        prob_ordem = {"ALTA": 3, "MEDIA": 2, "BAIXA": 1}
+        melhor = analise_emp
+        if prob_ordem.get(analise_cargo.get("probabilidade", ""), 0) > prob_ordem.get(melhor.get("probabilidade", ""), 0):
+            melhor = analise_cargo
+        if analise_cbo_result and prob_ordem.get(analise_cbo_result.get("probabilidade", ""), 0) > prob_ordem.get(melhor.get("probabilidade", ""), 0):
+            melhor = analise_cbo_result
+
+        vinc["especial"] = classificacao.to_dict()
+        # Adicionar campos de compatibilidade extras que o frontend pode esperar
+        vinc["especial"]["recomendacao"] = melhor.get("recomendacao", classificacao.mensagem_advogado)
+        vinc["especial"]["fator"] = melhor.get("fatores_conversao", {})
+        vinc["especial"]["anos"] = melhor.get("aposentadoria_especial_anos", 25)
+
+        vinc["jurisprudencias"] = juris_serial
 
         # Info CBO
         if analise_cbo_result:

@@ -25,6 +25,9 @@ class PlanejamentoRequest(BaseModel):
     der: str
     salario_projetado: Optional[str] = None
     beneficios: Optional[list] = None  # Benefícios detectados do CNIS
+    carta_concessao: Optional[dict] = None  # Dados da carta de concessão (upload)
+    vinculos_especiais: Optional[list] = None  # Vínculos com análise especial
+    hiscal_hiscre: Optional[dict] = None  # Dados HISCAL/HISCRE
 
 
 @router.post("/projecao")
@@ -33,6 +36,20 @@ def projecao_aposentadoria(req: PlanejamentoRequest):
     Projeta as datas de aposentadoria para cada regra de transição.
     Calcula quando o segurado se tornará elegível continuando a contribuir.
     """
+    # ─── ROTEAMENTO: determinar modo de operação ANTES do cálculo ───
+    roteamento = {}
+    try:
+        from ...domain.roteamento.motor_roteamento import rotear_caso
+        roteamento = rotear_caso(
+            segurado_data=req.segurado.model_dump(),
+            beneficios=req.beneficios or [],
+            carta_concessao=req.carta_concessao,
+            vinculos_especiais=req.vinculos_especiais or [],
+            hiscal_hiscre=req.hiscal_hiscre,
+        )
+    except Exception:
+        roteamento = {"modo_recomendado": "ERRO", "confianca": 0.0, "motivos": ["Erro interno no motor de roteamento"]}
+
     try:
         from ...domain.planejamento.projecao import calcular_planejamento
         from ...domain.models.segurado import BeneficioAnterior
@@ -312,6 +329,7 @@ def projecao_aposentadoria(req: PlanejamentoRequest):
         "analise_revisao": resultado.get("analise_revisao", {}),
         "cenarios_revisao": resultado.get("cenarios_revisao", {}),
         "memoria_calculo": resultado.get("memoria_calculo", {}),
+        "roteamento": roteamento,
     }
 
 
