@@ -1145,13 +1145,41 @@ function renderizarPlanejamento(data, container) {
   const melhor = alcancaveis[0];
 
   // ── Barra de progresso de TC ──────────────────────────────────────────────
-  // Referência: 35 anos (420 meses) para homem, 30 para mulher
   const tcTotalMeses = tc.anos * 12 + tc.meses;
-  const meta = 420; // 35 anos como referência geral
+  const meta = 420;
   const pct = Math.min(100, Math.round(tcTotalMeses / meta * 100));
 
-  // ── Hero: situação atual ──────────────────────────────────────────────────
-  let html = `
+  // ── Regime aplicado e Alertas Antialucinacao ──────────────────────────────
+  let htmlAlertas = '';
+  const regime = data.regime_aplicado || '';
+  if (regime) {
+    const regimeLabel = regime === 'PRE_REFORMA'
+      ? 'Regime PRE-REFORMA (Lei 8.213/91 + Lei 9.876/99)'
+      : 'Regime POS-REFORMA (EC 103/2019)';
+    const regimeCor = regime === 'PRE_REFORMA' ? '#92400e' : '#1e40af';
+    htmlAlertas += `<div style="background:${regime==='PRE_REFORMA'?'#fef3c7':'#eff6ff'};border-left:4px solid ${regimeCor};padding:10px 14px;border-radius:6px;margin-bottom:12px;font-size:12px;color:${regimeCor};"><strong>Regime Juridico:</strong> ${regimeLabel}</div>`;
+  }
+
+  const validacao = data.validacao || {};
+  if (validacao.fatais > 0 || validacao.altos > 0) {
+    htmlAlertas += `<div style="background:#fef2f2;border-left:4px solid #dc2626;padding:12px 14px;border-radius:6px;margin-bottom:12px;">
+      <div style="font-weight:700;font-size:13px;color:#991b1b;">ALERTAS DE VALIDACAO</div>
+      <div style="font-size:12px;color:#7f1d1d;margin-top:4px;">${validacao.mensagem_confiabilidade||''}</div>`;
+    const alertas = data.alertas_antialucinacao || [];
+    alertas.forEach(a => {
+      const corGrav = a.gravidade === 'FATAL' ? '#dc2626' : a.gravidade === 'ALTA' ? '#ea580c' : '#ca8a04';
+      htmlAlertas += `<div style="margin-top:6px;padding:6px 8px;background:#fff;border-radius:4px;border:1px solid ${corGrav}33;font-size:11px;">
+        <span style="color:${corGrav};font-weight:700;">[${a.gravidade}]</span> ${a.mensagem}
+        ${a.base_legal ? `<br><em style="color:#6b7280;">Base legal: ${a.base_legal}</em>` : ''}
+      </div>`;
+    });
+    htmlAlertas += `</div>`;
+  } else if (validacao.confiavel) {
+    htmlAlertas += `<div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:8px 14px;border-radius:6px;margin-bottom:12px;font-size:12px;color:#166534;">Calculo validado — nenhum alerta fatal detectado.</div>`;
+  }
+
+  // ── Hero: situacao atual ──────────────────────────────────────────────────
+  let html = htmlAlertas + `
   <div class="plan-hero">
     <div class="plan-hero-left">
       <div class="plan-hero-nome">${nome}</div>
@@ -1322,10 +1350,21 @@ function renderizarPlanejamento(data, container) {
         <div style="font-size:10px;color:#9ca3af;margin-top:1px;">${c.detalhe || ''}</div>
       </div>`;
     }
+    // Disclaimer do score
+    const disclaimerScore = sp.disclaimer || '';
+    if (disclaimerScore) {
+      html += `<div style="font-size:10px;color:#9ca3af;margin-top:8px;padding:6px 8px;background:#f9fafb;border-radius:4px;font-style:italic;">${disclaimerScore}</div>`;
+    }
+    // Alertas do score
+    if (sp.alertas && sp.alertas.length > 0) {
+      sp.alertas.forEach(a => {
+        html += `<div style="font-size:11px;color:#dc2626;margin-top:4px;padding:4px 8px;background:#fef2f2;border-radius:4px;">⚠️ ${a}</div>`;
+      });
+    }
     html += `</div></div></div>`;
   }
 
-  // ── Recomendação ──────────────────────────────────────────────────────────
+  // ── Recomendacao ──────────────────────────────────────────────────────────
   if (data.recomendacao) {
     html += `<div class="recomendacao-box ${data.elegiveis_agora?'elegivel-hoje':''}">${data.recomendacao}</div>`;
   }
@@ -1502,7 +1541,12 @@ function renderizarPlanejamento(data, container) {
           <td style="${cor};font-weight:700">${ok ? '✅ Sim' : '❌ Não'}</td>
         </tr>`;
       });
-      html += `</tbody></table></div></div>`;
+      html += `</tbody></table></div>`;
+      // Disclaimer do custo-beneficio
+      if (cb.disclaimer) {
+        html += `<div style="font-size:10px;color:#9ca3af;margin-top:6px;padding:6px 8px;background:#f9fafb;border-radius:4px;font-style:italic;">⚠️ ${cb.disclaimer}</div>`;
+      }
+      html += `</div>`;
     });
     html += `</div>`;
   }

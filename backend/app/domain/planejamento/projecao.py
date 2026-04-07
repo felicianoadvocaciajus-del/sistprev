@@ -114,15 +114,24 @@ def calcular_planejamento(
         if len(projecoes) >= 6:
             break
 
-    # Regras sem projeção (não alcançáveis em 40 anos)
-    todos_nomes = [
-        "Transição — Sistema de Pontos (Art. 15 EC 103/2019)",
-        "Transição — Idade Mínima Progressiva (Art. 16 EC 103/2019)",
-        "Transição — Pedágio 50% + FP (Art. 17 EC 103/2019)",
-        "Transição — Pedágio 100% + Idade Mínima (Art. 20 EC 103/2019)",
-        "Direito Adquirido — TC completo antes de 13/11/2019",
-        "Aposentadoria por Idade (Regra Permanente)",
-    ]
+    # Regras sem projecao (nao alcancaveis em 40 anos)
+    # Nomes dependem do regime temporal
+    from ..constantes import DatasCorte as _DC
+    if der_base < _DC.EC_103_2019:
+        todos_nomes = [
+            "Aposentadoria por TC + Fator Previdenciario (Lei 8.213/91)",
+            "Regra 85/95 — Afasta FP (Art. 29-C Lei 8.213/91)",
+            "Aposentadoria por Idade (Lei 8.213/91 Art. 48)",
+        ]
+    else:
+        todos_nomes = [
+            "Transição — Sistema de Pontos (Art. 15 EC 103/2019)",
+            "Transição — Idade Mínima Progressiva (Art. 16 EC 103/2019)",
+            "Transição — Pedágio 50% + FP (Art. 17 EC 103/2019)",
+            "Transição — Pedágio 100% + Idade Mínima (Art. 20 EC 103/2019)",
+            "Direito Adquirido — TC completo antes de 13/11/2019",
+            "Aposentadoria por Idade (Regra Permanente EC 103)",
+        ]
     for nome in todos_nomes:
         if nome not in projecoes:
             projecoes[nome] = {
@@ -229,7 +238,7 @@ def calcular_planejamento(
     # Análise de revisão (placeholder — preenchido pelo router quando há benefício)
     # O router adiciona analise_revisao ao resultado quando benefícios são detectados
 
-    return {
+    resultado = {
         "der_base": der_base,
         "tc_atual": tc_info,
         "carencia_meses": carencia_meses,
@@ -254,7 +263,18 @@ def calcular_planejamento(
         "competencias_sem_salario": comp_sem_sal,
         "analise_especial": analise_especial,
         "memoria_calculo": memoria,
+        "regime_aplicado": "PRE_REFORMA" if der_base < _DC.EC_103_2019 else "POS_REFORMA_EC103",
     }
+
+    # VALIDACAO ANTIALUCINACAO — audita o resultado antes de devolver
+    try:
+        from ..validacao.antialucinacao import validar_resultado_planejamento
+        resultado = validar_resultado_planejamento(resultado, der_base)
+    except Exception as e:
+        import logging
+        logging.getLogger(__name__).warning(f"Erro na validacao antialucinacao: {e}")
+
+    return resultado
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -630,6 +650,14 @@ def _calcular_custo_beneficio(
             "total_recebido": str(total_recebido.quantize(Decimal("0.01"))),
             "expectativa_vida_anos": float(ev_anos),
             "modalidades": modalidades,
+            "disclaimer": (
+                "AVISO: Esta analise de custo-beneficio e uma projecao NOMINAL simplificada. "
+                "NAO constitui analise atuarial. Nao considera inflacao, reajustes reais, "
+                "tributacao, valor presente do dinheiro no tempo nem risco de mortalidade. "
+                "Serve APENAS como referencia ilustrativa para decisao do segurado sobre "
+                "manter contribuicoes. NAO deve ser apresentada como garantia de retorno."
+            ),
+            "tipo_dado": "PROJECAO_SIMPLIFICADA",
         })
 
     return resultado
@@ -641,14 +669,44 @@ def _calcular_custo_beneficio(
 
 def _analisar_qualidade_segurado(segurado: Segurado, der_base: date) -> Dict[str, Any]:
     """
-    Analisa a qualidade de segurado na data de referência.
+    Analisa a qualidade de segurado na data de referencia.
 
-    Regras de período de graça (Art. 15, Lei 8.213/91):
+    Regras de periodo de graca (Art. 15, Lei 8.213/91):
       - 12 meses para empregado/CI
-      - +12 meses se possui 120+ contribuições sem perda de qualidade
+      - +12 meses se possui 120+ contribuicoes sem perda de qualidade
       - 3 meses para facultativo
+
+    IMPORTANTE: Se o segurado possui beneficio ATIVO (aposentadoria em manutencao),
+    a qualidade de segurado e MANTIDA independentemente de contribuicoes recentes
+    (Art. 15, caput, Lei 8.213/91).
     """
-    # Encontrar última contribuição entre todos os vínculos
+    # VERIFICAR BENEFICIO ATIVO PRIMEIRO
+    # Se o segurado tem aposentadoria/beneficio em manutencao, qualidade mantida
+    beneficio_ativo = False
+    if segurado.beneficios_anteriores:
+        for b in segurado.beneficios_anteriores:
+            # Beneficio ativo = tem DIB mas NAO tem DCB (nao cessou)
+            if b.dib and not b.dcb:
+                beneficio_ativo = True
+                break
+
+    if beneficio_ativo:
+        return {
+            "ultima_contribuicao": "Beneficio ativo",
+            "periodo_graca_meses": 0,
+            "data_perda_qualidade": None,
+            "status": "ATIVA",
+            "dias_restantes": 9999,
+            "mensagem": (
+                "Qualidade de segurado MANTIDA — o segurado possui beneficio ativo em manutencao. "
+                "Enquanto o beneficio estiver ativo, a qualidade de segurado e preservada "
+                "(Art. 15, caput, Lei 8.213/91)."
+            ),
+            "fonte": "BENEFICIO_ATIVO",
+            "nivel_confianca": "DADO_PRIMARIO",
+        }
+
+    # Encontrar ultima contribuicao entre todos os vinculos
     todas_contribs: List[Contribuicao] = []
     for v in segurado.vinculos:
         todas_contribs.extend(v.contribuicoes)
@@ -660,14 +718,16 @@ def _analisar_qualidade_segurado(segurado: Segurado, der_base: date) -> Dict[str
             "data_perda_qualidade": None,
             "status": "PERDIDA",
             "dias_restantes": 0,
-            "mensagem": "Nenhuma contribuição encontrada no histórico. A qualidade de segurado não pode ser verificada.",
+            "mensagem": "Nenhuma contribuicao encontrada no historico. A qualidade de segurado nao pode ser verificada.",
+            "fonte": "SEM_DADOS",
+            "nivel_confianca": "INSUFICIENTE",
         }
 
     todas_contribs.sort(key=lambda c: c.competencia)
     ultima = todas_contribs[-1]
     total_contribs = len(todas_contribs)
 
-    # Determinar tipo de vínculo da última contribuição para definir graça
+    # Determinar tipo de vinculo da ultima contribuicao para definir graca
     ultimo_vinculo = None
     for v in segurado.vinculos:
         if any(c.competencia == ultima.competencia for c in v.contribuicoes):
@@ -676,17 +736,17 @@ def _analisar_qualidade_segurado(segurado: Segurado, der_base: date) -> Dict[str
 
     tipo_str = str(getattr(ultimo_vinculo, "tipo_vinculo", "")).upper() if ultimo_vinculo else ""
 
-    # Período de graça base
+    # Periodo de graca base
     if "FACULTATIVO" in tipo_str:
         periodo_graca = 3
     else:
         periodo_graca = 12
 
-    # +12 meses se 120+ contribuições sem perda de qualidade
+    # +12 meses se 120+ contribuicoes sem perda de qualidade
     if total_contribs >= 120:
         periodo_graca += 12
 
-    # Data de perda de qualidade = mês seguinte ao fim do período de graça
+    # Data de perda de qualidade = mes seguinte ao fim do periodo de graca
     data_perda = _avancar_meses(date(ultima.competencia.year, ultima.competencia.month, 1), periodo_graca + 1)
 
     # Dias restantes
@@ -697,22 +757,22 @@ def _analisar_qualidade_segurado(segurado: Segurado, der_base: date) -> Dict[str
         dias_restantes = 0
         mensagem = (
             f"A qualidade de segurado foi perdida em {data_perda.strftime('%d/%m/%Y')}. "
-            f"Última contribuição: {ultima.competencia.strftime('%m/%Y')}. "
-            f"É necessário realizar novas contribuições para recuperar a condição de segurado."
+            f"Ultima contribuicao: {ultima.competencia.strftime('%m/%Y')}. "
+            f"E necessario realizar novas contribuicoes para recuperar a condicao de segurado."
         )
     elif delta <= 90:
         status = "EM_RISCO"
         dias_restantes = delta
         mensagem = (
-            f"ATENÇÃO: A qualidade de segurado expira em {data_perda.strftime('%d/%m/%Y')} "
-            f"(restam {dias_restantes} dias). Contribua imediatamente para não perder a condição de segurado."
+            f"ATENCAO: A qualidade de segurado expira em {data_perda.strftime('%d/%m/%Y')} "
+            f"(restam {dias_restantes} dias). Contribua imediatamente para nao perder a condicao de segurado."
         )
     else:
         status = "ATIVA"
         dias_restantes = delta
         mensagem = (
-            f"Qualidade de segurado ativa. Período de graça até {data_perda.strftime('%d/%m/%Y')} "
-            f"(restam {dias_restantes} dias). Última contribuição: {ultima.competencia.strftime('%m/%Y')}."
+            f"Qualidade de segurado ativa. Periodo de graca ate {data_perda.strftime('%d/%m/%Y')} "
+            f"(restam {dias_restantes} dias). Ultima contribuicao: {ultima.competencia.strftime('%m/%Y')}."
         )
 
     return {
@@ -722,6 +782,8 @@ def _analisar_qualidade_segurado(segurado: Segurado, der_base: date) -> Dict[str
         "status": status,
         "dias_restantes": dias_restantes,
         "mensagem": mensagem,
+        "fonte": "CONTRIBUICOES_CNIS",
+        "nivel_confianca": "DADO_PRIMARIO",
     }
 
 
@@ -1259,6 +1321,35 @@ def _calcular_score_prontidao(
         cor = "#9e9e9e"
         mensagem = "Início da jornada previdenciária. Contribua regularmente desde já."
 
+    # VALIDACAO ANTIALUCINACAO: score alto com dados inconsistentes
+    alertas_score = []
+    if score_qs == 100 and qualidade.get("status") == "PERDIDA":
+        alertas_score.append("CONTRADICAO: Score de qualidade 100 mas status PERDIDA")
+        score_qs = 0
+        score_total = score_tc + score_idade + score_carencia + score_qs + score_prox + score_valor
+        score_total = min(score_total, 1000)
+        # Reclassificar
+        if score_total >= 900:
+            classificacao = "PRONTO"
+            cor = "#00c853"
+            mensagem = "O segurado atende aos requisitos de tempo e idade para aposentadoria."
+        elif score_total >= 700:
+            classificacao = "QUASE_PRONTO"
+            cor = "#2196f3"
+            mensagem = "Falta pouco para atingir todos os requisitos."
+        elif score_total >= 500:
+            classificacao = "CAMINHO_CERTO"
+            cor = "#ff9800"
+            mensagem = "No caminho certo. Mantenha as contribuicoes."
+        elif score_total >= 300:
+            classificacao = "ATENCAO"
+            cor = "#f44336"
+            mensagem = "Atencao! Ainda ha caminho consideravel ate a aposentadoria."
+        else:
+            classificacao = "INICIO"
+            cor = "#9e9e9e"
+            mensagem = "Inicio da jornada previdenciaria."
+
     return {
         "score": score_total,
         "maximo": 1000,
@@ -1266,12 +1357,18 @@ def _calcular_score_prontidao(
         "classificacao": classificacao,
         "cor": cor,
         "mensagem": mensagem,
+        "disclaimer": (
+            "Este score e uma metrica INTERNA de acompanhamento. "
+            "NAO tem valor juridico e NAO deve ser apresentado em peticoes ou laudos. "
+            "Serve apenas como indicador visual do progresso em direcao a aposentadoria."
+        ),
+        "alertas": alertas_score,
         "componentes": {
-            "tempo_contribuicao": {"pontos": score_tc, "maximo": 300, "detalhe": f"{tc_atual.anos}a {tc_atual.meses_restantes}m de {tc_necessario_anos}a necessários"},
-            "idade": {"pontos": score_idade, "maximo": 200, "detalhe": f"{int(idade_anos)} anos de {int(idade_min)} necessários"},
-            "carencia": {"pontos": score_carencia, "maximo": 150, "detalhe": f"{total_carencia} de 180 contribuições"},
+            "tempo_contribuicao": {"pontos": score_tc, "maximo": 300, "detalhe": f"{tc_atual.anos}a {tc_atual.meses_restantes}m de {tc_necessario_anos}a necessarios"},
+            "idade": {"pontos": score_idade, "maximo": 200, "detalhe": f"{int(idade_anos)} anos de {int(idade_min)} necessarios"},
+            "carencia": {"pontos": score_carencia, "maximo": 150, "detalhe": f"{total_carencia} de 180 contribuicoes"},
             "qualidade_segurado": {"pontos": score_qs, "maximo": 100, "detalhe": status_qs},
-            "proximidade": {"pontos": score_prox, "maximo": 150, "detalhe": f"{alcancaveis[0]['meses_faltantes']} meses para aposentar" if alcancaveis else "Sem projeção"},
+            "proximidade": {"pontos": score_prox, "maximo": 150, "detalhe": f"{alcancaveis[0]['meses_faltantes']} meses para aposentar" if alcancaveis else "Sem projecao"},
             "valor_beneficio": {"pontos": score_valor, "maximo": 100, "detalhe": f"RMI projetada vs teto R$ {teto:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")},
         },
     }

@@ -381,11 +381,49 @@ class RegraDireitoAdquirido(RegraTransicao):
             return ResultadoRegra(nome_regra=self.nome, base_legal=self.base_legal,
                                   elegivel=False, memoria=mem)
 
-        # Data do direito = data em que completou o TC mínimo (usa DER da EC103 como referência)
-        # Para o cálculo, usa a DER informada (pode ser posterior — o segurado pode ter
-        # direito adquirido mas requerido depois)
-        sb, fp, rmi, tc2 = _calcular_sb_e_rmi_fp(segurado, der, mem)
+        # DIREITO ADQUIRIDO: calcula com AMBOS os regimes e escolhe o melhor
+        # STF Tema 334 (RE 630.501/RS): melhor beneficio
+        mem.adicionar("Direito adquirido: calculando com ambos os regimes (melhor beneficio)")
+
+        tc = calcular_tempo_contribuicao(segurado.vinculos, der, segurado.sexo, beneficios_anteriores=segurado.beneficios_anteriores)
+        idade = segurado.idade_na(der)
+        fp = calcular_fator_previdenciario(tc.anos_decimal, idade, der)
+        teto = teto_na_data(der)
+        piso = salario_minimo_na_data(der)
+
+        # Opcao A: SB com regime pre-reforma (80% maiores — Lei 9.876/99)
+        resultado_sb_pre = calcular_salario_beneficio(
+            segurado.vinculos, der, usar_regra_ec103=False,
+            aplicar_descarte=False, meses_carencia_exigidos=Carencia.APOSENTADORIA,
+        )
+        sb_pre = resultado_sb_pre["salario_beneficio"]
+        rmi_pre = max(piso, min(sb_pre * fp, teto))
+
+        # Opcao B: SB com regime EC 103 (100% dos salarios + descarte)
+        resultado_sb_ec103 = calcular_salario_beneficio(
+            segurado.vinculos, der, usar_regra_ec103=True,
+            aplicar_descarte=True, meses_carencia_exigidos=Carencia.APOSENTADORIA,
+        )
+        sb_ec103 = resultado_sb_ec103["salario_beneficio"]
+        rmi_ec103 = max(piso, min(sb_ec103 * fp, teto))
+
+        mem.adicionar(f"Regime pre-reforma (80% maiores): SB = R$ {float(sb_pre):.2f} → RMI = R$ {float(rmi_pre):.2f}")
+        mem.adicionar(f"Regime EC 103 (100% + descarte): SB = R$ {float(sb_ec103):.2f} → RMI = R$ {float(rmi_ec103):.2f}")
+
+        # Eleger o melhor
+        if rmi_pre >= rmi_ec103:
+            sb, rmi = sb_pre, rmi_pre
+            mem.adicionar(f"ELEITO: regime pre-reforma (mais vantajoso)",
+                          formula="STF Tema 334 — direito ao melhor beneficio")
+        else:
+            sb, rmi = sb_ec103, rmi_ec103
+            mem.adicionar(f"ELEITO: regime EC 103 (mais vantajoso)",
+                          formula="STF Tema 334 — direito ao melhor beneficio")
+
+        mem.adicionar(f"FP = {float(fp):.4f}", formula="(Tc×0,31/Es) × [1+(Id+Tc×0,31)/100]")
+        mem.adicionar(f"RMI final = R$ {float(rmi):.2f}")
+
         return ResultadoRegra(nome_regra=self.nome, base_legal=self.base_legal,
                               elegivel=True, rmi=rmi, rmi_teto=rmi,
                               salario_beneficio=sb, fator_previdenciario=fp,
-                              tempo_contribuicao=tc2, memoria=mem)
+                              tempo_contribuicao=tc, memoria=mem)
