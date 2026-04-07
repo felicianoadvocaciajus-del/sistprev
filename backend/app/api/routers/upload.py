@@ -20,14 +20,45 @@ def _extrair_texto_ocr_upload(caminho_pdf: str, nome_arquivo: str) -> str:
     """Extrai texto via OCR para endpoints de upload."""
     try:
         from ...parsers.pipeline.ocr_engine import extract_document
+        _logger.info(f"Iniciando OCR para: {nome_arquivo}")
         doc_result = extract_document(caminho_pdf, filename=nome_arquivo)
         if doc_result.full_text.strip():
+            _logger.info(f"OCR extraiu {len(doc_result.full_text)} caracteres de {nome_arquivo}")
             return doc_result.full_text
-    except ImportError:
-        _logger.warning("Dependencias OCR nao instaladas")
+        _logger.warning(f"OCR nao extraiu texto de {nome_arquivo}")
+    except ImportError as e:
+        _logger.warning(f"Dependencias OCR nao instaladas: {e}")
+        # Fallback: tentar pytesseract direto
+        try:
+            return _ocr_fallback_direto(caminho_pdf)
+        except Exception:
+            pass
     except Exception as e:
-        _logger.warning(f"Erro OCR: {e}")
+        _logger.warning(f"Erro OCR pipeline: {e}")
+        # Fallback direto
+        try:
+            return _ocr_fallback_direto(caminho_pdf)
+        except Exception:
+            pass
     return ""
+
+
+def _ocr_fallback_direto(caminho_pdf: str) -> str:
+    """OCR fallback direto com pytesseract + pdf2image, sem pipeline."""
+    import pytesseract
+    from pdf2image import convert_from_path
+
+    pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+    poppler_path = r'C:\Program Files\poppler\poppler-24.08.0\Library\bin'
+
+    _logger.info("Usando OCR fallback direto (pytesseract + pdf2image)")
+    images = convert_from_path(caminho_pdf, poppler_path=poppler_path, dpi=300)
+    texto_total = ""
+    for i, img in enumerate(images):
+        texto = pytesseract.image_to_string(img, lang='por')
+        texto_total += texto + "\n"
+        _logger.info(f"  Pagina {i+1}: {len(texto)} caracteres")
+    return texto_total
 
 
 @router.post("/cnis", response_model=ParseCNISResponse)
@@ -206,12 +237,7 @@ async def upload_ppp(arquivo: UploadFile = File(...)):
 
         # Se falhou, tentar com OCR
         if not resultado.sucesso:
-            texto_ocr = ""
-            try:
-                from ...services.upload_service import UploadService
-                texto_ocr = _extrair_texto_ocr_upload(tmp.name, arquivo.filename)
-            except Exception:
-                pass
+            texto_ocr = _extrair_texto_ocr_upload(tmp.name, arquivo.filename)
             if texto_ocr.strip():
                 resultado = parsear_ppp_pdf(tmp.name, texto_ocr=texto_ocr)
 
@@ -330,12 +356,9 @@ async def upload_documento_comprobatorio(
 
         via_ocr = False
         if not texto.strip():
-            try:
-                from ...services.upload_service import UploadService
-                texto = _extrair_texto_ocr_upload(tmp.name, arquivo.filename)
+            texto = _extrair_texto_ocr_upload(tmp.name, arquivo.filename)
+            if texto.strip():
                 via_ocr = True
-            except Exception:
-                pass
 
         if not texto.strip():
             return {
