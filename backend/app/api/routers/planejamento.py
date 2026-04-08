@@ -90,7 +90,21 @@ def projecao_aposentadoria(req: PlanejamentoRequest):
                         dcb=dcb,
                     ))
 
-        resultado = calcular_planejamento(segurado, der, sal)
+        # Detectar modo revisão ANTES do cálculo
+        # Se há aposentadoria ativa, é revisão — não projeta futuro
+        _APOS_CODIGOS = {41, 42, 46, 57, 32, 92, 99}
+        eh_revisao = False
+        if req.beneficios:
+            for b in req.beneficios:
+                cod = int(b.get("especie_codigo", 0)) if b.get("especie_codigo") else 0
+                if isinstance(cod, str):
+                    try: cod = int(cod)
+                    except: cod = 0
+                if b.get("situacao") == "ATIVO" and cod in _APOS_CODIGOS:
+                    eh_revisao = True
+                    break
+
+        resultado = calcular_planejamento(segurado, der, sal, modo_revisao=eh_revisao)
     except Exception as e:
         raise HTTPException(status_code=422, detail=str(e))
 

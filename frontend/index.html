@@ -13,6 +13,7 @@
         <span class="brand-icon">⚖️</span>
         <span class="brand-name">SistPrev</span>
       </div>
+      <button id="btn-novo-cliente" style="width:calc(100% - 24px);margin:8px 12px;padding:10px 12px;background:#16a34a;color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:13px;">+ Novo Cliente</button>
       <nav class="sidebar-nav">
         <a href="#" class="nav-item active" data-page="upload">📄 Importar Documentos</a>
         <a href="#" class="nav-item" data-page="segurado">👤 Dados do Segurado</a>
@@ -74,6 +75,16 @@
           </div>
         </div>
         <div class="alert alert-info">💡 Após o upload, os dados são preenchidos automaticamente e <strong>salvos no navegador</strong> — não se perdem ao fechar.</div>
+        <!-- Cenário do Segurado (aparece após upload) -->
+        <div id="cenario-completo" class="hidden" style="margin-top:20px;">
+          <div class="card" style="border:2px solid #2563eb;background:linear-gradient(135deg,#eff6ff,#f8fafc);">
+            <h3 class="card-title" style="color:#1e40af;">Cenario do Segurado — O que foi encontrado</h3>
+            <div id="cenario-resumo"></div>
+            <hr style="border-color:#e5e7eb;margin:16px 0;">
+            <div style="font-weight:700;font-size:14px;color:#374151;margin-bottom:10px;">Proximo passo — escolha o que deseja calcular:</div>
+            <div id="cenario-acoes" style="display:flex;gap:10px;flex-wrap:wrap;"></div>
+          </div>
+        </div>
       </section>
 
       <!-- ── SEGURADO ── -->
@@ -106,6 +117,37 @@
       <!-- ── CALCULAR ── -->
       <section id="page-calculo" class="page">
         <h1 class="page-title">Calcular Benefício</h1>
+
+        <!-- ── PAINEL REVISÃO: aparece quando há aposentadoria ativa ── -->
+        <div id="calc-painel-revisao" class="hidden" style="margin-bottom:16px;border:3px solid #dc2626;border-radius:12px;overflow:hidden;">
+          <div style="background:#991b1b;color:#fff;padding:12px 18px;display:flex;align-items:center;gap:10px;">
+            <span style="font-size:22px;">🔍</span>
+            <div>
+              <div style="font-size:14px;font-weight:800;">MODO REVISÃO — Segurado já aposentado</div>
+              <div id="calc-revisao-info" style="font-size:12px;opacity:.85;margin-top:2px;"></div>
+            </div>
+          </div>
+          <div style="background:#fef2f2;padding:14px 18px;">
+            <div style="font-size:12px;color:#7f1d1d;margin-bottom:10px;">
+              <strong>Regra fundamental:</strong> O tempo de contribuição é calculado <strong>até a DER</strong> (data do pedido original de aposentadoria).
+              Contribuições após a aposentadoria <strong>não contam</strong> para esta revisão.
+            </div>
+            <div style="font-size:12px;color:#374151;margin-bottom:12px;">Escolha a DER para o cálculo:</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <button id="btn-usar-der-original" class="btn" style="background:#991b1b;color:#fff;font-size:12px;">
+                📅 Usar DER original da concessão
+              </button>
+              <button id="btn-usar-der-reafirmacao" class="btn btn-secondary" style="font-size:12px;">
+                🔄 Reafirmação da DER (Tema 995 STJ) — digitar outra data
+              </button>
+            </div>
+            <div id="calc-retroativos-preview" style="margin-top:12px;display:none;background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:10px 14px;font-size:12px;color:#856404;">
+              <strong>⚠ Retroativos:</strong> O segurado recebeu <strong id="calc-retro-valor"></strong> desde a aposentadoria (<span id="calc-retro-periodo"></span>).
+              Este valor será abatido dos atrasados na revisão.
+            </div>
+          </div>
+        </div>
+
         <div class="card">
           <div class="form-grid">
             <div class="form-group">
@@ -128,8 +170,9 @@
               </select>
             </div>
             <div class="form-group">
-              <label>DER *</label>
+              <label id="calc-der-label">DER *</label>
               <input type="text" id="calc-der" placeholder="DD/MM/AAAA" maxlength="10" />
+              <div id="calc-der-hint" class="hidden" style="font-size:11px;color:#991b1b;margin-top:4px;"></div>
               <div id="calc-der-sugestoes" class="hidden" style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:8px 12px;margin-top:6px;font-size:11px;color:#1e40af;"></div>
             </div>
             <div class="form-group hidden" id="grupo-pensao"><label>Data do Óbito</label><input type="text" id="calc-obito" placeholder="DD/MM/AAAA" maxlength="10" /></div>

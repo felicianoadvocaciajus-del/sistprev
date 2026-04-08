@@ -34,15 +34,18 @@ def calcular_planejamento(
     segurado: Segurado,
     der_base: date,
     salario_projetado: Optional[Decimal] = None,
+    modo_revisao: bool = False,
 ) -> Dict[str, Any]:
     """
     Projeta as datas de aposentadoria para cada regra.
 
     Args:
         segurado: dados completos do segurado
-        der_base: data de hoje (referência)
+        der_base: data de referência (hoje para planejamento, DER original para revisão)
         salario_projetado: salário mensal para contribuições futuras
                            (usa a média atual se não informado)
+        modo_revisao: se True, NÃO projeta contribuições futuras —
+                      calcula APENAS na data der_base (para revisão de benefício)
 
     Returns:
         dict com projeções por regra + melhor estratégia + resumo
@@ -56,63 +59,104 @@ def calcular_planejamento(
     melhor_regra_nome: Optional[str] = None
     melhor_rmi = Decimal("0")
 
-    # Estratégia: criar blocos anuais de contribuições ao invés de uma por mês.
-    # Isso mantém a lista de contribuições pequena (≤40 entradas para 40 anos).
-    # Precisão: ±1 mês (verificamos mês a mês dentro do ano de elegibilidade).
-    from copy import deepcopy
-
-    der_simulada = _inicio_proximo_mes(der_base)
-
-    # Fase 1: avança ano a ano até encontrar o ano de elegibilidade de cada regra
-    for ano_idx in range(1, 41):
-        seg_ano = deepcopy(segurado)
-        # Adiciona um vínculo futuro com 12 competências × ano_idx anos
-        _adicionar_bloco_anual(seg_ano, der_base, sal, ano_idx * 12)
-        der_ano = _avancar_meses(der_base, ano_idx * 12)
-
-        cenarios = comparar_todas(seg_ano, der_ano)
-        for cenario in cenarios:
+    if modo_revisao:
+        # ═══════════════════════════════════════════════════════════════════
+        # MODO REVISÃO: calcula APENAS na DER, sem projeções futuras.
+        # O segurado já é aposentado — queremos saber quais regras eram
+        # elegíveis na data da concessão e qual dava a melhor RMI.
+        # ═══════════════════════════════════════════════════════════════════
+        cenarios_der = comparar_todas(segurado, der_base)
+        for cenario in cenarios_der:
             nome = cenario.nome_regra
-            if nome in projecoes:
-                continue
+            projecoes[nome] = {
+                "regra": nome,
+                "base_legal": cenario.base_legal,
+                "data_elegibilidade": der_base,
+                "meses_faltantes": 0 if cenario.elegivel else None,
+                "anos_faltantes": 0,
+                "meses_resto": 0,
+                "texto_faltante": "Elegível na DER" if cenario.elegivel else "Não elegível na DER",
+                "rmi_projetada": cenario.rmi_teto if cenario.elegivel else Decimal("0"),
+                "rmi_formatada": cenario.rmi_formatada if cenario.elegivel else "—",
+                "salario_beneficio": cenario.salario_beneficio,
+                "coeficiente": cenario.coeficiente,
+                "fator_previdenciario": cenario.fator_previdenciario,
+                "tc_na_data": cenario.tempo_contribuicao,
+                "mensagem_cliente": (
+                    f"Na data do seu requerimento ({der_base.strftime('%d/%m/%Y')}), "
+                    f"você {'era elegível' if cenario.elegivel else 'NÃO era elegível'} "
+                    f"por esta regra."
+                    + (f" RMI calculada: {cenario.rmi_formatada}." if cenario.elegivel else "")
+                ),
+            }
             if cenario.elegivel:
-                # Fase 2: refina mês a mês dentro do ano anterior
-                mes_inicio = (ano_idx - 1) * 12 + 1
-                mes_fim = ano_idx * 12
-                for mes in range(mes_inicio, mes_fim + 1):
-                    seg_mes = deepcopy(segurado)
-                    _adicionar_bloco_anual(seg_mes, der_base, sal, mes)
-                    der_mes = _avancar_meses(der_base, mes)
-                    cenarios_mes = comparar_todas(seg_mes, der_mes)
-                    c_mes = next((c for c in cenarios_mes if c.nome_regra == nome and c.elegivel), None)
-                    if c_mes:
-                        anos_f, meses_r = divmod(mes, 12)
-                        projecoes[nome] = {
-                            "regra": nome,
-                            "base_legal": c_mes.base_legal,
-                            "data_elegibilidade": der_mes,
-                            "meses_faltantes": mes,
-                            "anos_faltantes": anos_f,
-                            "meses_resto": meses_r,
-                            "texto_faltante": _formatar_periodo(anos_f, meses_r),
-                            "rmi_projetada": c_mes.rmi_teto,
-                            "rmi_formatada": c_mes.rmi_formatada,
-                            "salario_beneficio": c_mes.salario_beneficio,
-                            "coeficiente": c_mes.coeficiente,
-                            "fator_previdenciario": c_mes.fator_previdenciario,
-                            "tc_na_data": c_mes.tempo_contribuicao,
-                            "mensagem_cliente": _mensagem_cliente(nome, anos_f, meses_r, der_mes, c_mes.rmi_teto),
-                        }
-                        if melhor_data is None or der_mes < melhor_data or (
-                            der_mes == melhor_data and c_mes.rmi_teto > melhor_rmi
-                        ):
-                            melhor_data = der_mes
-                            melhor_regra_nome = nome
-                            melhor_rmi = c_mes.rmi_teto
-                        break
+                if melhor_data is None or cenario.rmi_teto > melhor_rmi:
+                    melhor_data = der_base
+                    melhor_regra_nome = nome
+                    melhor_rmi = cenario.rmi_teto
 
-        if len(projecoes) >= 6:
-            break
+    else:
+        # ═══════════════════════════════════════════════════════════════════
+        # MODO PLANEJAMENTO: projeta contribuições futuras mês a mês
+        # ═══════════════════════════════════════════════════════════════════
+
+        # Estratégia: criar blocos anuais de contribuições ao invés de uma por mês.
+        # Isso mantém a lista de contribuições pequena (≤40 entradas para 40 anos).
+        # Precisão: ±1 mês (verificamos mês a mês dentro do ano de elegibilidade).
+        from copy import deepcopy
+
+        der_simulada = _inicio_proximo_mes(der_base)
+
+        # Fase 1: avança ano a ano até encontrar o ano de elegibilidade de cada regra
+        for ano_idx in range(1, 41):
+            seg_ano = deepcopy(segurado)
+            # Adiciona um vínculo futuro com 12 competências × ano_idx anos
+            _adicionar_bloco_anual(seg_ano, der_base, sal, ano_idx * 12)
+            der_ano = _avancar_meses(der_base, ano_idx * 12)
+
+            cenarios = comparar_todas(seg_ano, der_ano)
+            for cenario in cenarios:
+                nome = cenario.nome_regra
+                if nome in projecoes:
+                    continue
+                if cenario.elegivel:
+                    # Fase 2: refina mês a mês dentro do ano anterior
+                    mes_inicio = (ano_idx - 1) * 12 + 1
+                    mes_fim = ano_idx * 12
+                    for mes in range(mes_inicio, mes_fim + 1):
+                        seg_mes = deepcopy(segurado)
+                        _adicionar_bloco_anual(seg_mes, der_base, sal, mes)
+                        der_mes = _avancar_meses(der_base, mes)
+                        cenarios_mes = comparar_todas(seg_mes, der_mes)
+                        c_mes = next((c for c in cenarios_mes if c.nome_regra == nome and c.elegivel), None)
+                        if c_mes:
+                            anos_f, meses_r = divmod(mes, 12)
+                            projecoes[nome] = {
+                                "regra": nome,
+                                "base_legal": c_mes.base_legal,
+                                "data_elegibilidade": der_mes,
+                                "meses_faltantes": mes,
+                                "anos_faltantes": anos_f,
+                                "meses_resto": meses_r,
+                                "texto_faltante": _formatar_periodo(anos_f, meses_r),
+                                "rmi_projetada": c_mes.rmi_teto,
+                                "rmi_formatada": c_mes.rmi_formatada,
+                                "salario_beneficio": c_mes.salario_beneficio,
+                                "coeficiente": c_mes.coeficiente,
+                                "fator_previdenciario": c_mes.fator_previdenciario,
+                                "tc_na_data": c_mes.tempo_contribuicao,
+                                "mensagem_cliente": _mensagem_cliente(nome, anos_f, meses_r, der_mes, c_mes.rmi_teto),
+                            }
+                            if melhor_data is None or der_mes < melhor_data or (
+                                der_mes == melhor_data and c_mes.rmi_teto > melhor_rmi
+                            ):
+                                melhor_data = der_mes
+                                melhor_regra_nome = nome
+                                melhor_rmi = c_mes.rmi_teto
+                            break
+
+            if len(projecoes) >= 6:
+                break
 
     # Regras sem projecao (nao alcancaveis em 40 anos)
     # Nomes dependem do regime temporal
@@ -859,12 +903,13 @@ def _analisar_qualidade_segurado(segurado: Segurado, der_base: date) -> Dict[str
             "ultima_contribuicao": "Beneficio ativo",
             "periodo_graca_meses": 0,
             "data_perda_qualidade": None,
-            "status": "ATIVA",
+            "status": "APOSENTADO",
             "dias_restantes": 9999,
             "mensagem": (
-                "Qualidade de segurado MANTIDA — o segurado possui beneficio ativo em manutencao. "
-                "Enquanto o beneficio estiver ativo, a qualidade de segurado e preservada "
-                "(Art. 15, caput, Lei 8.213/91)."
+                "Segurado APOSENTADO — em gozo de beneficio ativo. "
+                "Nao possui qualidade de segurado no sentido contributivo "
+                "(Art. 15 Lei 8.213/91 nao se aplica a aposentados). "
+                "Para fins de revisao, analise-se diretamente o direito na DER."
             ),
             "fonte": "BENEFICIO_ATIVO",
             "nivel_confianca": "DADO_PRIMARIO",

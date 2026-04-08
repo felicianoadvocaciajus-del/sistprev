@@ -55,6 +55,9 @@ function salvarNoLocalStorage() {
     if (state.modoCalculo) {
       localStorage.setItem('sistprev_modo', state.modoCalculo);
     }
+    if (state.ultimoPlanejamento) {
+      localStorage.setItem('sistprev_planejamento', JSON.stringify(state.ultimoPlanejamento));
+    }
     document.getElementById('save-indicator').textContent = '💾 Salvo';
     document.getElementById('save-indicator').style.color = '#6ee7b7';
   } catch (e) { /* silencioso */ }
@@ -73,11 +76,15 @@ function carregarDoLocalStorage() {
     const calc = localStorage.getItem('sistprev_calculo');
     if (calc) state.ultimoCalculo = JSON.parse(calc);
 
+    const planRaw = localStorage.getItem('sistprev_planejamento');
+    if (planRaw) state.ultimoPlanejamento = JSON.parse(planRaw);
+
     // Restaurar benefícios e modo de cálculo
     const benRaw = localStorage.getItem('sistprev_beneficios');
     if (benRaw) {
       state.beneficiosCNIS = JSON.parse(benRaw);
       configurarModoPlanejamento();
+      atualizarCenario();
     }
 
     document.getElementById('save-indicator').textContent = '💾 Dados carregados';
@@ -96,11 +103,13 @@ document.getElementById('btn-limpar-dados')?.addEventListener('click', () => {
   localStorage.removeItem('sistprev_calculo');
   localStorage.removeItem('sistprev_beneficios');
   localStorage.removeItem('sistprev_modo');
+  localStorage.removeItem('sistprev_planejamento');
   ['seg-nome','seg-cpf','seg-dn','seg-nit'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('seg-sexo').value = 'MASCULINO';
   state.vinculos = [];
   state.beneficiosAnteriores = [];
   state.ultimoCalculo = null;
+  state.ultimoPlanejamento = null;
   state.beneficiosCNIS = [];
   state.modoCalculo = 'PLANEJAMENTO';
   state.aposentadoriaAtiva = null;
@@ -109,6 +118,50 @@ document.getElementById('btn-limpar-dados')?.addEventListener('click', () => {
   renderizarVinculos();
   document.getElementById('resumo-segurado').classList.add('hidden');
   toast('Dados apagados', 'info');
+});
+
+// ── Novo Cliente ──────────────────────────────────────────────────────────
+document.getElementById('btn-novo-cliente')?.addEventListener('click', () => {
+  if (state.vinculos.length > 0) {
+    if (!confirm('Iniciar novo cliente? Os dados atuais serão limpos.\n\n(Use "Salvar Estudo" antes se quiser manter)')) return;
+  }
+  localStorage.removeItem('sistprev_segurado');
+  localStorage.removeItem('sistprev_calculo');
+  localStorage.removeItem('sistprev_beneficios');
+  localStorage.removeItem('sistprev_modo');
+  localStorage.removeItem('sistprev_planejamento');
+  ['seg-nome','seg-cpf','seg-dn','seg-nit'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('seg-sexo').value = 'MASCULINO';
+  state.vinculos = [];
+  state.beneficiosAnteriores = [];
+  state.ultimoCalculo = null;
+  state.ultimoPlanejamento = null;
+  state.beneficiosCNIS = [];
+  state.modoCalculo = 'PLANEJAMENTO';
+  state.aposentadoriaAtiva = null;
+  state.beneficioIndeferido = null;
+  try { resetarModoPlanejamento(); } catch(e) {}
+  renderizarVinculos();
+  // Limpar status de uploads
+  ['status-cnis','status-carta','status-ctps','status-ppp','status-ltcat'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = '';
+  });
+  // Esconder resultados
+  document.getElementById('resumo-segurado')?.classList.add('hidden');
+  document.getElementById('resultado-planejamento')?.classList.add('hidden');
+  document.getElementById('resultado-calculo')?.classList.add('hidden');
+  document.getElementById('cenario-completo')?.classList.add('hidden');
+  // Navegar para Upload
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelector('[data-page="upload"]')?.classList.add('active');
+  document.getElementById('page-upload')?.classList.add('active');
+  preencherDerHoje();
+  toast('Pronto para novo cliente!', 'success');
 });
 
 // ── Roteamento ────────────────────────────────────────────────────────────
@@ -120,6 +173,11 @@ document.querySelectorAll('.nav-item').forEach(item => {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     item.classList.add('active');
     document.getElementById(`page-${page}`)?.classList.add('active');
+    // Ao entrar na página de cálculo, atualizar painel de revisão
+    if (page === 'calculo') {
+      atualizarSugestoesDER();
+      atualizarPainelRevisaoCalculo();
+    }
   });
 });
 
@@ -315,6 +373,8 @@ document.getElementById('input-cnis').addEventListener('change', async e => {
       }
       // Sugerir DER na tela de Calcular Beneficio
       atualizarSugestoesDER();
+      atualizarCenario();
+      salvarNoLocalStorage();
       if (data.avisos?.length) toast('Avisos: ' + data.avisos.join('; '), 'info');
     } else {
       cardEl.classList.add('error');
@@ -607,18 +667,29 @@ function renderizarVinculos() {
     container.innerHTML = '<p class="empty-state">Nenhum vínculo. Importe o CNIS ou adicione manualmente.</p>';
     return;
   }
-  container.innerHTML = state.vinculos.map((v, i) => `
-    <div class="vinculo-row">
+  container.innerHTML = state.vinculos.map((v, i) => {
+    const inferida = v.data_fim_inferida === true;
+    const borderStyle = inferida ? 'border:2px solid #dc2626;background:#fef2f2;' : '';
+    const dataFimExibida = inferida
+      ? `<span style="color:#dc2626;font-weight:600;">${v.data_fim_efetiva || '?'} ⚠ inferida</span>`
+      : (v.data_fim || 'presente');
+    const avisoInferida = inferida
+      ? `<div style="font-size:11px;color:#dc2626;margin-top:2px;">⚠ Data fim não consta no CNIS — inferida do último recolhimento</div>`
+      : '';
+    return `
+    <div class="vinculo-row" style="${borderStyle}">
       <div class="vinculo-info">
         <div class="vinculo-nome">${v.empregador_nome || v.empregador_cnpj || '(sem nome)'}</div>
-        <div class="vinculo-periodo">${v.data_inicio} — ${v.data_fim || 'presente'} · ${tipoLabel(v.tipo_vinculo)}</div>
+        <div class="vinculo-periodo">${v.data_inicio} — ${dataFimExibida} · ${tipoLabel(v.tipo_vinculo)}</div>
         <div class="vinculo-contrib">${v.contribuicoes?.length || 0} competência(s)</div>
+        ${avisoInferida}
       </div>
       <div class="vinculo-actions">
         <button class="btn btn-sm btn-secondary" onclick="editarVinculo(${i})">✏️</button>
         <button class="btn btn-sm btn-danger" onclick="removerVinculo(${i})">🗑️</button>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 function tipoLabel(t) {
@@ -709,7 +780,14 @@ document.getElementById('btn-calcular-resumo').addEventListener('click', async (
   if (!seg.dados_pessoais.nome || !seg.dados_pessoais.data_nascimento) {
     toast('Preencha nome e data de nascimento','error'); return;
   }
-  const der = new Date().toLocaleDateString('pt-BR');
+  // ── CORREÇÃO CRÍTICA: usar a DER informada pelo usuário, NÃO a data de hoje ──
+  // A DER determina a fotografia temporal: TC, carência e idade devem ser
+  // calculados NA data do requerimento, não na data atual.
+  const derInput = document.getElementById('calc-der');
+  const der = (derInput && derInput.value.trim()) || new Date().toLocaleDateString('pt-BR');
+  if (derInput && !derInput.value.trim()) {
+    toast('⚠ DER não informada — usando data de hoje. Para resultado correto, preencha a DER.', 'warning', 5000);
+  }
   const btn = document.getElementById('btn-calcular-resumo');
   btn.disabled = true; btn.innerHTML = '<span class="loader"></span> Calculando...';
   try {
@@ -719,20 +797,20 @@ document.getElementById('btn-calcular-resumo').addEventListener('click', async (
     });
     const data = await res.json();
     if (!res.ok) { toast(data.detail||'Erro','error'); return; }
-    renderizarResumo(data);
+    renderizarResumo(data, der);
   } catch { toast('Erro de conexão','error'); }
   finally { btn.disabled=false; btn.textContent='📊 Ver Resumo'; }
 });
 
-function renderizarResumo(d) {
+function renderizarResumo(d, derUsada) {
   const el = document.getElementById('resumo-segurado');
   const tc = d.tempo_contribuicao;
   el.innerHTML = `
-    <h3 class="card-title">Resumo — ${d.nome}</h3>
+    <h3 class="card-title">Resumo — ${d.nome} <span style="font-size:12px;color:#6b7280;font-weight:400;">(DER: ${derUsada || '—'})</span></h3>
     <div class="resumo-grid">
-      <div class="resumo-item"><div class="resumo-label">Idade</div><div class="resumo-valor">${d.idade_na_der.toFixed(1)} anos</div></div>
-      <div class="resumo-item"><div class="resumo-label">Tempo de Contribuição</div><div class="resumo-valor">${tc.anos}a ${tc.meses}m ${tc.dias}d</div><div class="resumo-detalhe">${tc.total_dias.toLocaleString('pt-BR')} dias</div></div>
-      <div class="resumo-item"><div class="resumo-label">Carência</div><div class="resumo-valor">${d.carencia_meses} meses</div><div class="resumo-detalhe">exigido: 180</div></div>
+      <div class="resumo-item"><div class="resumo-label">Idade na DER</div><div class="resumo-valor">${d.idade_na_der.toFixed(1)} anos</div></div>
+      <div class="resumo-item"><div class="resumo-label">TC na DER</div><div class="resumo-valor">${tc.anos}a ${tc.meses}m ${tc.dias}d</div><div class="resumo-detalhe">${tc.total_dias.toLocaleString('pt-BR')} dias</div></div>
+      <div class="resumo-item"><div class="resumo-label">Carência na DER</div><div class="resumo-valor">${d.carencia_meses} meses</div><div class="resumo-detalhe">exigido: 180</div></div>
       <div class="resumo-item"><div class="resumo-label">Vínculos</div><div class="resumo-valor">${d.num_vinculos}</div></div>
       <div class="resumo-item"><div class="resumo-label">SB Estimado</div><div class="resumo-valor text-verde">${d.salario_beneficio ? 'R$ '+fmtDecimal(d.salario_beneficio) : '—'}</div></div>
       <div class="resumo-item"><div class="resumo-label">Teto Vigente</div><div class="resumo-valor">R$ ${fmtDecimal(d.teto_vigente)}</div></div>
@@ -770,7 +848,12 @@ document.getElementById('btn-calcular').addEventListener('click', async () => {
     } else if (tipo === 'auxilio_acidente') { url=`${API}/calculo/auxilio-doenca`; body={segurado:seg,der,acidentario:true};
     } else if (tipo === 'invalidez') { url=`${API}/calculo/invalidez`; body={segurado:seg,der,acidentaria:false};
     } else if (tipo === 'invalidez_acidentaria') { url=`${API}/calculo/invalidez`; body={segurado:seg,der,acidentaria:true};
-    } else { url=`${API}/calculo/aposentadoria`; body={segurado:seg,der,tipo}; }
+    } else {
+      url=`${API}/calculo/aposentadoria`;
+      const complementarMeiEl = document.getElementById('complementar-mei-hidden');
+      const complementarMei = complementarMeiEl ? complementarMeiEl.value === '1' : false;
+      body={segurado:seg,der,tipo,complementar_mei:complementarMei};
+    }
 
     const res = await fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
     const data = await res.json();
@@ -822,8 +905,139 @@ function renderizarResultado(data, container) {
     </div>`;
   });
   html += `</div></div></div>`;
+
+  // ── Bloco de retroativos — só aparece no modo revisão ──────────────────
+  if (state.aposentadoriaAtiva && data.elegivel) {
+    const b = state.aposentadoriaAtiva;
+    const rmiConcedida = parseFloat(String(b.rmi || state.rmiCarta || '0').replace(/\./g,'').replace(',','.'));
+    const rmiRevisada = parseFloat(String(data.rmi || '0').replace(/\./g,'').replace(',','.'));
+    const der = document.getElementById('calc-der')?.value;
+
+    if (rmiConcedida > 0 && rmiRevisada > rmiConcedida && b.data_inicio) {
+      const partes = b.data_inicio.split('/');
+      const dataDib = new Date(parseInt(partes[2]), parseInt(partes[1])-1, parseInt(partes[0]));
+      const hoje = new Date();
+      const meses = Math.max(0, Math.floor((hoje - dataDib) / (1000*60*60*24*30.44)));
+      const diferenca = rmiRevisada - rmiConcedida;
+      const totalAtrasados = diferenca * meses;
+      // Prescrição quinquenal: desconta parcelas com mais de 5 anos
+      const mesesPrescritos = Math.max(0, meses - 60);
+      const mesesValidos = Math.min(meses, 60);
+      const totalValido = diferenca * mesesValidos;
+      const totalRecebido = rmiConcedida * meses;
+
+      html += `
+      <div class="card" style="margin-top:16px;border:2px solid #d97706;background:#fffbeb;">
+        <h3 style="color:#92400e;margin-bottom:12px;">💰 Análise de Retroativos</h3>
+        <div style="background:#fef3c7;border-radius:8px;padding:12px 16px;margin-bottom:12px;font-size:12px;color:#78350f;">
+          <strong>Regra:</strong> O segurado recebeu a aposentadoria desde ${b.data_inicio}.
+          Se a revisão for procedente, a diferença mensal (RMI revisada − RMI concedida) é devida desde a DIB,
+          sujeita à <strong>prescrição quinquenal</strong> (últimos 5 anos).
+        </div>
+        <table style="width:100%;font-size:12px;border-collapse:collapse;">
+          <tr style="background:#fde68a;"><th style="padding:6px 10px;text-align:left;">Item</th><th style="padding:6px 10px;text-align:right;">Valor</th></tr>
+          <tr><td style="padding:5px 10px;border-bottom:1px solid #fde68a;">RMI concedida pelo INSS</td><td style="padding:5px 10px;text-align:right;">R$ ${fmtDecimal(rmiConcedida)}/mês</td></tr>
+          <tr><td style="padding:5px 10px;border-bottom:1px solid #fde68a;">RMI revisada (estimativa)</td><td style="padding:5px 10px;text-align:right;color:#059669;font-weight:700;">R$ ${fmtDecimal(rmiRevisada)}/mês</td></tr>
+          <tr><td style="padding:5px 10px;border-bottom:1px solid #fde68a;">Diferença mensal</td><td style="padding:5px 10px;text-align:right;color:#d97706;font-weight:700;">R$ ${fmtDecimal(diferenca)}/mês</td></tr>
+          <tr><td style="padding:5px 10px;border-bottom:1px solid #fde68a;">Meses desde a DIB</td><td style="padding:5px 10px;text-align:right;">${meses} meses</td></tr>
+          <tr><td style="padding:5px 10px;border-bottom:1px solid #fde68a;">Meses prescritos (>5 anos)</td><td style="padding:5px 10px;text-align:right;color:#dc2626;">${mesesPrescritos} meses</td></tr>
+          <tr><td style="padding:5px 10px;border-bottom:1px solid #fde68a;">Meses válidos (dentro de 5 anos)</td><td style="padding:5px 10px;text-align:right;">${mesesValidos} meses</td></tr>
+          <tr style="background:#d1fae5;"><td style="padding:6px 10px;font-weight:700;">RETROATIVOS ESTIMADOS (sem atualização)</td><td style="padding:6px 10px;text-align:right;font-weight:800;font-size:14px;color:#065f46;">R$ ${totalValido.toLocaleString('pt-BR',{minimumFractionDigits:2})}</td></tr>
+        </table>
+        <div style="font-size:10px;color:#92400e;margin-top:8px;">
+          ⚠ Estimativa sem correção monetária (INPC) nem juros (SELIC pós EC 113/2021).
+          Use a aba <strong>Parcelas Atrasadas</strong> para o cálculo atualizado completo com índices oficiais.
+          A diferença mensal deve ser confirmada após validação da RMI definitiva.
+        </div>
+      </div>`;
+    } else if (rmiConcedida > 0 && rmiRevisada <= rmiConcedida) {
+      html += `
+      <div class="card" style="margin-top:16px;border:2px solid #6b7280;background:#f9fafb;">
+        <div style="font-size:13px;color:#374151;padding:8px 0;">
+          <strong>Retroativos:</strong> A RMI calculada (R$ ${fmtDecimal(rmiRevisada)}) não supera
+          a RMI concedida (R$ ${fmtDecimal(rmiConcedida)}). Não há diferença a recuperar por esta regra.
+        </div>
+      </div>`;
+    }
+  }
+
+  // ── Bloco MEI complementável ─────────────────────────────────────────────
+  const alertasMei = data.alertas_mei || [];
+  if (alertasMei.length > 0) {
+    const totalMeses = alertasMei.reduce((s, a) => s + a.meses, 0);
+    const anos = Math.floor(totalMeses / 12);
+    const mesesRest = totalMeses % 12;
+    const custo = alertasMei.reduce((s, a) => s + parseFloat(a.custo_total_estimado.replace('R$ ','')), 0);
+    const jaCom = data.complementar_mei_simulado;
+
+    html += `
+    <div class="card" style="margin-top:16px;border:2px solid #d97706;background:#fffbeb;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <h3 style="color:#92400e;margin:0;">⚠ MEI 5% detectado — não conta para TC</h3>
+        ${jaCom ? '<span style="background:#d1fae5;color:#065f46;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:700;">✓ Simulado com complementação</span>' : ''}
+      </div>
+      <div style="background:#fef3c7;border-radius:8px;padding:10px 14px;font-size:12px;color:#78350f;margin-bottom:12px;">
+        <strong>LC 123/2006, Art. 18-A §4°:</strong> O MEI que recolhe apenas 5% do salário mínimo
+        <u>não tem direito a aposentadoria por Tempo de Contribuição.</u> Esses ${totalMeses} meses
+        (${anos > 0 ? anos+'a ' : ''}${mesesRest}m) <strong>não entram no TC</strong>, mas contam
+        para carência e aposentadoria por <em>Idade</em>.<br><br>
+        <strong>Como resolver:</strong> Pagar uma complementação de <strong>+15% do salário mínimo/mês</strong>
+        (código GPS 1910) para que cada mês de MEI passe a contar como TC completo.
+        Pode ser feito retroativamente em até 5 anos (prescrição quinquenal — Art. 45-A, Lei 8.212/91).
+      </div>
+      <table style="width:100%;font-size:12px;border-collapse:collapse;margin-bottom:12px;">
+        <thead><tr style="background:#fde68a;">
+          <th style="padding:5px 10px;text-align:left;">Período MEI</th>
+          <th style="text-align:center;">Meses</th>
+          <th style="text-align:right;">Custo/mês (+15%)</th>
+          <th style="text-align:right;">Custo total período</th>
+        </tr></thead>
+        <tbody>${alertasMei.map(a => `
+          <tr style="border-bottom:1px solid #fde68a;">
+            <td style="padding:4px 10px;">${a.periodo_inicio} a ${a.periodo_fim}</td>
+            <td style="text-align:center;">${a.meses}</td>
+            <td style="text-align:right;">${a.custo_complementacao_mes}</td>
+            <td style="text-align:right;font-weight:600;">${a.custo_total_estimado}</td>
+          </tr>`).join('')}
+          <tr style="background:#fef3c7;font-weight:700;">
+            <td style="padding:5px 10px;">TOTAL</td>
+            <td style="text-align:center;">${totalMeses}</td>
+            <td></td>
+            <td style="text-align:right;">R$ ${custo.toLocaleString('pt-BR',{minimumFractionDigits:2})}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        ${!jaCom ? `
+        <button onclick="simularComMEI(true)" style="background:#d97706;color:white;border:none;padding:8px 18px;border-radius:8px;font-weight:700;cursor:pointer;">
+          📊 Simular COMO SE fossem complementados
+        </button>` : `
+        <button onclick="simularComMEI(false)" style="background:#6b7280;color:white;border:none;padding:8px 18px;border-radius:8px;font-weight:700;cursor:pointer;">
+          ↩ Voltar ao cálculo sem complementação
+        </button>`}
+        <div style="font-size:11px;color:#92400e;align-self:center;">
+          A simulação mostra o TC e RMI <em>se</em> o cliente tivesse complementado — não é o valor atual.
+        </div>
+      </div>
+    </div>`;
+  }
+
   container.innerHTML = html;
 }
+
+window.simularComMEI = function(complementar) {
+  // Criar/atualizar campo hidden
+  let hiddenEl = document.getElementById('complementar-mei-hidden');
+  if (!hiddenEl) {
+    hiddenEl = document.createElement('input');
+    hiddenEl.type = 'hidden';
+    hiddenEl.id = 'complementar-mei-hidden';
+    document.body.appendChild(hiddenEl);
+  }
+  hiddenEl.value = complementar ? '1' : '0';
+  // Re-disparar o cálculo
+  document.getElementById('btn-calcular').click();
+};
 
 function renderMemoria(itens) {
   if (!itens?.length) return '';
@@ -916,6 +1130,82 @@ function resetarModoPlanejamento() {
   const planDer = document.getElementById('plan-der');
   if (planDer) { const h=new Date(); planDer.value=`${String(h.getDate()).padStart(2,'0')}/${String(h.getMonth()+1).padStart(2,'0')}/${h.getFullYear()}`; }
 }
+
+// ── CENÁRIO DO SEGURADO (aparece após upload) ────────────────────────────
+function atualizarCenario() {
+  const el = document.getElementById('cenario-completo');
+  const resumoEl = document.getElementById('cenario-resumo');
+  const acoesEl = document.getElementById('cenario-acoes');
+  if (!el || !resumoEl || !acoesEl) return;
+
+  const nVinculos = state.vinculos.length;
+  if (nVinculos === 0) { el.classList.add('hidden'); return; }
+
+  const nome = document.getElementById('seg-nome')?.value || 'Segurado';
+  const nBeneficios = (state.beneficiosCNIS || []).length;
+  const temAposentadoria = state.aposentadoriaAtiva != null;
+  const temIndeferido = state.beneficioIndeferido != null;
+  const vincEspeciais = state.vinculos.filter(v => v.tipo_atividade && v.tipo_atividade !== 'NORMAL').length;
+
+  let html = `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:12px;">
+    <div style="background:#f0f4ff;padding:12px;border-radius:8px;text-align:center;">
+      <div style="font-size:24px;font-weight:800;color:#1e40af;">${nVinculos}</div>
+      <div style="font-size:11px;color:#6b7280;">Vinculos encontrados</div>
+    </div>
+    <div style="background:#f0fdf4;padding:12px;border-radius:8px;text-align:center;">
+      <div style="font-size:24px;font-weight:800;color:#065f46;">${nBeneficios}</div>
+      <div style="font-size:11px;color:#6b7280;">Beneficios no CNIS</div>
+    </div>`;
+  if (temAposentadoria) {
+    const b = state.aposentadoriaAtiva;
+    html += `<div style="background:#fef2f2;padding:12px;border-radius:8px;text-align:center;">
+      <div style="font-size:16px;font-weight:800;color:#991b1b;">APOSENTADO</div>
+      <div style="font-size:11px;color:#7f1d1d;">${b.especie || ''} - DIB: ${b.data_inicio || '?'}</div>
+    </div>`;
+  }
+  if (vincEspeciais > 0) {
+    html += `<div style="background:#faf5ff;padding:12px;border-radius:8px;text-align:center;">
+      <div style="font-size:24px;font-weight:800;color:#7c3aed;">${vincEspeciais}</div>
+      <div style="font-size:11px;color:#6b7280;">Indicios de especialidade</div>
+    </div>`;
+  }
+  html += `</div>`;
+  resumoEl.innerHTML = html;
+
+  // Botões de ação
+  let acoes = '';
+  if (temAposentadoria) {
+    acoes += `<button class="btn btn-primary" onclick="navegarPara('planejamento')" style="background:#dc2626;">🔍 Revisao - Melhor Beneficio</button>`;
+    acoes += `<button class="btn btn-primary" onclick="navegarPara('revisoes','especial-revisao')" style="background:#7c3aed;">🏭 Revisao - Atividade Especial</button>`;
+    acoes += `<button class="btn btn-primary" onclick="navegarPara('revisoes','teto')" style="background:#b45309;">📊 Revisao do Teto</button>`;
+  } else if (temIndeferido) {
+    acoes += `<button class="btn btn-primary" onclick="navegarPara('planejamento')" style="background:#f59e0b;color:#000;">⚠️ Analisar Indeferimento</button>`;
+  } else {
+    acoes += `<button class="btn btn-success" onclick="navegarPara('planejamento')">📅 Planejamento Previdenciario</button>`;
+  }
+  acoes += `<button class="btn btn-secondary" onclick="navegarPara('segurado')">👤 Ver/Editar Dados</button>`;
+  acoes += `<button class="btn btn-secondary" onclick="navegarPara('calculo')">🧮 Calculo Direto</button>`;
+  acoesEl.innerHTML = acoes;
+
+  el.classList.remove('hidden');
+}
+
+window.navegarPara = function(pagina, tab) {
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const navItem = document.querySelector(`[data-page="${pagina}"]`);
+  if (navItem) navItem.classList.add('active');
+  const pageEl = document.getElementById(`page-${pagina}`);
+  if (pageEl) pageEl.classList.add('active');
+  if (tab) {
+    document.querySelectorAll(`#page-${pagina} .tab`).forEach(t => t.classList.remove('active'));
+    document.querySelectorAll(`#page-${pagina} .tab-content`).forEach(t => t.classList.remove('active'));
+    const tabBtn = document.querySelector(`#page-${pagina} [data-tab="${tab}"]`);
+    if (tabBtn) tabBtn.classList.add('active');
+    const tabContent = document.getElementById(`tab-${tab}`);
+    if (tabContent) tabContent.classList.add('active');
+  }
+};
 
 // ── PAINEL DE BENEFÍCIO ATIVO (fixo no topo do planejamento) ─────────────
 // ── RENDERIZAR ANÁLISE ESPECIAL DE VÍNCULOS (CTPS/CNIS) ─────────────────
@@ -1072,6 +1362,88 @@ function atualizarSugestoesDER() {
     <div style="margin-top:6px;font-size:10px;color:#6b7280;">Clique em uma data para usar como DER do calculo.</div>`;
 }
 
+// ── Painel de revisão na tela Calcular Benefício ──────────────────────────
+function atualizarPainelRevisaoCalculo() {
+  const painel = document.getElementById('calc-painel-revisao');
+  if (!painel) return;
+
+  const b = state.aposentadoriaAtiva;
+  if (!b) {
+    painel.classList.add('hidden');
+    return;
+  }
+
+  painel.classList.remove('hidden');
+
+  // Info do benefício ativo
+  const rmi = b.rmi || state.rmiCarta;
+  const rmiTxt = rmi ? `RMI concedida: <strong>R$ ${fmtDecimal(rmi)}</strong>` : '';
+  document.getElementById('calc-revisao-info').innerHTML =
+    `<strong>${b.especie || 'Aposentadoria'}</strong> (Esp. ${b.especie_codigo || '?'}) — ` +
+    `DIB/DER: <strong>${b.data_inicio || '?'}</strong>${rmiTxt ? ' — ' + rmiTxt : ''}`;
+
+  // Hint no campo DER
+  const hint = document.getElementById('calc-der-hint');
+  if (hint) {
+    hint.classList.remove('hidden');
+    hint.innerHTML = `⚠ TC calculado <strong>até esta DER</strong>. Contribuições após ${b.data_inicio || '?'} não contam para revisão.`;
+  }
+
+  // Preview de retroativos (quanto o cliente já recebeu)
+  if (rmi && b.data_inicio) {
+    _calcularPreviewRetroativos(b.data_inicio, rmi);
+  }
+
+  // Botão: usar DER original
+  document.getElementById('btn-usar-der-original').onclick = () => {
+    if (b.data_inicio) {
+      document.getElementById('calc-der').value = b.data_inicio;
+      document.getElementById('calc-der-label').textContent = 'DER (original da concessão) *';
+      toast(`DER definida para ${b.data_inicio} — data do pedido original`, 'info');
+    }
+  };
+
+  // Botão: reafirmação da DER
+  document.getElementById('btn-usar-der-reafirmacao').onclick = () => {
+    const nova = prompt(
+      'Reafirmação da DER (Tema 995 STJ)\n\n' +
+      'Digite a nova DER (data em que os requisitos foram preenchidos após a DER original):\n' +
+      'Formato: DD/MM/AAAA'
+    );
+    if (nova && /^\d{2}\/\d{2}\/\d{4}$/.test(nova.trim())) {
+      document.getElementById('calc-der').value = nova.trim();
+      document.getElementById('calc-der-label').textContent = 'DER (reafirmação) *';
+      toast(`DER de reafirmação definida: ${nova.trim()}`, 'info');
+    } else if (nova) {
+      toast('Formato inválido. Use DD/MM/AAAA', 'error');
+    }
+  };
+}
+
+function _calcularPreviewRetroativos(dib, rmi) {
+  const preview = document.getElementById('calc-retroativos-preview');
+  const valorEl = document.getElementById('calc-retro-valor');
+  const periodoEl = document.getElementById('calc-retro-periodo');
+  if (!preview || !valorEl || !periodoEl) return;
+
+  try {
+    const partes = dib.split('/');
+    const dataDib = new Date(parseInt(partes[2]), parseInt(partes[1]) - 1, parseInt(partes[0]));
+    const hoje = new Date();
+    const meses = Math.floor((hoje - dataDib) / (1000 * 60 * 60 * 24 * 30.44));
+    if (meses <= 0) { preview.style.display = 'none'; return; }
+
+    const rmiNum = parseFloat(String(rmi).replace(/\./g, '').replace(',', '.'));
+    const totalRecebido = rmiNum * meses;
+
+    valorEl.textContent = `R$ ${totalRecebido.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2})} (estimativa)`;
+    periodoEl.textContent = `${meses} meses desde ${dib}`;
+    preview.style.display = 'block';
+  } catch(e) {
+    preview.style.display = 'none';
+  }
+}
+
 function atualizarPainelBeneficioAtivo(beneficio) {
   const painel = document.getElementById('plan-beneficio-ativo');
   if (!painel || !beneficio) { if(painel) painel.classList.add('hidden'); return; }
@@ -1131,6 +1503,7 @@ document.getElementById('btn-planejar').addEventListener('click', async () => {
     const data = await res.json();
     if (!res.ok) { toast(data.detail||'Erro','error'); return; }
     state.ultimoPlanejamento = data;
+    salvarNoLocalStorage();
     renderizarPlanejamento(data, resultEl);
     resultEl.classList.remove('hidden');
   } catch (e) { toast('Erro de conexão: '+e.message,'error'); }
@@ -2509,7 +2882,7 @@ function renderizarVinculosEspeciaisRevisao() {
         const fator = sexo === 'FEMININO' ? (f.f || '1.0') : (f.m || '1.0');
         return `<tr style="border-bottom:1px solid #e5e7eb;">
           <td style="padding:4px 8px;">${v.empregador_nome || v.empregador_cnpj || '—'}</td>
-          <td style="padding:4px 8px;text-align:center;">${v.data_inicio} a ${v.data_fim || 'presente'}</td>
+          <td style="padding:4px 8px;text-align:center;">${v.data_inicio} a ${v.data_fim_inferida ? `<span style="color:#dc2626;">${v.data_fim_efetiva || '?'} ⚠</span>` : (v.data_fim || 'presente')}</td>
           <td style="padding:4px 8px;text-align:center;">${v.tipo_atividade.replace('ESPECIAL_', 'Esp. ')} anos</td>
           <td style="padding:4px 8px;text-align:center;font-weight:700;color:#16a34a;">x${fator}</td>
         </tr>`;

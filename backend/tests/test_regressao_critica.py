@@ -245,8 +245,8 @@ class TestQualidadeSeguradoBeneficioAtivo:
         der = date(2026, 4, 7)
         qualidade = _analisar_qualidade_segurado(seg, der)
 
-        assert qualidade["status"] == "ATIVA", (
-            f"Qualidade deveria ser ATIVA com beneficio ativo, mas foi: {qualidade['status']}"
+        assert qualidade["status"] == "APOSENTADO", (
+            f"Qualidade deveria ser APOSENTADO com beneficio ativo, mas foi: {qualidade['status']}"
         )
 
 
