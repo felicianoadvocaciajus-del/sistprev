@@ -105,13 +105,22 @@ async def upload_cnis(arquivo: UploadFile = File(..., description="PDF do CNIS")
         })
 
     # Análise especial de TODOS os vínculos do CNIS
-    analise_vinculos = _analisar_vinculos_especial_completo(
-        [(v.empregador_nome, v.empregador_cnpj, None, None,
-          v.data_inicio.strftime("%d/%m/%Y"),
-          v.data_fim.strftime("%d/%m/%Y") if v.data_fim else None)
-         for v in segurado.vinculos],
-        origem="cnis",
-    )
+    try:
+        vinculos_para_analise = []
+        for v in segurado.vinculos:
+            vinculos_para_analise.append((
+                v.empregador_nome or "",
+                v.empregador_cnpj or "",
+                None,  # cargo (CNIS não tem)
+                None,  # CBO (CNIS não tem)
+                v.data_inicio.strftime("%d/%m/%Y") if v.data_inicio else None,
+                v.data_fim.strftime("%d/%m/%Y") if v.data_fim else None,
+            ))
+        analise_vinculos = _analisar_vinculos_especial_completo(vinculos_para_analise, origem="cnis")
+    except Exception as e:
+        import logging
+        logging.getLogger("sistprev.upload").error(f"Erro na analise especial CNIS: {e}", exc_info=True)
+        analise_vinculos = []
 
     return ParseCNISResponse(
         sucesso=True,
@@ -469,17 +478,22 @@ def _analisar_vinculos_especial_completo(
         from ...domain.especial.jurisprudencia import buscar_jurisprudencia
         from ...domain.especial.classificacao_evidencias import classificar_evidencias
     except ImportError as e:
-        logger.warning(f"Modulos de analise especial nao disponiveis: {e}")
+        logger.error(f"FALHA CRITICA: Modulos de analise especial nao disponiveis: {e}", exc_info=True)
         return []
 
     resultado = []
 
-    for nome, cnpj, cargo, cbo, dt_inicio, dt_fim in vinculos_info:
+    for item in vinculos_info:
+        try:
+            nome, cnpj, cargo, cbo, dt_inicio, dt_fim = item
+        except (ValueError, TypeError) as e:
+            logger.warning(f"Vinculo com formato inesperado: {item} — {e}")
+            continue
         vinc = {
-            "empregador_nome": nome,
-            "empregador_cnpj": cnpj,
-            "cargo": cargo,
-            "cbo": cbo,
+            "empregador_nome": nome or "",
+            "empregador_cnpj": cnpj or "",
+            "cargo": cargo or "",
+            "cbo": cbo or "",
             "data_inicio": dt_inicio,
             "data_fim": dt_fim,
         }
@@ -607,6 +621,8 @@ def _segurado_to_schema(s: Segurado) -> SeguradoSchema:
             data_fim=v.data_fim.strftime("%d/%m/%Y") if v.data_fim else None,
             contribuicoes=contribuicoes_schema,
             indicadores=v.indicadores or "",
+            data_fim_inferida=v.data_fim_inferida,
+            data_fim_efetiva=v.data_fim_efetiva.strftime("%d/%m/%Y"),
         ))
 
     # Converter benefícios anteriores

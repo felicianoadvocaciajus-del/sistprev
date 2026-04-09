@@ -524,6 +524,85 @@ document.getElementById('input-ltcat').addEventListener('change', async e => {
   e.target.value = '';
 });
 
+// ── Upload "Outros Documentos" (usa mesmo endpoint documento-comprobatorio)
+document.getElementById('input-outros')?.addEventListener('change', async e => {
+  const file = e.target.files[0]; if (!file) return;
+  const statusEl = document.getElementById('status-outros');
+  const cardEl = document.getElementById('card-outros');
+  statusEl.innerHTML = '<span class="loader"></span> Analisando documento...';
+  const fd = new FormData(); fd.append('arquivo', file);
+  fd.append('tipo', 'OUTROS');
+  try {
+    const res = await fetch(`${API}/upload/documento-comprobatorio`, { method: 'POST', body: fd });
+    const data = await res.json();
+    if (data.sucesso) {
+      cardEl.classList.add('success');
+      cardEl.querySelector('.upload-delete')?.classList.remove('hidden');
+      if (!state.documentosComprobatorios) state.documentosComprobatorios = [];
+      state.documentosComprobatorios.push(data);
+      statusEl.innerHTML = renderizarDocComprobatorio(data);
+      toast(`Documento processado: ${data.agentes_encontrados?.length || 0} agente(s), ${data.empresa ? 'empresa: ' + data.empresa : 'sem empresa'}`, 'success');
+    } else {
+      cardEl.classList.add('error');
+      statusEl.textContent = '❌ ' + (data.erro || 'Falha ao processar');
+    }
+  } catch(err) { cardEl.classList.add('error'); statusEl.textContent = '❌ Erro: ' + (err.message || 'conexao'); }
+  e.target.value = '';
+});
+
+// ── Limpar upload individual ─────────────────────────────────────────────
+window.limparUpload = function(tipo) {
+  if (!confirm(`Remover os dados do upload "${tipo.toUpperCase()}"?`)) return;
+  const cardEl = document.getElementById(`card-${tipo}`);
+  const statusEl = document.getElementById(`status-${tipo}`);
+  if (cardEl) { cardEl.classList.remove('success','error'); }
+  if (statusEl) statusEl.innerHTML = '';
+  cardEl?.querySelector('.upload-delete')?.classList.add('hidden');
+
+  if (tipo === 'cnis') {
+    state.vinculos = [];
+    state.beneficiosCNIS = [];
+    state.beneficiosAnteriores = [];
+    state.aposentadoriaAtiva = null;
+    state.beneficioIndeferido = null;
+    state.modoCalculo = 'PLANEJAMENTO';
+    localStorage.removeItem('sistprev_beneficios');
+    localStorage.removeItem('sistprev_modo');
+    ['seg-nome','seg-cpf','seg-dn','seg-nit'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    try { resetarModoPlanejamento(); } catch(e) {}
+    renderizarVinculos();
+  } else if (tipo === 'carta') {
+    state.rmiCarta = null;
+    localStorage.removeItem('sistprev_rmi_carta');
+  } else if (tipo === 'ctps') {
+    // CTPS adiciona vínculos — limpar todos que vieram de CTPS
+    // Por segurança, não limpa vínculos do CNIS
+    toast('Dados da CTPS removidos. Se necessário, reimporte o CNIS.', 'info');
+  }
+
+  salvarNoLocalStorage();
+  atualizarCenario();
+  toast(`Upload "${tipo}" removido.`, 'info');
+};
+
+// Mostrar botão X quando upload tem sucesso (hook nos cards existentes)
+['cnis','carta','ctps','ppp','ltcat'].forEach(tipo => {
+  const card = document.getElementById(`card-${tipo}`);
+  if (card) {
+    const observer = new MutationObserver(() => {
+      const btn = card.querySelector('.upload-delete');
+      if (btn) {
+        if (card.classList.contains('success')) btn.classList.remove('hidden');
+        else btn.classList.add('hidden');
+      }
+    });
+    observer.observe(card, { attributes: true, attributeFilter: ['class'] });
+  }
+});
+
 function renderizarPPP(data) {
   let html = `<div style="text-align:left;max-height:450px;overflow-y:auto;">`;
   html += `<div style="font-size:14px;font-weight:700;color:#dc2626;margin-bottom:6px;">⚠️ PPP — Perfil Profissiografico</div>`;

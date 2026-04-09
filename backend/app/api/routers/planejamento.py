@@ -363,9 +363,12 @@ def calculo_pcd(req: PcDRequest):
                 data_fim=parse_date(p["data_fim"]) if p.get("data_fim") else None,
             ))
 
-        # Collect all salaries
+        # Calcular TC e carência reais usando as funções do domínio
+        from ...domain.tempo.contagem import calcular_tempo_contribuicao, calcular_carencia
+        tc = calcular_tempo_contribuicao(segurado.vinculos, der, segurado.sexo)
+        carencia = calcular_carencia(segurado.vinculos, der)
+
         salarios = []
-        tempo_comum = 0
         for v in segurado.vinculos:
             for c in v.contribuicoes:
                 salarios.append(c.salario_contribuicao)
@@ -374,8 +377,8 @@ def calculo_pcd(req: PcDRequest):
             sexo=segurado.sexo.name.lower() if hasattr(segurado.sexo, 'name') else str(segurado.sexo).lower(),
             data_nascimento=segurado.dados_pessoais.data_nascimento,
             periodos_pcd=periodos,
-            tempo_comum_dias=tempo_comum,
-            carencia_meses=len(salarios),
+            tempo_comum_dias=tc.dias_total,
+            carencia_meses=carencia,
             salarios_contribuicao=salarios,
             data_referencia=der,
         )

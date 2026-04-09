@@ -39,39 +39,52 @@
         <p class="page-subtitle">Faça o upload do CNIS, Carta de Concessão ou CTPS Digital para extrair os dados automaticamente.</p>
         <div class="upload-grid">
           <div class="upload-card" id="card-cnis">
+            <button class="upload-delete hidden" onclick="limparUpload('cnis')" title="Remover">X</button>
             <div class="upload-icon">📑</div>
             <h3>CNIS</h3>
-            <p>Cadastro Nacional de Informações Sociais</p>
-            <label class="btn btn-primary upload-label">Selecionar PDF<input type="file" accept=".pdf" id="input-cnis" hidden /></label>
+            <p>Cadastro Nacional de Informacoes Sociais</p>
+            <label class="btn btn-primary upload-label">Selecionar PDF<input type="file" accept=".pdf,.jpg,.png" id="input-cnis" hidden /></label>
             <div class="upload-status" id="status-cnis"></div>
           </div>
           <div class="upload-card" id="card-carta">
+            <button class="upload-delete hidden" onclick="limparUpload('carta')" title="Remover">X</button>
             <div class="upload-icon">📃</div>
-            <h3>Carta de Concessão</h3>
-            <p>Documento de concessão do benefício pelo INSS</p>
-            <label class="btn btn-secondary upload-label">Selecionar PDF<input type="file" accept=".pdf" id="input-carta" hidden /></label>
+            <h3>Carta de Concessao</h3>
+            <p>Documento de concessao do beneficio pelo INSS</p>
+            <label class="btn btn-secondary upload-label">Selecionar PDF<input type="file" accept=".pdf,.jpg,.png" id="input-carta" hidden /></label>
             <div class="upload-status" id="status-carta"></div>
           </div>
           <div class="upload-card" id="card-ctps">
+            <button class="upload-delete hidden" onclick="limparUpload('ctps')" title="Remover">X</button>
             <div class="upload-icon">📘</div>
-            <h3>CTPS Digital</h3>
-            <p>Carteira de Trabalho Digital (MTE)</p>
-            <label class="btn btn-secondary upload-label">Selecionar PDF<input type="file" accept=".pdf" id="input-ctps" hidden /></label>
+            <h3>CTPS Digital ou Escaneada</h3>
+            <p>Carteira de Trabalho — digital ou foto/escaneamento</p>
+            <label class="btn btn-secondary upload-label">Selecionar PDF<input type="file" accept=".pdf,.jpg,.png" id="input-ctps" hidden /></label>
             <div class="upload-status" id="status-ctps"></div>
           </div>
           <div class="upload-card" id="card-ppp">
+            <button class="upload-delete hidden" onclick="limparUpload('ppp')" title="Remover">X</button>
             <div class="upload-icon">⚠️</div>
             <h3>PPP</h3>
             <p>Perfil Profissiografico Previdenciario</p>
-            <label class="btn btn-secondary upload-label" style="background:#dc2626;border-color:#dc2626;color:#fff;">Selecionar PDF<input type="file" accept=".pdf" id="input-ppp" hidden /></label>
+            <label class="btn btn-secondary upload-label" style="background:#dc2626;border-color:#dc2626;color:#fff;">Selecionar PDF<input type="file" accept=".pdf,.jpg,.png" id="input-ppp" hidden /></label>
             <div class="upload-status" id="status-ppp"></div>
           </div>
           <div class="upload-card" id="card-ltcat">
+            <button class="upload-delete hidden" onclick="limparUpload('ltcat')" title="Remover">X</button>
             <div class="upload-icon">🔬</div>
             <h3>LTCAT / Laudos</h3>
             <p>Laudo Tecnico, CAT, DIRBEN, Atestados</p>
-            <label class="btn btn-secondary upload-label" style="background:#7c3aed;border-color:#7c3aed;color:#fff;">Selecionar PDF<input type="file" accept=".pdf" id="input-ltcat" hidden /></label>
+            <label class="btn btn-secondary upload-label" style="background:#7c3aed;border-color:#7c3aed;color:#fff;">Selecionar PDF<input type="file" accept=".pdf,.jpg,.png" id="input-ltcat" hidden /></label>
             <div class="upload-status" id="status-ltcat"></div>
+          </div>
+          <div class="upload-card" id="card-outros">
+            <button class="upload-delete hidden" onclick="limparUpload('outros')" title="Remover">X</button>
+            <div class="upload-icon">📂</div>
+            <h3>Outros Documentos</h3>
+            <p>Processo administrativo, sentenca, laudo, qualquer PDF</p>
+            <label class="btn btn-secondary upload-label" style="background:#0ea5e9;border-color:#0ea5e9;color:#fff;">Selecionar PDF<input type="file" accept=".pdf,.jpg,.png" id="input-outros" hidden /></label>
+            <div class="upload-status" id="status-outros"></div>
           </div>
         </div>
         <div class="alert alert-info">💡 Após o upload, os dados são preenchidos automaticamente e <strong>salvos no navegador</strong> — não se perdem ao fechar.</div>
