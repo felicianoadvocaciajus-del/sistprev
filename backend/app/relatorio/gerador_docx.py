@@ -112,16 +112,16 @@ def gerar_docx_planejamento(
     nome = dp.get("nome", "Segurado")
     tc = planejamento.get("tc_atual", {})
     score = planejamento.get("score_prontidao", {})
-    marcos = planejamento.get("marcos_legais", [])
-    projecoes = planejamento.get("projecoes", [])
-    custo = planejamento.get("custo_beneficio", [])
-    qualidade = planejamento.get("qualidade_segurado", {})
-    pensao = planejamento.get("pensao_projetada", {})
-    plano = planejamento.get("plano_acao", [])
-    resumo = planejamento.get("resumo_executivo", {})
-    comp_sem = planejamento.get("competencias_sem_salario", {})
-    cenarios = planejamento.get("cenarios_vida", [])
-    argumentos = planejamento.get("argumentos_cliente", [])
+    marcos = planejamento.get("marcos_legais") or []
+    projecoes = planejamento.get("projecoes") or []
+    custo = planejamento.get("custo_beneficio") or []
+    qualidade = planejamento.get("qualidade_segurado") or {}
+    pensao = planejamento.get("pensao_projetada") or {}
+    plano = planejamento.get("plano_acao") or []
+    resumo = planejamento.get("resumo_executivo") or {}
+    comp_sem = planejamento.get("competencias_sem_salario") or {}
+    cenarios = planejamento.get("cenarios_vida") or []
+    argumentos = planejamento.get("argumentos_cliente") or []
 
     alcancaveis = sorted(
         [p for p in projecoes if p.get("data_elegibilidade")],
