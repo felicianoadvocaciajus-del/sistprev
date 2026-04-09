@@ -85,6 +85,7 @@ function carregarDoLocalStorage() {
       state.beneficiosCNIS = JSON.parse(benRaw);
       configurarModoPlanejamento();
       atualizarCenario();
+      try { popularSugestoesRevisao(); } catch(e) {}
     }
 
     document.getElementById('save-indicator').textContent = '💾 Dados carregados';
@@ -374,6 +375,7 @@ document.getElementById('input-cnis').addEventListener('change', async e => {
       // Sugerir DER na tela de Calcular Beneficio
       atualizarSugestoesDER();
       atualizarCenario();
+      try { popularSugestoesRevisao(); } catch(e) {}
       salvarNoLocalStorage();
       if (data.avisos?.length) toast('Avisos: ' + data.avisos.join('; '), 'info');
     } else {
@@ -2870,6 +2872,53 @@ document.getElementById('btn-teto').addEventListener('click', async () => {
 });
 
 // ── Revisão Melhor Benefício ──────────────────────────────────────────────
+// ── Sugestões de benefícios nas telas de revisão ────────────────────────
+function popularSugestoesRevisao() {
+  const beneficios = state.beneficiosCNIS || [];
+  if (!beneficios.length) return;
+
+  const targets = [
+    { containerId: 'rev-mb-sugestoes', derId: 'rev-mb-der', rmiId: 'rev-mb-rmi', especieId: 'rev-mb-especie' },
+    { containerId: 'rev-esp-sugestoes', derId: 'rev-esp-der', rmiId: 'rev-esp-rmi', especieId: null },
+  ];
+
+  targets.forEach(t => {
+    const container = document.getElementById(t.containerId);
+    if (!container) return;
+
+    let html = `<div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 14px;">
+      <div style="font-size:12px;font-weight:700;color:#1e40af;margin-bottom:8px;">Beneficios detectados no CNIS — clique para usar:</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">`;
+
+    beneficios.forEach((b, idx) => {
+      const situacao = b.situacao || '?';
+      const cor = situacao === 'ATIVO' ? '#065f46' : situacao === 'INDEFERIDO' ? '#991b1b' : '#6b7280';
+      const bg = situacao === 'ATIVO' ? '#dcfce7' : situacao === 'INDEFERIDO' ? '#fef2f2' : '#f3f4f6';
+      const der = b.data_inicio || '';
+      const rmi = b.rmi || '';
+      const esp = b.especie_codigo || '';
+      const label = `${b.especie || 'B'+esp} — ${situacao} — DER: ${der}${rmi ? ' — RMI: R$ '+rmi : ''}`;
+
+      html += `<button onclick="usarBeneficioRevisao('${t.derId}','${t.rmiId}','${t.especieId}','${der}','${rmi}','${esp}')"
+        style="background:${bg};color:${cor};border:1px solid ${cor}33;border-radius:6px;padding:6px 12px;font-size:11px;font-weight:600;cursor:pointer;transition:transform .1s;"
+        onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">${label}</button>`;
+    });
+
+    html += `</div></div>`;
+    container.innerHTML = html;
+  });
+}
+
+window.usarBeneficioRevisao = function(derId, rmiId, especieId, der, rmi, espCodigo) {
+  if (derId) { const el = document.getElementById(derId); if (el) el.value = der; }
+  if (rmiId && rmi) { const el = document.getElementById(rmiId); if (el) el.value = rmi; }
+  if (especieId && espCodigo) { const el = document.getElementById(especieId); if (el) el.value = espCodigo; }
+  toast('Dados do beneficio preenchidos!', 'success');
+};
+
+// Chamar ao carregar e após upload
+try { popularSugestoesRevisao(); } catch(e) {}
+
 document.getElementById('btn-rev-melhor').addEventListener('click', async () => {
   const der = document.getElementById('rev-mb-der').value.trim();
   const rmiInss = document.getElementById('rev-mb-rmi').value.replace(/\./g,'').replace(',','.');
