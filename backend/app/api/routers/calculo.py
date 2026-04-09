@@ -28,6 +28,14 @@ def calcular_aposentadoria(req: CalculoAposentadoriaRequest):
     try:
         segurado = segurado_from_schema(req.segurado)
         der = parse_date(req.der)
+        # Se complementar_mei=True, marcar contribuições MEI como válidas para TC
+        if req.complementar_mei:
+            for v in segurado.vinculos:
+                for c in v.contribuicoes:
+                    if getattr(c, "complementavel_mei", False):
+                        c.valida_tc = True
+                        c.complementavel_mei = False
+                        c.observacao = "[MEI-COMPLEMENTADO-SIM]"
         result = CalculoService.calcular_aposentadoria(segurado, der, req.tipo)
     except Exception as e:
         raise HTTPException(status_code=422, detail=str(e))
@@ -39,12 +47,17 @@ def calcular_aposentadoria(req: CalculoAposentadoriaRequest):
     return CalculoResponse(
         elegivel=result.get("elegivel", False),
         der=req.der,
-        tipo=req.tipo,
+        tipo=result.get("tipo", req.tipo),
         rmi=str(rmi),
         rmi_formatada=fmt_brl(rmi),
         melhor_cenario=melhor,
         todos_cenarios=cenarios,
         erros=result.get("erros", []),
+        modo_revisao=result.get("modo_revisao", False),
+        nb_ativo=result.get("nb_ativo"),
+        alertas_consistencia=result.get("alertas_consistencia", []),
+        alertas_mei=result.get("alertas_mei", []),
+        complementar_mei_simulado=req.complementar_mei,
     )
 
 
@@ -60,14 +73,17 @@ def calcular_auxilio_doenca(req: CalculoAuxilioDoencaRequest):
     r = result["resultado"]
     cenarios = [cenario_to_response(r)]
     rmi = result.get("rmi", Decimal("0"))
+    elegivel = result["elegivel"] or (r.elegivel if r else False)
+    if elegivel and rmi == 0 and r:
+        rmi = r.rmi_teto
 
     return CalculoResponse(
-        elegivel=result["elegivel"],
+        elegivel=elegivel,
         der=req.der,
         tipo=result["tipo"],
         rmi=str(rmi),
         rmi_formatada=fmt_brl(rmi),
-        melhor_cenario=cenarios[0] if result["elegivel"] else None,
+        melhor_cenario=cenarios[0] if elegivel else None,
         todos_cenarios=cenarios,
     )
 
@@ -86,14 +102,17 @@ def calcular_invalidez(req: CalculoInvalidezRequest):
     r = result["resultado"]
     cenarios = [cenario_to_response(r)]
     rmi = result.get("rmi", Decimal("0"))
+    elegivel = result["elegivel"] or (r.elegivel if r else False)
+    if elegivel and rmi == 0 and r:
+        rmi = r.rmi_teto
 
     return CalculoResponse(
-        elegivel=result["elegivel"],
+        elegivel=elegivel,
         der=req.der,
         tipo=result["tipo"],
         rmi=str(rmi),
         rmi_formatada=fmt_brl(rmi),
-        melhor_cenario=cenarios[0] if result["elegivel"] else None,
+        melhor_cenario=cenarios[0] if elegivel else None,
         todos_cenarios=cenarios,
     )
 
