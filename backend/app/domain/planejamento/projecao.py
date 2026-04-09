@@ -559,8 +559,8 @@ def _classificar_fato_projecao_tese(
 
     alcancaveis = [p for p in projecoes if p.get("data_elegibilidade")]
     if len(alcancaveis) >= 2:
-        mais_rapida = min(alcancaveis, key=lambda x: x.get("meses_faltantes", 999))
-        mais_vantajosa = max(alcancaveis, key=lambda x: float(x.get("rmi_projetada", 0) or 0))
+        mais_rapida = min(alcancaveis, key=lambda x: x.get("meses_faltantes") or 0)
+        mais_vantajosa = max(alcancaveis, key=lambda x: float(x.get("rmi_projetada") or 0))
         if mais_rapida.get("regra") != mais_vantajosa.get("regra"):
             teses.append({
                 "descricao": "Trade-off: rapidez vs valor",
@@ -663,16 +663,19 @@ def _recomendacao_geral(
     if not alcancaveis:
         return "Nenhuma regra de aposentadoria projetável nos próximos 40 anos com o perfil atual."
 
-    melhor = min(alcancaveis, key=lambda p: p["meses_faltantes"])
-    periodo = melhor["texto_faltante"]
-    data_str = melhor["data_elegibilidade"].strftime("%d/%m/%Y")
-    rmi = melhor["rmi_formatada"]
+    melhor = min(alcancaveis, key=lambda p: p.get("meses_faltantes") or 0)
+    periodo = melhor.get("texto_faltante", "")
+    data_eleg = melhor.get("data_elegibilidade")
+    data_str = data_eleg.strftime("%d/%m/%Y") if hasattr(data_eleg, "strftime") else str(data_eleg or "—")
+    rmi = melhor.get("rmi_formatada", "—")
 
     # Verifica se há regra com RMI maior (mas mais tarde)
-    maior_rmi = max(alcancaveis, key=lambda p: p["rmi_projetada"])
-    if maior_rmi["regra"] != melhor["regra"] and maior_rmi["rmi_projetada"] > melhor["rmi_projetada"] * Decimal("1.05"):
-        rmi_maior = maior_rmi["rmi_formatada"]
-        meses_extra = maior_rmi["meses_faltantes"] - melhor["meses_faltantes"]
+    maior_rmi = max(alcancaveis, key=lambda p: p.get("rmi_projetada") or Decimal("0"))
+    melhor_rmi_val = melhor.get("rmi_projetada") or Decimal("0")
+    maior_rmi_val = maior_rmi.get("rmi_projetada") or Decimal("0")
+    if maior_rmi["regra"] != melhor["regra"] and maior_rmi_val > melhor_rmi_val * Decimal("1.05"):
+        rmi_maior = maior_rmi.get("rmi_formatada", "—")
+        meses_extra = (maior_rmi.get("meses_faltantes") or 0) - (melhor.get("meses_faltantes") or 0)
         return (
             f"📌 A aposentadoria mais próxima é pela regra '{melhor['regra']}' "
             f"em {data_str} (faltam {periodo}), com renda {rmi}. "
@@ -700,7 +703,7 @@ def _argumentos_cliente(projecoes: Dict, segurado: Segurado, der: date, tc_atual
 
     alcancaveis = sorted(
         [p for p in projecoes.values() if p.get("data_elegibilidade")],
-        key=lambda p: p["meses_faltantes"]
+        key=lambda p: p.get("meses_faltantes") or 0,
     )
 
     if alcancaveis:
@@ -798,11 +801,11 @@ def _calcular_custo_beneficio(
 
     alcancaveis = sorted(
         [p for p in projecoes.values() if p.get("data_elegibilidade")],
-        key=lambda p: p["meses_faltantes"]
+        key=lambda p: p.get("meses_faltantes") or 0,
     )
 
     for p in alcancaveis:
-        meses_faltantes = Decimal(str(p["meses_faltantes"]))
+        meses_faltantes = Decimal(str(p.get("meses_faltantes") or 0))
         rmi = p["rmi_projetada"]
         if not rmi or rmi <= 0:
             continue
@@ -1071,11 +1074,11 @@ def _cenarios_vida_quantificados(
     # Encontra a melhor projeção alcançável (mais cedo)
     alcancaveis = sorted(
         [p for p in projecoes.values() if p.get("data_elegibilidade")],
-        key=lambda p: p["meses_faltantes"],
+        key=lambda p: p.get("meses_faltantes") or 0,
     )
     melhor = alcancaveis[0] if alcancaveis else None
-    meses_ate_apos = melhor["meses_faltantes"] if melhor else 0
-    rmi_melhor = melhor["rmi_projetada"] if melhor else Decimal("0")
+    meses_ate_apos = (melhor.get("meses_faltantes") or 0) if melhor else 0
+    rmi_melhor = (melhor.get("rmi_projetada") or Decimal("0")) if melhor else Decimal("0")
     data_melhor = melhor["data_elegibilidade"] if melhor else None
     data_str = data_melhor.strftime("%d/%m/%Y") if data_melhor else "—"
 
@@ -1252,11 +1255,11 @@ def _gerar_plano_acao(
     # Passo 3: Melhor estratégia de contribuição
     alcancaveis = sorted(
         [p for p in projecoes.values() if p.get("data_elegibilidade")],
-        key=lambda p: p["meses_faltantes"],
+        key=lambda p: p.get("meses_faltantes") or 0,
     )
     if alcancaveis:
         melhor = alcancaveis[0]
-        meses = melhor["meses_faltantes"]
+        meses = melhor.get("meses_faltantes") or 0
         rmi_fmt = melhor.get("rmi_formatada", "—")
         desc_contrib = (
             f"A regra mais próxima é '{melhor['regra']}', faltando {melhor.get('texto_faltante', f'{meses} meses')}. "
@@ -1360,7 +1363,7 @@ def _gerar_resumo_executivo(
     # Melhor caminho
     alcancaveis = sorted(
         [p for p in projecoes if p.get("data_elegibilidade")],
-        key=lambda p: p["meses_faltantes"],
+        key=lambda p: p.get("meses_faltantes") or 0,
     )
 
     if alcancaveis:
@@ -1471,10 +1474,10 @@ def _calcular_score_prontidao(
     # ── 5. Proximidade da Aposentadoria (0-150) ──
     alcancaveis = sorted(
         [p for p in projecoes.values() if p.get("data_elegibilidade")],
-        key=lambda p: p["meses_faltantes"],
+        key=lambda p: p.get("meses_faltantes") or 0,
     )
     if alcancaveis:
-        meses_faltantes = alcancaveis[0]["meses_faltantes"]
+        meses_faltantes = alcancaveis[0].get("meses_faltantes") or 0
         if meses_faltantes == 0:
             score_prox = 150
         elif meses_faltantes <= 6:
@@ -1577,7 +1580,7 @@ def _calcular_score_prontidao(
             "idade": {"pontos": score_idade, "maximo": 200, "detalhe": f"{int(idade_anos)} anos de {int(idade_min)} necessarios"},
             "carencia": {"pontos": score_carencia, "maximo": 150, "detalhe": f"{total_carencia} de 180 contribuicoes"},
             "qualidade_segurado": {"pontos": score_qs, "maximo": 100, "detalhe": status_qs},
-            "proximidade": {"pontos": score_prox, "maximo": 150, "detalhe": f"{alcancaveis[0]['meses_faltantes']} meses para aposentar" if alcancaveis else "Sem projecao"},
+            "proximidade": {"pontos": score_prox, "maximo": 150, "detalhe": f"{alcancaveis[0].get('meses_faltantes') or 0} meses para aposentar" if alcancaveis else "Sem projecao"},
             "valor_beneficio": {"pontos": score_valor, "maximo": 100, "detalhe": f"RMI projetada vs teto R$ {teto:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")},
         },
     }
