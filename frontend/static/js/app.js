@@ -941,6 +941,7 @@ document.getElementById('btn-calcular').addEventListener('click', async () => {
     if (!res.ok) { toast(data.detail||'Erro no cálculo','error'); return; }
     state.ultimoCalculo = data;
     salvarNoLocalStorage();
+    try { popularSugestoesAtrasados(); } catch(e) {}
     renderizarResultado(data, resultEl);
     resultEl.classList.remove('hidden');
   } catch { toast('Erro de conexão com o servidor','error'); }
@@ -3098,6 +3099,84 @@ document.querySelectorAll('.tabs .tab[data-tab="especial-revisao"]').forEach(tab
 });
 
 // ── Atrasados ─────────────────────────────────────────────────────────────
+// ── Sugestões de RMI/DIB nos Atrasados ──────────────────────────────────
+function popularSugestoesAtrasados() {
+  const container = document.getElementById('at-sugestoes');
+  if (!container) return;
+
+  const sugestoes = [];
+
+  // 1) Último cálculo feito (auxílio, aposentadoria, etc.)
+  if (state.ultimoCalculo) {
+    const calc = state.ultimoCalculo;
+    if (calc.elegivel && calc.rmi && parseFloat(calc.rmi) > 0) {
+      sugestoes.push({
+        label: `Ultimo calculo: ${calc.tipo || 'Beneficio'} — RMI R$ ${fmtDecimal(calc.rmi)}`,
+        rmi: calc.rmi,
+        der: calc.der || '',
+        cor: '#065f46',
+        bg: '#dcfce7',
+      });
+    }
+    // Cenários elegíveis do último cálculo
+    (calc.todos_cenarios || []).forEach(c => {
+      if (c.elegivel && c.rmi && parseFloat(c.rmi) > 0) {
+        sugestoes.push({
+          label: `${c.nome_regra || 'Cenario'} — RMI R$ ${fmtDecimal(c.rmi)}`,
+          rmi: c.rmi,
+          der: calc.der || '',
+          cor: '#1e40af',
+          bg: '#eff6ff',
+        });
+      }
+    });
+  }
+
+  // 2) Benefícios do CNIS
+  (state.beneficiosCNIS || []).forEach(b => {
+    if (b.rmi) {
+      sugestoes.push({
+        label: `CNIS: ${b.especie || '?'} (${b.situacao || '?'}) — DER ${b.data_inicio || '?'} — RMI R$ ${b.rmi}`,
+        rmi: b.rmi,
+        der: b.data_inicio || '',
+        cor: b.situacao === 'ATIVO' ? '#065f46' : '#991b1b',
+        bg: b.situacao === 'ATIVO' ? '#dcfce7' : '#fef2f2',
+      });
+    }
+  });
+
+  // 3) Melhor regra do planejamento
+  if (state.ultimoPlanejamento?.melhor_rmi) {
+    const p = state.ultimoPlanejamento;
+    const rmiVal = typeof p.melhor_rmi === 'string' ? p.melhor_rmi : String(p.melhor_rmi);
+    if (parseFloat(rmiVal) > 0) {
+      sugestoes.push({
+        label: `Planejamento: ${p.melhor_regra || 'Melhor regra'} — RMI R$ ${fmtDecimal(rmiVal)}`,
+        rmi: rmiVal,
+        der: typeof p.der_base === 'string' ? p.der_base : '',
+        cor: '#7c3aed',
+        bg: '#faf5ff',
+      });
+    }
+  }
+
+  if (!sugestoes.length) { container.innerHTML = ''; return; }
+
+  let html = `<div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 14px;">
+    <div style="font-size:12px;font-weight:700;color:#1e40af;margin-bottom:8px;">Valores calculados — clique para usar:</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;">`;
+
+  sugestoes.forEach(s => {
+    html += `<button onclick="document.getElementById('at-rmi').value='${s.rmi}'; ${s.der ? "document.getElementById('at-dib').value='"+s.der+"';" : ''} toast('Valores preenchidos!','success');"
+      style="background:${s.bg};color:${s.cor};border:1px solid ${s.cor}33;border-radius:6px;padding:5px 10px;font-size:11px;font-weight:600;cursor:pointer;">${s.label}</button>`;
+  });
+
+  html += `</div></div>`;
+  container.innerHTML = html;
+}
+
+try { popularSugestoesAtrasados(); } catch(e) {}
+
 document.getElementById('btn-atrasados').addEventListener('click', async () => {
   const dib=document.getElementById('at-dib').value.trim();
   const rmi=limparValorMonetario(document.getElementById('at-rmi').value);
