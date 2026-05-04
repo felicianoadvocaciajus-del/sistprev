@@ -101,6 +101,8 @@ async def upload_cnis(arquivo: UploadFile = File(..., description="PDF do CNIS")
             "especie": b.especie,
             "especie_codigo": b.especie_codigo,
             "data_inicio": b.data_inicio.strftime("%d/%m/%Y") if b.data_inicio else None,
+            "data_fim": b.data_fim.strftime("%d/%m/%Y") if getattr(b, "data_fim", None) else None,  # DCB — necessário para restabelecimento
+            "nb": getattr(b, "nb", None),
             "situacao": b.situacao,
         })
 
@@ -176,13 +178,20 @@ async def upload_carta_concessao(arquivo: UploadFile = File(...)):
 
 
 @router.post("/ctps")
-async def upload_ctps(arquivo: UploadFile = File(...)):
+async def upload_ctps(
+    arquivo: UploadFile = File(...),
+    force_ocr: bool = False,
+):
     """
     Faz upload da CTPS Digital e extrai os vínculos de trabalho.
-    Já inclui análise de atividade especial por cargo/empregador.
+    Inclui análise de atividade especial por cargo/empregador.
+
+    Parâmetros:
+      force_ocr: se True, força OCR em todas as páginas (CTPS antiga/manuscrita).
+                 Mais lento, mas lê anotações a mão.
     """
-    if not arquivo.filename.lower().endswith(".pdf"):
-        raise HTTPException(status_code=400, detail="Apenas arquivos PDF são aceitos.")
+    if not arquivo.filename.lower().endswith((".pdf", ".jpg", ".jpeg", ".png")):
+        raise HTTPException(status_code=400, detail="Apenas arquivos PDF/JPG/PNG são aceitos.")
 
     conteudo = await arquivo.read()
     if len(conteudo) == 0:
@@ -190,7 +199,7 @@ async def upload_ctps(arquivo: UploadFile = File(...)):
 
     import io
     resultado, aviso = UploadService.processar_ctps(
-        io.BytesIO(conteudo), arquivo.filename
+        io.BytesIO(conteudo), arquivo.filename, force_ocr=force_ocr
     )
 
     if resultado is None:

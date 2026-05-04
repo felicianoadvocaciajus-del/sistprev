@@ -319,12 +319,14 @@ def _dividir_em_blocos_vinculo(texto: str) -> List[str]:
     # Padrão universal: número sequencial + NIT (presente em TODOS os vínculos do CNIS)
     # Formato: "1 105.61792.52-3" ou "2 105.61792.52-3" etc.
     # O NIT tem formato: XXX.XXXXX.XX-X
+    # ATENÇÃO: O pdfplumber às vezes corta o CNPJ — ex: "02.759.908" sem "/0001-XX"
+    # Por isso aceita CNPJ parcial (XX.XXX.XXX) além do CNPJ completo
     padrao_seq_nit = re.compile(
         r"(?:^|\n)\s*"
         r"(\d{1,3})\s+"                                          # Seq number
         r"(\d{3}[\.\-]?\d{5}[\.\-]?\d{2}[\-\.]?\d{1})\s+"       # NIT
         r"(?:"
-            r"(\d{2}[\.\-]?\d{3}[\.\-]?\d{3}[/\-]?\d{4}[\-\.]?\d{2})"  # CNPJ (empregado)
+            r"(\d{2}[\.\-]?\d{3}[\.\-]?\d{3}(?:[/\-]?\d{4}[\-\.]?\d{2})?)"  # CNPJ completo OU parcial
             r"|(\d{10,})"                                         # NB (benefício)
             r"|([A-ZÁÉÍÓÚÂÊÎÔÛÃÕÇÀÜ][^\n]{2,})"                  # Nome/Origem (facultativo/recolhimento)
         r")"
@@ -392,45 +394,72 @@ def _parsear_bloco_vinculo(bloco: str, resultado: ResultadoParserCNIS) -> Option
     if re.search(r"Benef[ií]cio\s+\d{2}\s*[-–—]", inicio_bloco, re.IGNORECASE):
         return None  # Benefícios são tratados separadamente
 
-    # Extrair CNPJ/nome do empregador
-    cnpj = _extrair_campo(bloco, [
-        r"(\d{2}[\.\-]?\d{3}[\.\-]?\d{3}[/\-]?\d{4}[\-\.]?\d{2})",
-    ])
+    # Bloco de AGRUPAMENTO DE CONTRATANTES/COOPERATIVAS — tratamento especial
+    # Neste tipo o CNPJ que aparece é do tomador/contratante, não do empregador
+    is_agrupamento = bool(re.search(r"AGRUPAMENTO\s+DE\s+CONTRATANTES", bloco, re.IGNORECASE))
+    if is_agrupamento:
+        nome_emp = "AGRUPAMENTO DE CONTRATANTES/COOPERATIVAS"
+        cnpj = None  # CNPJ do tomador não é do empregador
+    else:
+        # Extrair CNPJ/nome do empregador — apenas na primeira linha do bloco (antes das contribuições)
+        primeira_linha = bloco.split("\n")[0] if "\n" in bloco else bloco[:200]
+        cnpj = _extrair_campo(primeira_linha, [
+            r"(\d{2}[\.\-]?\d{3}[\.\-]?\d{3}[/\-]?\d{4}[\-\.]?\d{2})",
+        ])
+        # Se não achou na primeira linha, tenta nas primeiras 3 linhas
+        if not cnpj:
+            cabecalho = "\n".join(bloco.split("\n")[:3])
+            # Primeiro tenta CNPJ completo, depois parcial (PDF pode cortar)
+            cnpj = _extrair_campo(cabecalho, [
+                r"(\d{2}[\.\-]?\d{3}[\.\-]?\d{3}[/\-]?\d{4}[\-\.]?\d{2})",
+                r"(\d{2}[\.\-]?\d{3}[\.\-]?\d{3})(?!\d)",  # CNPJ parcial (XX.XXX.XXX)
+            ])
 
     # Nome do empregador
-    nome_emp = None
-    if cnpj:
-        m_emp = re.search(
-            re.escape(cnpj) + r"\s+([A-ZÁÉÍÓÚÂÊÎÔÛÃÕÇÀÜ][A-ZÁÉÍÓÚÂÊÎÔÛÃÕÇÀÜa-záéíóúâêîôûãõçàü\s\.\-/&]{3,80}?)(?:\s+(?:Empregado|Contribuinte|Facultativ|Trabalhador))",
-            bloco
-        )
-        if m_emp:
-            nome_emp = m_emp.group(1).strip()
-    if not nome_emp:
-        nome_emp = _extrair_campo(bloco, [
-            r"(?:Empresa|Empregador|Razão Social)[:\s]+([A-ZÁa-záéíóú][^\n]{5,60})",
-        ])
-    # Fallback: nome após CNPJ
-    if not nome_emp and cnpj:
-        m_fallback = re.search(
-            re.escape(cnpj) + r"\s+([A-ZÁÉÍÓÚ][A-ZÁÉÍÓÚÂÊÎÔÛÃÕÇÀÜa-záéíóúâêîôûãõçàü\s\.\-/&]{3,70})",
-            bloco
-        )
-        if m_fallback:
-            nome_emp = m_fallback.group(1).strip()
-            nome_emp = re.sub(r"\s+(Empregado|Contribuinte|Facultativ|Trabalhador|Agente).*$", "", nome_emp).strip()
+    nome_emp = nome_emp if is_agrupamento else None
+    if not is_agrupamento:
+        if cnpj:
+            m_emp = re.search(
+                re.escape(cnpj) + r"\s+([A-ZÁÉÍÓÚÂÊÎÔÛÃÕÇÀÜ][A-ZÁÉÍÓÚÂÊÎÔÛÃÕÇÀÜa-záéíóúâêîôûãõçàü\s\.\-/&]{3,80}?)(?:\s+(?:Empregado|Contribuinte|Facultativ|Trabalhador))",
+                bloco
+            )
+            if m_emp:
+                nome_emp = m_emp.group(1).strip()
+        if not nome_emp:
+            nome_emp = _extrair_campo(bloco, [
+                r"(?:Empresa|Empregador|Razão Social)[:\s]+([A-ZÁa-záéíóú][^\n]{5,60})",
+            ])
+        # Fallback: nome após CNPJ (só no cabeçalho, não nas linhas de contribuição)
+        if not nome_emp and cnpj:
+            cabecalho = "\n".join(bloco.split("\n")[:4])
+            m_fallback = re.search(
+                re.escape(cnpj) + r"\s+([A-ZÁÉÍÓÚ][A-ZÁÉÍÓÚÂÊÎÔÛÃÕÇÀÜa-záéíóúâêîôûãõçàü\s\.\-/&]{3,70})",
+                cabecalho
+            )
+            if m_fallback:
+                nome_emp = m_fallback.group(1).strip()
+                nome_emp = re.sub(r"\s+(Empregado|Contribuinte|Facultativ|Trabalhador|Agente).*$", "", nome_emp).strip()
 
-    # Para vínculos sem CNPJ (FACULTATIVO, RECOLHIMENTO, CI):
-    # Detectar tipo pelo texto "RECOLHIMENTO Facultativo" ou similar
-    if not cnpj:
-        m_recolh = re.search(r"RECOLHIMENTO\s+(Facultativ|Contribuinte|Individual)", bloco, re.IGNORECASE)
-        if m_recolh:
-            nome_emp = f"RECOLHIMENTO {m_recolh.group(1).upper()}"
-        elif not nome_emp:
-            # Tentar capturar origem do vínculo
-            m_origem = re.search(r"(?:Origem\s+do\s+V[ií]nculo|RECOLHIMENTO|FILIAÇÃO)\s+(\S+)", bloco, re.IGNORECASE)
-            if m_origem:
-                nome_emp = m_origem.group(0).strip()[:50]
+        # Se ainda não tem nome mas tem CNPJ (possivelmente parcial), tenta extrair
+        # o nome da empresa que vem logo após — formato: "02.759.908 IFP PROMOTORA..."
+        if not nome_emp and cnpj:
+            cnpj_escaped = re.escape(cnpj)
+            m_nome_apos_cnpj = re.search(
+                cnpj_escaped + r"\s+([A-ZÁÉÍÓÚÂÊÎÔÛÃÕÇÀÜ][A-ZÁÉÍÓÚÂÊÎÔÛÃÕÇÀÜa-záéíóúâêîôûãõçàü\s\.\-/&]{3,80})",
+                bloco
+            )
+            if m_nome_apos_cnpj:
+                nome_emp = re.sub(r"\s+(Empregad|Contribuinte|Facultativ|Trabalhador|Agente|Pú\b).*$", "", m_nome_apos_cnpj.group(1), flags=re.IGNORECASE).strip()
+
+        # Para vínculos sem CNPJ (FACULTATIVO, RECOLHIMENTO, CI):
+        if not cnpj:
+            m_recolh = re.search(r"RECOLHIMENTO\s+(Facultativ|Contribuinte|Individual)", bloco, re.IGNORECASE)
+            if m_recolh:
+                nome_emp = f"RECOLHIMENTO {m_recolh.group(1).upper()}"
+            elif not nome_emp:
+                m_origem = re.search(r"(?:Origem\s+do\s+V[ií]nculo|RECOLHIMENTO|FILIAÇÃO)\s+(\S+)", bloco, re.IGNORECASE)
+                if m_origem:
+                    nome_emp = m_origem.group(0).strip()[:50]
 
     # Datas de início e fim — formato DD/MM/AAAA
     datas = re.findall(r"(\d{2}/\d{2}/\d{4})", bloco)
@@ -453,7 +482,13 @@ def _parsear_bloco_vinculo(bloco: str, resultado: ResultadoParserCNIS) -> Option
             partes_f = datas[1].split("/")
             d_fim = date(int(partes_f[2]), int(partes_f[1]), int(partes_f[0]))
             if d_fim > data_inicio and d_fim.year >= 1940:
-                data_fim = d_fim
+                # Se a data fim é hoje ou até 5 dias antes, é a data de extração do CNIS
+                # (INSS coloca data atual como fim para vínculos em aberto)
+                from datetime import timedelta
+                if d_fim >= date.today() - timedelta(days=5):
+                    data_fim = None  # tratar como sem data fim
+                else:
+                    data_fim = d_fim
         except Exception:
             pass
 
@@ -526,8 +561,12 @@ def _extrair_contribuicoes_do_bloco(bloco: str, resultado: ResultadoParserCNIS) 
         r"(?:\s+([A-Z][A-Z0-9_-]+))?"  # Indicador individual da linha (opcional)
     )
 
-    # Indicadores que INVALIDAM a contribuição individual
+    # Indicadores que INVALIDAM a contribuição para TC
+    # IREC-MEI: recolhimento como MEI (5% SM) — NÃO conta para TC (LC 123/2006, Art. 18-A §4°)
+    #           mas PODE ser complementada com +15% para contar (código 1910)
+    #           IREC-LC123 SOZINHO (sem IREC-MEI) = CI Simples (11%) = conta para TC
     excludentes_tc = {"PREC-MENOR-MIN", "PREC-FACULTCONC"}
+    mei_indicadores = {"IREC-MEI"}  # Marcados separadamente para permitir complementação
     excludentes_carencia = excludentes_tc | {"PREC-MENOR-QTD"}
 
     # Primeiro: tentar formato com data de pagamento (mais preciso)
@@ -549,17 +588,64 @@ def _extrair_contribuicoes_do_bloco(bloco: str, resultado: ResultadoParserCNIS) 
                     competencia=comp,
                     salario_contribuicao=sc,
                 )
-                # Aplicar indicador PER-CONTRIBUIÇÃO (não por bloco!)
+                # Aplicar indicadores PER-CONTRIBUIÇÃO
                 if indicador_linha:
                     ind_upper = indicador_linha.upper().strip()
                     if ind_upper in excludentes_tc:
                         c.valida_tc = False
                         c.observacao = f"[{ind_upper}]"
+                    if ind_upper in mei_indicadores:
+                        # MEI 5%: não conta TC mas é complementável
+                        c.valida_tc = False
+                        c.complementavel_mei = True
+                        c.observacao = "[MEI-5%-NAO-TC]"
                     if ind_upper in excludentes_carencia:
                         c.valida_carencia = False
+                # Verificar múltiplos indicadores na linha (ex: "IREC-MEI, IREC-LC123")
+                todos_ind = re.findall(r"[A-Z][A-Z0-9-]+", indicador_linha.upper()) if indicador_linha else []
+                for ind in todos_ind:
+                    if ind in mei_indicadores and not c.complementavel_mei:
+                        c.valida_tc = False
+                        c.complementavel_mei = True
+                        c.observacao = "[MEI-5%-NAO-TC]"
                 contribuicoes.append(c)
         except (ValueError, InvalidOperation):
             continue
+
+    # ── Formato 3: AGRUPAMENTO DE CONTRATANTES/COOPERATIVAS ────────────────────
+    # MM/YYYY  CNPJ_contrat  CNPJ_tomador  Normal  valor  [indicadores]
+    # Exemplo: 11/2017  09.070.045/0001-07  09.070.045/0001-07  Normal  112,28  PREC-MENOR-MIN
+    if not contribuicoes and re.search(r"AGRUPAMENTO\s+DE\s+CONTRATANTES", bloco, re.IGNORECASE):
+        padrao_agrup = re.compile(
+            r"(\d{2}/\d{4})\s+"                                    # Competência
+            r"\d{2}[\.\-]?\d{3}[\.\-]?\d{3}[/\-]?\d{4}[\-\.]?\d{2}\s+"  # CNPJ contratante
+            r"\d{2}[\.\-]?\d{3}[\.\-]?\d{3}[/\-]?\d{4}[\-\.]?\d{2}\s+"  # CNPJ tomador
+            r"\S+\s+"                                               # Forma prestação (Normal, etc.)
+            r"([\d\.]+,\d{2})"                                     # Remuneração
+            r"(?:\s+([A-Z][A-Z0-9_-]+))?"                          # Indicador (opcional)
+        )
+        for m in padrao_agrup.finditer(bloco):
+            comp_str, valor_str = m.group(1), m.group(2)
+            indicador_linha = m.group(3) or ""
+            try:
+                comp = competencia_str(comp_str)
+                sc = Decimal(valor_str.replace(".", "").replace(",", "."))
+                if sc <= Decimal("0"):
+                    continue
+                comp_key = comp.strftime("%m/%Y")
+                if comp_key not in competencias_encontradas:
+                    competencias_encontradas.add(comp_key)
+                    c = Contribuicao(competencia=comp, salario_contribuicao=sc)
+                    if indicador_linha:
+                        ind_upper = indicador_linha.upper().strip()
+                        if ind_upper in excludentes_tc:
+                            c.valida_tc = False
+                            c.observacao = f"[{ind_upper}]"
+                        if ind_upper in excludentes_carencia:
+                            c.valida_carencia = False
+                    contribuicoes.append(c)
+            except (ValueError, InvalidOperation):
+                continue
 
     # Se não encontrou no formato 1, tentar formato 2 (remunerações simples)
     if not contribuicoes:
@@ -665,16 +751,17 @@ def _aplicar_indicadores_contribuicoes(
     """
     indicadores_set = {ind.strip().upper() for ind in indicadores.split(",") if ind.strip()}
 
-    # Apenas indicadores que REALMENTE invalidam a contribuição por lei
+    # Indicadores que REALMENTE invalidam TC por lei
     excludentes_tc = {"PREC-MENOR-MIN", "PREC-FACULTCONC"}
     excludentes_carencia = excludentes_tc | {"PREC-MENOR-QTD"}
+    # MEI 5% no nível de bloco: se o bloco inteiro tem IREC-MEI, todas as contrib são MEI
+    mei_bloco = {"IREC-MEI"}
 
     # Verificar se alguma contribuição já teve indicador aplicado individualmente
     alguma_com_indicador_individual = any(c.observacao for c in contribuicoes)
 
     if alguma_com_indicador_individual:
         # Indicadores já foram aplicados PER-CONTRIBUIÇÃO — não sobrescrever
-        # Cada contribuição já tem seu próprio indicador correto
         return
 
     # Nenhuma contribuição teve indicador individual → aplicar do bloco a todas
@@ -686,6 +773,14 @@ def _aplicar_indicadores_contribuicoes(
     if indicadores_set & excludentes_carencia:
         for c in contribuicoes:
             c.valida_carencia = False
+
+    # MEI 5% a nível de bloco: marcar como complementável mas inválida para TC
+    if indicadores_set & mei_bloco:
+        for c in contribuicoes:
+            if not c.complementavel_mei:
+                c.valida_tc = False
+                c.complementavel_mei = True
+                c.observacao = "[MEI-5%-NAO-TC]"
 
 
 def _detectar_tipo_vinculo(bloco: str) -> TipoVinculo:

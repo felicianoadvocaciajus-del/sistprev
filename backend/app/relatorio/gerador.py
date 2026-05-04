@@ -29,17 +29,84 @@ def gerar_html(segurado: Dict, calculo: Dict, titulo: str = "Relatório Pericial
     melhor = calculo.get("melhor_cenario")
     elegivel = calculo.get("elegivel", False)
     der = calculo.get("der", "—")
-    tipo = calculo.get("tipo", "—")
+    tipo_raw = calculo.get("tipo", "—")
     rmi_str = calculo.get("rmi", "0")
 
+    # ── Classificação temporal correta ──────────────────────────────────
+    tipo = _traduzir_tipo(tipo_raw, der)
+
+    # ── Modo revisão e alertas ──────────────────────────────────────────
+    modo_revisao = calculo.get("modo_revisao", False)
+    nb_ativo = calculo.get("nb_ativo")
+    alertas = calculo.get("alertas_consistencia", [])
+
     html = _css_e_cabecalho(titulo, hoje, dp, elegivel, rmi_str, melhor)
-    html += _secao_identificacao(dp, der, tipo, hoje)
+    html += _secao_identificacao(dp, der, tipo, hoje, modo_revisao, nb_ativo)
+    if alertas:
+        html += _secao_alertas_consistencia(alertas)
     html += _secao_vinculos(vinculos)
-    html += _secao_resultado(elegivel, rmi_str, melhor, cenarios)
+    html += _secao_resultado(elegivel, rmi_str, melhor, cenarios, modo_revisao)
+    if modo_revisao and nb_ativo:
+        html += _secao_explicacao_revisao_cliente(dp, der, melhor, nb_ativo, elegivel)
     html += _secao_cenarios_detalhado(cenarios)
     html += _secao_fundamentacao()
-    html += _secao_conclusao(elegivel, melhor, dp)
+    html += _secao_conclusao(elegivel, melhor, dp, modo_revisao, nb_ativo, alertas)
+    html += _secao_assinatura(hoje)
     html += "</body></html>"
+    return html
+
+
+def _secao_assinatura(hoje: str) -> str:
+    """Bloco de assinatura final — marca Feliciano Advocacia."""
+    return f"""
+<div style="margin-top:60pt;text-align:center;">
+  <hr style="border:none;border-top:1px solid #4F81BD;width:40%;margin:0 auto 10pt auto;"/>
+  <div style="font-size:12pt;font-weight:700;color:#1a3c6e;">Advogado(a) / Consultor(a) Previdenciário(a)</div>
+  <div style="font-size:10pt;color:#6b7280;margin-top:4pt;">{hoje}</div>
+  <div style="font-size:9pt;color:#6b7280;margin-top:30pt;font-style:italic;">
+    FELICIANO ADVOCACIA — Assessoria Jurídica Previdenciária<br/>
+    Documento gerado pelo SistPrev — Cálculos conforme Lei 8.213/91, EC 103/2019 e CJF Res. 963/2025
+  </div>
+</div>
+"""
+
+
+def _traduzir_tipo(tipo_raw: str, der) -> str:
+    """Traduz o tipo interno para rótulo correto conforme marco temporal."""
+    LABELS = {
+        "pre_reforma": "Aposentadoria por TC — Regras Pré-Reforma (Lei 8.213/91)",
+        "transicao_ec103": "Aposentadoria por TC — Regras de Transição (EC 103/2019)",
+        "transicao": None,  # será resolvido pela DER
+        "idade": "Aposentadoria por Idade",
+        "especial_15": "Aposentadoria Especial — 15 anos",
+        "especial_20": "Aposentadoria Especial — 20 anos",
+        "especial_25": "Aposentadoria Especial — 25 anos",
+    }
+    label = LABELS.get(tipo_raw)
+    if label:
+        return label
+    # Fallback: resolver pelo valor da DER
+    try:
+        if isinstance(der, str) and "/" in der:
+            p = der.split("/")
+            der_date = date(int(p[2]), int(p[1]), int(p[0]))
+        elif isinstance(der, date):
+            der_date = der
+        else:
+            der_date = date.fromisoformat(str(der))
+        if der_date < date(2019, 11, 13):
+            return "Aposentadoria por TC — Regras Pré-Reforma (Lei 8.213/91)"
+        else:
+            return "Aposentadoria por TC — Regras de Transição (EC 103/2019)"
+    except Exception:
+        return str(tipo_raw)
+
+
+def _secao_alertas_consistencia(alertas: list) -> str:
+    """Seção de alertas de consistência — aparece antes dos vínculos."""
+    html = '<h2 style="color:#991b1b;">⚠ Alertas de Consistência</h2>'
+    for a in alertas:
+        html += f'<div class="aviso" style="border-left-color:#991b1b;background:#fef2f2;">{_esc(a)}</div>'
     return html
 
 
@@ -509,7 +576,10 @@ def gerar_html_planejamento(segurado: Dict, planejamento: Dict, nome_advogado: O
 # ─────────────────────────────────────────────────────────────────────────────
 
 def _css_e_cabecalho(titulo, hoje, dp, elegivel, rmi, melhor) -> str:
-    nome = dp.get("nome", "")
+    nome = dp.get("nome", "") or "—"
+    cpf = dp.get("cpf", "") or "—"
+    nasc = dp.get("data_nascimento", "") or "—"
+    nit = dp.get("nit", "") or "—"
     return f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -517,7 +587,38 @@ def _css_e_cabecalho(titulo, hoje, dp, elegivel, rmi, melhor) -> str:
 <title>{_esc(titulo)}</title>
 <style>
   * {{ box-sizing: border-box; margin: 0; padding: 0; }}
-  body {{ font-family: 'Segoe UI', Arial, sans-serif; font-size: 11pt; color: #1f2937; line-height: 1.6; padding: 2cm; background: #fff; }}
+  @page {{ size: A4; margin: 2cm 2cm 2.5cm 2cm; }}
+  body {{ font-family: 'Calibri', 'Segoe UI', Arial, sans-serif; font-size: 11pt; color: #1f2937; line-height: 1.55; background: #fff; }}
+
+  /* ── CAPA FELICIANO ADVOCACIA ── */
+  .capa-feliciano {{
+    text-align: center;
+    padding: 60pt 0 40pt 0;
+    page-break-after: always;
+  }}
+  .capa-logo {{ font-size: 32pt; font-weight: 800; color: #1a3c6e; letter-spacing: 2pt; margin-bottom: 8pt; }}
+  .capa-sub-logo {{ font-size: 14pt; color: #4F81BD; margin-bottom: 40pt; font-style: italic; }}
+  .capa-linha {{ border: none; border-top: 2px solid #4F81BD; width: 60%; margin: 20pt auto; }}
+  .capa-titulo {{ font-size: 26pt; font-weight: 800; color: #1a3c6e; margin: 40pt 0 12pt 0; text-transform: uppercase; letter-spacing: 1pt; }}
+  .capa-nome {{ font-size: 18pt; font-weight: 700; color: #4F81BD; margin-bottom: 30pt; text-transform: uppercase; }}
+  .capa-dados {{
+    display: inline-block;
+    border: 1px solid #1a3c6e;
+    border-radius: 6pt;
+    padding: 16pt 24pt;
+    margin: 20pt auto;
+    text-align: left;
+  }}
+  .capa-dados .row {{ margin: 4pt 0; }}
+  .capa-dados .label {{ font-weight: 700; color: #1a3c6e; display: inline-block; width: 160pt; }}
+  .capa-rodape {{
+    position: fixed;
+    bottom: 1cm; left: 2cm; right: 2cm;
+    text-align: center;
+    font-size: 9pt; color: #6b7280;
+  }}
+
+  /* ── CONTEÚDO INTERNO ── */
   h1 {{ font-size: 18pt; text-align: center; font-weight: 800; color: #1a3c6e; margin-bottom: 4pt; }}
   h2 {{ font-size: 13pt; font-weight: 700; margin-top: 20pt; margin-bottom: 8pt; color: #1a3c6e; border-bottom: 2px solid #1a3c6e; padding-bottom: 4pt; }}
   h3 {{ font-size: 11pt; font-weight: 700; margin-top: 12pt; margin-bottom: 4pt; color: #374151; }}
@@ -532,16 +633,52 @@ def _css_e_cabecalho(titulo, hoje, dp, elegivel, rmi, melhor) -> str:
   .inelegivel {{ color: #991b1b; }}
   .pendente {{ color: #1d4ed8; }}
   .aviso {{ background: #fef9c3; border-left: 4px solid #b45309; padding: 6pt 10pt; margin: 8pt 0; font-size: 10pt; }}
+  .destaque-rmi {{
+    text-align: center;
+    padding: 20pt; margin: 16pt 0;
+    background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+    border-left: 6px solid #16a34a;
+    border-radius: 6pt;
+  }}
+  .destaque-rmi .valor {{ font-size: 28pt; font-weight: 800; color: #065f46; }}
+  .destaque-rmi .label {{ font-size: 10pt; color: #064e3b; letter-spacing: 1pt; text-transform: uppercase; }}
+  .destaque-rmi.inelegivel {{
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-left-color: #b45309;
+  }}
+  .destaque-rmi.inelegivel .valor {{ color: #92400e; }}
+
   .subtitulo {{ font-size: 10pt; text-align: center; color: #6b7280; margin-bottom: 12pt; }}
   .page-break {{ page-break-before: always; }}
   .mem-table td {{ padding: 2pt 6pt; font-size: 9pt; }}
   @media print {{
-    body {{ padding: 1cm; }}
+    body {{ padding: 0; }}
     .page-break {{ page-break-before: always; }}
   }}
 </style>
 </head>
 <body>
+
+<!-- ── CAPA FELICIANO ADVOCACIA ── -->
+<div class="capa-feliciano">
+  <div class="capa-logo">FELICIANO ADVOCACIA</div>
+  <div class="capa-sub-logo">Assessoria Jurídica Previdenciária</div>
+  <hr class="capa-linha"/>
+  <div class="capa-titulo">{_esc(titulo)}</div>
+  <div class="capa-nome">{_esc(nome)}</div>
+  <div class="capa-dados">
+    <div class="row"><span class="label">CPF:</span> {_esc(cpf)}</div>
+    <div class="row"><span class="label">Data de Nascimento:</span> {_esc(nasc)}</div>
+    <div class="row"><span class="label">NIT / PIS-PASEP:</span> {_esc(nit)}</div>
+    <div class="row"><span class="label">Data do Relatório:</span> {hoje}</div>
+  </div>
+  <hr class="capa-linha"/>
+  <div style="font-size:9pt;color:#6b7280;margin-top:30pt;font-style:italic;">
+    Documento técnico-pericial · Conforme Lei 8.213/91, EC 103/2019 e Manual CJF Res. 963/2025
+  </div>
+</div>
+
+<!-- ── CABEÇALHO INTERNO ── -->
 <h1>{_esc(titulo)}</h1>
 <p class="subtitulo">Elaborado em {hoje} &middot; Conforme Lei 8.213/91, EC 103/2019 e Manual CJF Res. 963/2025</p>
 <hr style="border:none;border-top:3px solid #1a3c6e;margin-bottom:16pt;"/>
@@ -629,12 +766,22 @@ def _css_planejamento(nome, hoje) -> str:
 # Seções do relatório pericial
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _secao_identificacao(dp: Dict, der: str, tipo: str, hoje: str) -> str:
+def _secao_identificacao(dp: Dict, der: str, tipo: str, hoje: str,
+                         modo_revisao: bool = False, nb_ativo: Dict = None) -> str:
     nome = _esc(dp.get("nome") or "—")
     cpf = _fmt_cpf(dp.get("cpf") or "")
     dn = _esc(dp.get("data_nascimento") or "—")
     sexo = _esc(dp.get("sexo") or "—")
     nit = _esc(dp.get("nit") or "—")
+
+    modo_str = '<span style="color:#991b1b;font-weight:700;">REVISÃO DE BENEFÍCIO ATIVO</span>' if modo_revisao else "Cálculo inicial"
+
+    nb_row = ""
+    if nb_ativo:
+        nb_row = f"""
+  <tr><td>Benefício Ativo (NB)</td><td><strong>{_esc(nb_ativo.get('numero','—'))}</strong> — Espécie {_esc(nb_ativo.get('especie','—'))}</td></tr>
+  <tr><td>DIB do Benefício Ativo</td><td>{_esc(nb_ativo.get('dib','—'))}</td></tr>
+  <tr><td>RMI Administrativa Vigente</td><td>R$ {_fmt_brl(nb_ativo.get('rmi','0')) if nb_ativo.get('rmi') else '—'}</td></tr>"""
 
     return f"""
 <h2>1. Identificação do Segurado</h2>
@@ -647,6 +794,8 @@ def _secao_identificacao(dp: Dict, der: str, tipo: str, hoje: str) -> str:
   <tr><td>Sexo</td><td>{sexo}</td></tr>
   <tr><td>Data de Entrada do Requerimento (DER)</td><td>{_esc(der)}</td></tr>
   <tr><td>Tipo de Benefício Analisado</td><td>{_esc(tipo)}</td></tr>
+  <tr><td>Modalidade do Cálculo</td><td>{modo_str}</td></tr>
+  {nb_row}
   <tr><td>Data do Relatório</td><td>{hoje}</td></tr>
 </table>
 """
@@ -683,9 +832,14 @@ def _secao_vinculos(vinculos: List[Dict]) -> str:
 """
 
 
-def _secao_resultado(elegivel: bool, rmi: str, melhor: Optional[Dict], cenarios: List[Dict]) -> str:
+def _secao_resultado(elegivel: bool, rmi: str, melhor: Optional[Dict], cenarios: List[Dict],
+                     modo_revisao: bool = False) -> str:
     cls = "elegivel" if elegivel else "inelegivel"
-    status = "ELEGÍVEL" if elegivel else "NÃO ELEGÍVEL"
+    # Linguagem condicional: "elegível" é estimativa quando há alertas
+    if modo_revisao:
+        status = "ELEGÍVEL (estimativa — sujeita a validação revisional)" if elegivel else "NÃO ELEGÍVEL"
+    else:
+        status = "ELEGÍVEL (conforme dados informados)" if elegivel else "NÃO ELEGÍVEL"
     rmi_fmt = _fmt_brl(rmi)
     melhor_nome = melhor.get("nome_regra", "—") if melhor else "—"
     melhor_lei = melhor.get("base_legal", "—") if melhor else "—"
@@ -698,6 +852,11 @@ def _secao_resultado(elegivel: bool, rmi: str, melhor: Optional[Dict], cenarios:
     if tc:
         tc_str = f"{tc.get('anos',0)} anos, {tc.get('meses',0)} meses e {tc.get('dias',0)} dias ({tc.get('total_dias',0):,} dias)"
 
+    rmi_label = "RMI Estimada" if modo_revisao else "RMI — Renda Mensal Inicial"
+    rmi_nota = ""
+    if modo_revisao:
+        rmi_nota = '<tr><td colspan="2" class="aviso" style="font-size:9pt;">⚠ Este valor é uma estimativa calculada com base nos dados informados. Deve ser confrontado com a RMI administrativa vigente e a memória de cálculo do INSS antes de ser utilizado em petição.</td></tr>'
+
     return f"""
 <h2>3. Resultado do Cálculo</h2>
 <table>
@@ -709,7 +868,8 @@ def _secao_resultado(elegivel: bool, rmi: str, melhor: Optional[Dict], cenarios:
   <tr><td>Salário de Benefício (SB)</td><td>R$ {sb}</td></tr>
   <tr><td>Coeficiente Aplicado</td><td>{coef}</td></tr>
   {f'<tr><td>Fator Previdenciário</td><td>{_esc(str(fp))}</td></tr>' if fp else ''}
-  <tr class="total-row"><td><strong>RMI — Renda Mensal Inicial</strong></td><td style="font-size:14pt;font-weight:800" class="{cls}">R$ {rmi_fmt}</td></tr>
+  <tr class="total-row"><td><strong>{rmi_label}</strong></td><td style="font-size:14pt;font-weight:800" class="{cls}">R$ {rmi_fmt}</td></tr>
+  {rmi_nota}
 </table>
 """
 
@@ -783,28 +943,66 @@ def _secao_fundamentacao() -> str:
 """
 
 
-def _secao_conclusao(elegivel: bool, melhor: Optional[Dict], dp: Dict) -> str:
+def _secao_conclusao(elegivel: bool, melhor: Optional[Dict], dp: Dict,
+                     modo_revisao: bool = False, nb_ativo: Dict = None,
+                     alertas: list = None) -> str:
     hoje = date.today().strftime("%d/%m/%Y")
     nome = dp.get("nome", "o segurado")
-    if elegivel and melhor:
+    tem_alertas = bool(alertas)
+
+    if modo_revisao and elegivel and melhor:
+        # ── MODO REVISÃO: NB ativo existe ──────────────────────────────────
         rmi = _fmt_brl(melhor.get("rmi", "0"))
         regra = melhor.get("nome_regra", "—")
-        concl = f"""Com base nos documentos e cálculos realizados, conclui-se que <strong>{_esc(nome)}</strong>
-        está <strong class="elegivel">ELEGÍVEL</strong> para requerer aposentadoria pela regra <strong>{_esc(regra)}</strong>,
-        com Renda Mensal Inicial apurada de <strong>R$ {rmi}</strong>.
-        Recomenda-se o protocolo imediato do requerimento junto ao INSS para evitar perda de competências."""
+        rmi_admin = _fmt_brl(nb_ativo.get("rmi", "0")) if nb_ativo and nb_ativo.get("rmi") else "não informada"
+        concl = f"""Com base nos dados informados e nos cálculos realizados, identifica-se que
+        <strong>{_esc(nome)}</strong> possui tese revisional plausível pela regra
+        <strong>{_esc(regra)}</strong>, com RMI estimada de <strong>R$ {rmi}</strong>.
+
+        <div class="aviso" style="margin:10pt 0;">
+          <strong>IMPORTANTE — CASO DE REVISÃO:</strong> O segurado já possui benefício ativo
+          (NB {_esc(nb_ativo.get('numero','—') if nb_ativo else '—')}), com RMI administrativa de
+          R$ {rmi_admin}. A RMI estimada acima deve ser confrontada com a memória de cálculo
+          administrativa do INSS antes de ser utilizada em petição revisional.
+          A saída correta para este caso é <strong>revisão do benefício existente</strong>,
+          não novo requerimento.
+        </div>"""
+    elif elegivel and melhor:
+        # ── CÁLCULO INICIAL: sem NB ativo ──────────────────────────────────
+        rmi = _fmt_brl(melhor.get("rmi", "0"))
+        regra = melhor.get("nome_regra", "—")
+        concl = f"""Com base nos dados informados e cálculos realizados, os requisitos para
+        aposentadoria pela regra <strong>{_esc(regra)}</strong> aparentam estar preenchidos,
+        com RMI estimada de <strong>R$ {rmi}</strong>.
+        Recomenda-se a conferência dos dados com o CNIS atualizado e a memória de cálculo do INSS
+        antes de protocolar requerimento."""
     else:
-        concl = f"""Com base nos documentos analisados, <strong>{_esc(nome)}</strong> ainda não preenche
+        concl = f"""Com base nos dados informados, <strong>{_esc(nome)}</strong> ainda não preenche
         todos os requisitos para a aposentadoria na data de referência informada.
-        Os dados, cálculos e fundamentação acima representam a análise técnica completa da situação previdenciária."""
+        Os dados, cálculos e fundamentação acima representam a análise técnica da situação previdenciária
+        conforme os insumos disponíveis."""
+
+    # ── Nota metodológica (substitui "rigorosamente") ──────────────────
+    nota_metodo = """Os cálculos foram realizados pelo Sistema SistPrev, seguindo a metodologia
+  do Manual de Cálculos da Justiça Federal — Resolução CJF nº 963/2025. Os índices de correção
+  e parâmetros legais são os mesmos utilizados pelos sistemas CECALC/TRF3 e Conta Fácil Prev/TRF4."""
+
+    if tem_alertas:
+        nota_metodo += """
+  <br/><strong>Ressalva:</strong> Este relatório contém alertas de consistência (vide Seção de Alertas acima).
+  Os resultados são estimativas baseadas nos dados informados e devem ser validados contra a documentação
+  administrativa do caso antes de serem utilizados como prova técnica."""
+
+    nota_metodo += """
+  <br/><em>Os valores apresentados são estimativas calculadas com base nos dados disponíveis no momento
+  da elaboração. Variações nos insumos (tempo reconhecido, salários de contribuição, períodos especiais)
+  podem alterar significativamente o resultado final.</em>"""
 
     return f"""
 <h2 class="page-break">6. Conclusão</h2>
 <p style="margin-bottom:10pt;line-height:1.8;">{concl}</p>
-<p style="margin-bottom:10pt;font-size:10pt;color:#6b7280;">
-  Os cálculos foram realizados pelo Sistema SistPrev, observando rigorosamente o Manual de Cálculos
-  da Justiça Federal — Resolução CJF nº 963/2025, e as mesmas premissas utilizadas pelos sistemas
-  CECALC/TRF3 e Conta Fácil Prev/TRF4.
+<p style="margin-bottom:10pt;font-size:10pt;color:#6b7280;line-height:1.7;">
+  {nota_metodo}
 </p>
 <div style="margin-top:40pt;text-align:center;border-top:1px solid #e5e7eb;padding-top:24pt;">
   <p>___________________________________________</p>
@@ -812,6 +1010,142 @@ def _secao_conclusao(elegivel: bool, melhor: Optional[Dict], dp: Dict) -> str:
   <p style="font-size:10pt;color:#6b7280;">{hoje}</p>
 </div>
 """
+
+
+def _secao_explicacao_revisao_cliente(dp: Dict, der, melhor: Dict, nb_ativo: Dict, elegivel: bool) -> str:
+    """
+    Seção em linguagem simples para o CLIENTE entender o que está acontecendo.
+
+    Exemplo de saída:
+    'Quando você se aposentou em 01/03/2015, o INSS calculou sua aposentadoria
+     em R$ 2.000/mês. Mas o cálculo correto deveria ter resultado em R$ 3.000/mês.
+     Isso significa que o INSS vem pagando R$ 1.000 a menos por mês desde a data
+     em que a aposentadoria começou. Esse valor pode ser cobrado...'
+    """
+    nome = _esc(dp.get("nome", "o segurado"))
+    dib = nb_ativo.get("dib", "—")
+    rmi_admin_raw = nb_ativo.get("rmi")
+    nb_num = _esc(nb_ativo.get("numero", "—"))
+    especie = _esc(nb_ativo.get("especie", "—"))
+
+    if not elegivel or not melhor:
+        return f"""
+<h2 class="page-break">📋 Explicação para o Cliente</h2>
+<div style="background:#f0f9ff;border:2px solid #0284c7;border-radius:10px;padding:20pt;margin:14pt 0;font-size:11pt;line-height:1.9;">
+  <p><strong>O que foi analisado:</strong></p>
+  <p>O sistema revisou o benefício de aposentadoria de <strong>{nome}</strong>
+  (NB {nb_num}, espécie {especie}), que está ativo desde <strong>{dib}</strong>.</p>
+  <p><strong>Resultado da análise:</strong> Com base nos dados disponíveis, <u>não foi possível
+  identificar uma regra de aposentadoria que gere valor superior ao benefício atual.</u>
+  Isso não significa que não haja direito — pode haver períodos faltantes, salários divergentes
+  ou vínculos não registrados que, após regularização no CNIS, alterem este resultado.</p>
+  <p style="background:#fef3c7;padding:8pt 12pt;border-radius:6px;">
+  <strong>Próximo passo:</strong> Conferir o CNIS completo, CTPS física e holerites para
+  verificar se há períodos ou salários não registrados que poderiam mudar o cálculo.</p>
+</div>"""
+
+    rmi_calc = float(str(melhor.get("rmi", "0")).replace(",", "."))
+    rmi_admin = float(str(rmi_admin_raw).replace(",", ".")) if rmi_admin_raw else 0.0
+    diferenca = rmi_calc - rmi_admin if rmi_calc > rmi_admin else 0.0
+
+    if diferenca <= 0:
+        return f"""
+<h2 class="page-break">📋 Explicação para o Cliente</h2>
+<div style="background:#f0f9ff;border:2px solid #0284c7;border-radius:10px;padding:20pt;margin:14pt 0;font-size:11pt;line-height:1.9;">
+  <p>O cálculo foi revisado com os dados do CNIS. O valor calculado (R$ {_fmt_brl(rmi_calc)}/mês)
+  <strong>não supera</strong> o benefício que o INSS já paga (R$ {_fmt_brl(rmi_admin)}/mês).
+  Não há diferença a recuperar por esta combinação de regra e dados.</p>
+  <p style="background:#fef3c7;padding:8pt 12pt;border-radius:6px;">
+  Isso pode mudar se houver períodos faltantes no CNIS ou salários divergentes.
+  Verifique a CTPS e holerites.</p>
+</div>"""
+
+    # ── Há diferença positiva: gerar explicação didática ─────────────────
+    # Cálculo de retroativos (prescrição quinquenal = 60 meses)
+    from datetime import date as ddate
+    hoje = ddate.today()
+    try:
+        if "/" in str(dib):
+            p = str(dib).split("/")
+            data_dib = ddate(int(p[2]), int(p[1]), int(p[0]))
+        else:
+            data_dib = ddate.fromisoformat(str(dib))
+        meses_total = (hoje.year - data_dib.year) * 12 + (hoje.month - data_dib.month)
+    except Exception:
+        meses_total = 0
+
+    meses_prescritos = max(0, meses_total - 60)
+    meses_validos = min(meses_total, 60)
+    retroativo_bruto = diferenca * meses_validos
+
+    regra = _esc(melhor.get("nome_regra", "—"))
+    tc = melhor.get("tempo_contribuicao", {})
+    tc_txt = f"{tc.get('anos','?')} anos, {tc.get('meses','?')} meses" if tc else "—"
+
+    return f"""
+<h2 class="page-break">📋 Explicação para o Cliente</h2>
+<div style="background:#f0f9ff;border:2px solid #0284c7;border-radius:10px;padding:20pt;margin:14pt 0;font-size:11pt;line-height:1.9;">
+
+  <h3 style="color:#0369a1;font-size:13pt;margin-bottom:14pt;">O que aconteceu com a sua aposentadoria?</h3>
+
+  <p>Quando <strong>{nome}</strong> se aposentou (NB {nb_num}), o benefício começou
+  a ser pago em <strong>{dib}</strong>.</p>
+
+  <p>O INSS calculou a aposentadoria e fixou a renda mensal em
+  <strong style="color:#dc2626;">R$ {_fmt_brl(rmi_admin)}/mês</strong>.</p>
+
+  <p>Após revisão técnica dos dados do CNIS, aplicando a regra
+  <strong>{regra}</strong> com <strong>{tc_txt}</strong> de contribuição,
+  o valor correto que deveria ter sido pago desde o início é
+  <strong style="color:#059669;">R$ {_fmt_brl(rmi_calc)}/mês</strong>.</p>
+
+  <div style="background:#fff;border:1px solid #bae6fd;border-radius:8px;padding:14pt;margin:14pt 0;">
+    <table style="width:100%;font-size:11pt;border-collapse:collapse;">
+      <tr><td style="padding:5pt 0;"><strong>O INSS pagou por mês:</strong></td>
+          <td style="text-align:right;color:#dc2626;font-weight:700;">R$ {_fmt_brl(rmi_admin)}</td></tr>
+      <tr style="border-top:1px solid #e0f2fe;"><td style="padding:5pt 0;"><strong>O correto seria:</strong></td>
+          <td style="text-align:right;color:#059669;font-weight:700;">R$ {_fmt_brl(rmi_calc)}</td></tr>
+      <tr style="border-top:2px solid #0284c7;"><td style="padding:5pt 0;"><strong>Diferença mensal (o que o INSS pagou a menos):</strong></td>
+          <td style="text-align:right;color:#d97706;font-weight:800;font-size:13pt;">R$ {_fmt_brl(diferenca)}</td></tr>
+    </table>
+  </div>
+
+  <h3 style="color:#0369a1;font-size:13pt;margin:14pt 0 10pt;">Quanto pode ser cobrado de volta?</h3>
+
+  <p>O INSS deve a diferença de <strong>R$ {_fmt_brl(diferenca)}/mês</strong> desde {dib}.</p>
+  <p>Porém, a lei (Art. 103, parágrafo único, Lei 8.213/91) diz que
+  <strong>só podem ser cobrados os últimos 5 anos</strong> — isso se chama
+  <em>prescrição quinquenal</em>. Parcelas com mais de 5 anos ficam prescritas
+  (não podem mais ser cobradas).</p>
+
+  <div style="background:#fff;border:1px solid #bae6fd;border-radius:8px;padding:14pt;margin:14pt 0;">
+    <table style="width:100%;font-size:11pt;border-collapse:collapse;">
+      <tr><td style="padding:5pt 0;">Meses desde que a aposentadoria começou:</td>
+          <td style="text-align:right;">{meses_total} meses</td></tr>
+      <tr style="border-top:1px solid #e0f2fe;">
+          <td style="padding:5pt 0;color:#dc2626;">Meses prescritos (mais de 5 anos — já perdidos por lei):</td>
+          <td style="text-align:right;color:#dc2626;">{meses_prescritos} meses</td></tr>
+      <tr style="border-top:1px solid #e0f2fe;">
+          <td style="padding:5pt 0;color:#059669;"><strong>Meses dentro do prazo (últimos 60 meses):</strong></td>
+          <td style="text-align:right;color:#059669;font-weight:700;">{meses_validos} meses</td></tr>
+      <tr style="border-top:2px solid #0284c7;background:#f0f9ff;">
+          <td style="padding:6pt;"><strong>Retroativo estimado (sem correção):</strong><br>
+          <small style="color:#6b7280;">R$ {_fmt_brl(diferenca)}/mês × {meses_validos} meses</small></td>
+          <td style="text-align:right;font-weight:800;font-size:14pt;color:#0369a1;">R$ {_fmt_brl(retroativo_bruto)}</td></tr>
+    </table>
+  </div>
+
+  <div style="background:#fef3c7;border-radius:8px;padding:10pt 14pt;">
+    <strong>⚠ Atenção:</strong> O valor acima é uma <u>estimativa</u> sem correção monetária.
+    O valor real, após atualização pelo INPC (até nov/2021) e SELIC (a partir de nov/2021,
+    conforme EC 113/2021), será calculado pelo contador judicial se o processo for necessário.
+    <br><br>
+    <strong>Como funciona:</strong> Se o INSS não revisar administrativamente, seu advogado
+    entrará com uma ação judicial pedindo: (1) a revisão do valor mensal para R$ {_fmt_brl(rmi_calc)},
+    e (2) o pagamento do retroativo (os meses dentro do prazo de 5 anos), com correção.
+    Esse pagamento é feito pelo INSS via RPV (pequeno valor) ou precatório, dependendo do total.
+  </div>
+</div>"""
 
 
 # ─────────────────────────────────────────────────────────────────────────────

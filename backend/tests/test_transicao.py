@@ -45,21 +45,22 @@ def _segurado_modelo(
 
 class TestRegrasTransicao:
     def test_homem_35_anos_tc_elegivel_alguma_regra(self):
-        """Homem com 35 anos de TC completos deve ser elegível por alguma regra."""
-        # Começa a contribuir em jan/1990, tem mais de 35 anos em 2025
+        """Homem que ja tinha 35 anos de TC em 13/11/2019 deve ter Direito Adquirido."""
+        # Comeca a contribuir em jan/1984: em 13/11/2019 tem ~35,87 anos TC -> direito adquirido
         dn = date(1960, 6, 15)
         seg = _segurado_modelo("JOAO SILVA", dn, Sexo.MASCULINO,
-                               date(1990, 1, 1), date(2024, 12, 31))
+                               date(1984, 1, 1), date(2024, 12, 31))
         der = date(2025, 1, 1)
         melhor = melhor_regra(seg, der)
         assert melhor is not None
         assert melhor.elegivel
 
     def test_mulher_30_anos_tc_elegivel(self):
-        """Mulher com 30 anos de TC deve ser elegível."""
+        """Mulher que ja tinha 30 anos de TC em 13/11/2019 deve ter Direito Adquirido."""
+        # Comeca a contribuir em jan/1989: em 13/11/2019 tem ~30,87 anos TC -> direito adquirido
         dn = date(1965, 3, 20)
         seg = _segurado_modelo("MARIA SANTOS", dn, Sexo.FEMININO,
-                               date(1993, 1, 1), date(2023, 12, 31))
+                               date(1989, 1, 1), date(2023, 12, 31))
         der = date(2024, 1, 1)
         melhor = melhor_regra(seg, der)
         assert melhor is not None

@@ -52,6 +52,10 @@ class VinculoSchema(BaseModel):
     data_fim: Optional[str] = None
     contribuicoes: List[ContribuicaoSchema] = []
     indicadores: Optional[str] = ""  # Indicadores CNIS (PREC-MENOR-MIN, etc.)
+    # Flag: data_fim não constava no CNIS — foi inferida do último recolhimento
+    data_fim_inferida: bool = False
+    # Data fim efetiva calculada (último recolhimento ou hoje se sem contribuições)
+    data_fim_efetiva: Optional[str] = None
 
     @field_validator("tipo_vinculo")
     @classmethod
@@ -122,6 +126,7 @@ class CalculoAposentadoriaRequest(BaseModel):
     segurado: SeguradoSchema
     der: str                    # "DD/MM/AAAA" ou ISO
     tipo: str = "transicao"     # "transicao" | "idade" | "especial_15/20/25"
+    complementar_mei: bool = False  # Se True, simula MEI 5% como se fosse complementado (20%)
 
 
 class CalculoAuxilioDoencaRequest(BaseModel):
@@ -196,6 +201,17 @@ class CenarioResponse(BaseModel):
     memoria: List[Dict[str, Any]] = []
 
 
+class AlertaMEISchema(BaseModel):
+    """Alerta de período MEI 5% que não conta para TC mas pode ser complementado."""
+    periodo_inicio: str       # "MM/AAAA"
+    periodo_fim: str          # "MM/AAAA"
+    meses: int                # quantos meses são MEI puro
+    custo_complementacao_mes: str   # R$ por mês (15% do SM vigente)
+    custo_total_estimado: str       # custo total do período
+    impacto_tc_meses: int     # meses que seriam adicionados ao TC se complementado
+    base_legal: str = "LC 123/2006, Art. 18-A §4° c/c Art. 21 §3° Lei 8.212/91"
+
+
 class CalculoResponse(BaseModel):
     elegivel: bool
     der: str
@@ -206,6 +222,11 @@ class CalculoResponse(BaseModel):
     todos_cenarios: List[CenarioResponse] = []
     erros: List[str] = []
     avisos: List[str] = []
+    modo_revisao: bool = False
+    nb_ativo: Optional[Dict[str, Any]] = None
+    alertas_consistencia: List[str] = []
+    alertas_mei: List[AlertaMEISchema] = []      # períodos MEI complementáveis
+    complementar_mei_simulado: bool = False       # se foi simulado com complementação
 
 
 class ResumoSeguradoResponse(BaseModel):

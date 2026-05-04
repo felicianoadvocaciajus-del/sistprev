@@ -1,0 +1,4598 @@
+{
+  "id": "0552de060bb8",
+  "nome_cliente": "BEATRIZ FELICIANO MENDES VELOSO",
+  "data_elaboracao": "2026-04-10",
+  "nome_advogado": "Neto",
+  "observacoes": "",
+  "segurado": {
+    "dados_pessoais": {
+      "nome": "BEATRIZ FELICIANO MENDES VELOSO",
+      "data_nascimento": "11/09/1966",
+      "sexo": "FEMININO",
+      "cpf": "28326990817",
+      "nit": "26819015435"
+    },
+    "vinculos": [
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO Empregado",
+        "tipo_vinculo": "EMPREGADO_DOMESTICO",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/01/1980",
+        "data_fim": "31/12/1985",
+        "contribuicoes": [
+          {
+            "competencia": "01/1980",
+            "salario": "0.43",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1980",
+            "salario": "0.43",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1980",
+            "salario": "0.37",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1980",
+            "salario": "0.37",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1980",
+            "salario": "0.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1980",
+            "salario": "0.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1980",
+            "salario": "0.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1980",
+            "salario": "0.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1980",
+            "salario": "0.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1980",
+            "salario": "0.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1980",
+            "salario": "1.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1980",
+            "salario": "0.93",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1981",
+            "salario": "0.50",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1981",
+            "salario": "0.50",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1981",
+            "salario": "0.43",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1981",
+            "salario": "0.43",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1981",
+            "salario": "0.68",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1981",
+            "salario": "0.62",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1981",
+            "salario": "0.62",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1981",
+            "salario": "0.56",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1981",
+            "salario": "0.56",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1981",
+            "salario": "0.50",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1981",
+            "salario": "0.62",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1981",
+            "salario": "0.62",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1982",
+            "salario": "0.70",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1982",
+            "salario": "0.70",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1982",
+            "salario": "0.64",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1982",
+            "salario": "0.59",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1982",
+            "salario": "0.59",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1982",
+            "salario": "0.54",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1982",
+            "salario": "0.48",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1982",
+            "salario": "0.48",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1982",
+            "salario": "0.43",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1982",
+            "salario": "0.43",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1982",
+            "salario": "0.37",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1982",
+            "salario": "0.37",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1983",
+            "salario": "1.40",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1983",
+            "salario": "1.29",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1983",
+            "salario": "1.18",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1983",
+            "salario": "1.08",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1983",
+            "salario": "1.02",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1983",
+            "salario": "0.91",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1983",
+            "salario": "0.86",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1983",
+            "salario": "0.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1983",
+            "salario": "0.70",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1983",
+            "salario": "0.64",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1983",
+            "salario": "0.59",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1983",
+            "salario": "0.54",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1984",
+            "salario": "1.24",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1984",
+            "salario": "1.13",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1984",
+            "salario": "1.02",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1984",
+            "salario": "0.97",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1984",
+            "salario": "0.86",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1984",
+            "salario": "0.81",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1984",
+            "salario": "0.70",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1984",
+            "salario": "0.64",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1984",
+            "salario": "0.54",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1984",
+            "salario": "0.48",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1984",
+            "salario": "0.48",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1984",
+            "salario": "0.43",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1985",
+            "salario": "0.91",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1985",
+            "salario": "0.81",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1985",
+            "salario": "0.70",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1985",
+            "salario": "0.64",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1985",
+            "salario": "0.70",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1985",
+            "salario": "0.64",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1985",
+            "salario": "0.59",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1985",
+            "salario": "0.54",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1985",
+            "salario": "0.48",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1985",
+            "salario": "0.43",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1985",
+            "salario": "0.37",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1985",
+            "salario": "0.32",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "IREC-INDPEND",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "31/12/1985"
+      },
+      {
+        "empregador_cnpj": "53863106000185",
+        "empregador_nome": "CALVO ATACADISTA LTDA",
+        "tipo_vinculo": "EMPREGADO",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "07/10/1985",
+        "data_fim": "04/01/1986",
+        "contribuicoes": [
+          {
+            "competencia": "10/1985",
+            "salario": "551000.46",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1985",
+            "salario": "985002.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1985",
+            "salario": "1095000.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "04/01/1986"
+      },
+      {
+        "empregador_cnpj": "49098601000178",
+        "empregador_nome": "HOSPITAL MENINO JESUS DE GUARULHOS S/A",
+        "tipo_vinculo": "EMPREGADO",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "08/01/1986",
+        "data_fim": "29/01/1986",
+        "contribuicoes": [
+          {
+            "competencia": "01/1986",
+            "salario": "513000.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "29/01/1986"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO Empregado",
+        "tipo_vinculo": "EMPREGADO_DOMESTICO",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/02/1986",
+        "data_fim": "31/12/1987",
+        "contribuicoes": [
+          {
+            "competencia": "02/1986",
+            "salario": "6.70",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1986",
+            "salario": "2.21",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1986",
+            "salario": "2.16",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1986",
+            "salario": "2.16",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1986",
+            "salario": "2.10",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1986",
+            "salario": "2.10",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1986",
+            "salario": "2.05",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1986",
+            "salario": "2.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1986",
+            "salario": "1.94",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1986",
+            "salario": "1.78",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1986",
+            "salario": "1.56",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1987",
+            "salario": "1.29",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1987",
+            "salario": "1.13",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1987",
+            "salario": "0.91",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1987",
+            "salario": "0.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1987",
+            "salario": "0.64",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1987",
+            "salario": "0.59",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1987",
+            "salario": "0.54",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1987",
+            "salario": "0.54",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1987",
+            "salario": "0.48",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1987",
+            "salario": "0.43",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1987",
+            "salario": "0.37",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1987",
+            "salario": "0.32",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "IREC-INDPEND",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "31/12/1987"
+      },
+      {
+        "empregador_cnpj": "60885258000900",
+        "empregador_nome": "CHAMBORD AUTO LTDA",
+        "tipo_vinculo": "EMPREGADO",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "11/07/1986",
+        "data_fim": "02/10/1986",
+        "contribuicoes": [],
+        "indicadores": "",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "02/10/1986"
+      },
+      {
+        "empregador_cnpj": "56755119000129",
+        "empregador_nome": "DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA",
+        "tipo_vinculo": "MEI",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/05/1988",
+        "data_fim": null,
+        "contribuicoes": [
+          {
+            "competencia": "05/1988",
+            "salario": "14999.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1988",
+            "salario": "17650.03",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1988",
+            "salario": "20772.98",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1988",
+            "salario": "24445.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1988",
+            "salario": "29675.04",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1988",
+            "salario": "36021.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1988",
+            "salario": "62413.91",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1988",
+            "salario": "82740.95",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1989",
+            "salario": "51.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1989",
+            "salario": "78.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1989",
+            "salario": "78.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1989",
+            "salario": "78.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1989",
+            "salario": "81.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1989",
+            "salario": "119.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1989",
+            "salario": "149.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1989",
+            "salario": "255.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1989",
+            "salario": "342.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1989",
+            "salario": "466.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1989",
+            "salario": "960.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1989",
+            "salario": "1468.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "",
+        "data_fim_inferida": true,
+        "data_fim_efetiva": "31/12/1989"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO Empregado",
+        "tipo_vinculo": "EMPREGADO_DOMESTICO",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/01/1990",
+        "data_fim": "31/12/1992",
+        "contribuicoes": [
+          {
+            "competencia": "01/1990",
+            "salario": "1.45",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1990",
+            "salario": "0.85",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1990",
+            "salario": "0.65",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1990",
+            "salario": "0.65",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1990",
+            "salario": "0.65",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1990",
+            "salario": "0.60",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1990",
+            "salario": "0.50",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1990",
+            "salario": "0.45",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1990",
+            "salario": "0.40",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1990",
+            "salario": "0.35",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1990",
+            "salario": "0.30",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1990",
+            "salario": "0.25",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1991",
+            "salario": "0.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1991",
+            "salario": "0.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1991",
+            "salario": "0.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1991",
+            "salario": "0.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1991",
+            "salario": "0.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1991",
+            "salario": "0.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1991",
+            "salario": "0.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1991",
+            "salario": "0.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1991",
+            "salario": "0.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1991",
+            "salario": "0.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1991",
+            "salario": "0.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1991",
+            "salario": "0.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1992",
+            "salario": "6.05",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1992",
+            "salario": "4.80",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1992",
+            "salario": "3.90",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1992",
+            "salario": "3.25",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1992",
+            "salario": "2.65",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1992",
+            "salario": "2.15",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1992",
+            "salario": "1.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1992",
+            "salario": "1.45",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1992",
+            "salario": "1.15",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1992",
+            "salario": "0.90",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1992",
+            "salario": "0.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1992",
+            "salario": "0.60",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "IREC-INDPEND",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "31/12/1992"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO Empregado",
+        "tipo_vinculo": "EMPREGADO_DOMESTICO",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/08/1993",
+        "data_fim": "31/12/1993",
+        "contribuicoes": [
+          {
+            "competencia": "08/1993",
+            "salario": "0.15",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1993",
+            "salario": "0.15",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1993",
+            "salario": "0.15",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1993",
+            "salario": "0.15",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1993",
+            "salario": "0.15",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "IREC-INDPEND",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "31/12/1993"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO Empregado",
+        "tipo_vinculo": "EMPREGADO_DOMESTICO",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/03/1994",
+        "data_fim": "30/06/1994",
+        "contribuicoes": [
+          {
+            "competencia": "03/1994",
+            "salario": "1.16",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1994",
+            "salario": "1.66",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1994",
+            "salario": "2.42",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1994",
+            "salario": "3.49",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "IREC-INDPEND",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "30/06/1994"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO CONTRIBUINTE",
+        "tipo_vinculo": "CONTRIBUINTE_INDIVIDUAL",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/08/2014",
+        "data_fim": "31/05/2015",
+        "contribuicoes": [
+          {
+            "competencia": "08/2014",
+            "salario": "724.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/2014",
+            "salario": "724.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/2014",
+            "salario": "724.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/2014",
+            "salario": "724.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/2014",
+            "salario": "724.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/2015",
+            "salario": "788.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/2015",
+            "salario": "788.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/2015",
+            "salario": "788.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/2015",
+            "salario": "788.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/2015",
+            "salario": "788.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "31/05/2015"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO CONTRIBUINTE",
+        "tipo_vinculo": "CONTRIBUINTE_INDIVIDUAL",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/07/2017",
+        "data_fim": "31/10/2017",
+        "contribuicoes": [
+          {
+            "competencia": "07/2017",
+            "salario": "937.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/2017",
+            "salario": "937.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/2017",
+            "salario": "937.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/2017",
+            "salario": "937.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "31/10/2017"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO CONTRIBUINTE",
+        "tipo_vinculo": "CONTRIBUINTE_INDIVIDUAL",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/05/2019",
+        "data_fim": "31/05/2019",
+        "contribuicoes": [
+          {
+            "competencia": "05/2019",
+            "salario": "998.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "31/05/2019"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO CONTRIBUINTE",
+        "tipo_vinculo": "CONTRIBUINTE_INDIVIDUAL",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/08/2019",
+        "data_fim": "29/02/2020",
+        "contribuicoes": [
+          {
+            "competencia": "08/2019",
+            "salario": "998.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/2019",
+            "salario": "998.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/2019",
+            "salario": "998.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/2019",
+            "salario": "998.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/2019",
+            "salario": "998.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/2020",
+            "salario": "1039.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/2020",
+            "salario": "1045.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "29/02/2020"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO CONTRIBUINTE",
+        "tipo_vinculo": "CONTRIBUINTE_INDIVIDUAL",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/04/2020",
+        "data_fim": "30/04/2020",
+        "contribuicoes": [
+          {
+            "competencia": "04/2020",
+            "salario": "1045.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "30/04/2020"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO CONTRIBUINTE",
+        "tipo_vinculo": "CONTRIBUINTE_INDIVIDUAL",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/06/2020",
+        "data_fim": "31/03/2022",
+        "contribuicoes": [
+          {
+            "competencia": "06/2020",
+            "salario": "1045.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/2020",
+            "salario": "1045.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/2020",
+            "salario": "1045.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/2020",
+            "salario": "1045.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/2020",
+            "salario": "1045.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/2020",
+            "salario": "1045.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/2020",
+            "salario": "1045.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/2021",
+            "salario": "1100.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/2021",
+            "salario": "1100.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/2021",
+            "salario": "1100.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/2021",
+            "salario": "1100.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/2021",
+            "salario": "1100.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/2021",
+            "salario": "1100.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/2021",
+            "salario": "1100.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/2021",
+            "salario": "1100.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/2021",
+            "salario": "1100.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/2021",
+            "salario": "1100.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/2021",
+            "salario": "1100.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/2021",
+            "salario": "1100.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/2022",
+            "salario": "1212.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/2022",
+            "salario": "1212.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/2022",
+            "salario": "1212.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "31/03/2022"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO Empregado",
+        "tipo_vinculo": "EMPREGADO_DOMESTICO",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/05/2021",
+        "data_fim": "31/05/2021",
+        "contribuicoes": [
+          {
+            "competencia": "05/2021",
+            "salario": "205.12",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "IREC-INDPEND",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "31/05/2021"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO CONTRIBUINTE",
+        "tipo_vinculo": "CONTRIBUINTE_INDIVIDUAL",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/05/2022",
+        "data_fim": "31/05/2022",
+        "contribuicoes": [
+          {
+            "competencia": "05/2022",
+            "salario": "1212.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "31/05/2022"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO CONTRIBUINTE",
+        "tipo_vinculo": "CONTRIBUINTE_INDIVIDUAL",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/07/2022",
+        "data_fim": "31/08/2023",
+        "contribuicoes": [
+          {
+            "competencia": "07/2022",
+            "salario": "1212.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/2022",
+            "salario": "1212.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/2022",
+            "salario": "1212.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/2022",
+            "salario": "1212.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/2022",
+            "salario": "1212.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/2022",
+            "salario": "1212.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/2023",
+            "salario": "1302.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/2023",
+            "salario": "1302.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/2023",
+            "salario": "1320.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/2023",
+            "salario": "1302.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/2023",
+            "salario": "1320.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/2023",
+            "salario": "1320.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/2023",
+            "salario": "1320.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/2023",
+            "salario": "1320.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "31/08/2023"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO CONTRIBUINTE",
+        "tipo_vinculo": "CONTRIBUINTE_INDIVIDUAL",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/10/2023",
+        "data_fim": "31/12/2023",
+        "contribuicoes": [
+          {
+            "competencia": "10/2023",
+            "salario": "1320.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/2023",
+            "salario": "1320.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/2023",
+            "salario": "1320.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "31/12/2023"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO CONTRIBUINTE",
+        "tipo_vinculo": "CONTRIBUINTE_INDIVIDUAL",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/02/2024",
+        "data_fim": "31/03/2024",
+        "contribuicoes": [
+          {
+            "competencia": "02/2024",
+            "salario": "1412.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/2024",
+            "salario": "1412.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "31/03/2024"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO FACULTATIV",
+        "tipo_vinculo": "FACULTATIVO",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/04/2024",
+        "data_fim": "30/04/2024",
+        "contribuicoes": [
+          {
+            "competencia": "04/2024",
+            "salario": "1412.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "PREC-FACULTCONC, IREC-INDPEND",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "30/04/2024"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO CONTRIBUINTE",
+        "tipo_vinculo": "CONTRIBUINTE_INDIVIDUAL",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/05/2024",
+        "data_fim": "30/06/2024",
+        "contribuicoes": [
+          {
+            "competencia": "05/2024",
+            "salario": "1412.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/2024",
+            "salario": "1412.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "30/06/2024"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO CONTRIBUINTE",
+        "tipo_vinculo": "CONTRIBUINTE_INDIVIDUAL",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/08/2024",
+        "data_fim": "31/08/2024",
+        "contribuicoes": [
+          {
+            "competencia": "08/2024",
+            "salario": "1412.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "IREC-INDPEND, IREC-LC123",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "31/08/2024"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO CONTRIBUINTE",
+        "tipo_vinculo": "CONTRIBUINTE_INDIVIDUAL",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/09/2024",
+        "data_fim": "30/09/2024",
+        "contribuicoes": [
+          {
+            "competencia": "09/2024",
+            "salario": "1412.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "30/09/2024"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO CONTRIBUINTE",
+        "tipo_vinculo": "CONTRIBUINTE_INDIVIDUAL",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/10/2024",
+        "data_fim": "31/10/2024",
+        "contribuicoes": [
+          {
+            "competencia": "10/2024",
+            "salario": "1412.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "IREC-INDPEND, IREC-LC123",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "31/10/2024"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO CONTRIBUINTE",
+        "tipo_vinculo": "CONTRIBUINTE_INDIVIDUAL",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/02/2025",
+        "data_fim": "30/04/2025",
+        "contribuicoes": [
+          {
+            "competencia": "02/2025",
+            "salario": "1518.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/2025",
+            "salario": "1518.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/2025",
+            "salario": "1518.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "IREC-INDPEND, IREC-LC123",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "30/04/2025"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO CONTRIBUINTE",
+        "tipo_vinculo": "CONTRIBUINTE_INDIVIDUAL",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/06/2025",
+        "data_fim": "31/10/2025",
+        "contribuicoes": [
+          {
+            "competencia": "06/2025",
+            "salario": "1518.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/2025",
+            "salario": "1518.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/2025",
+            "salario": "1518.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/2025",
+            "salario": "1518.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/2025",
+            "salario": "1518.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "IREC-INDPEND, IREC-LC123",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "31/10/2025"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO CONTRIBUINTE",
+        "tipo_vinculo": "CONTRIBUINTE_INDIVIDUAL",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/12/2025",
+        "data_fim": "31/12/2025",
+        "contribuicoes": [
+          {
+            "competencia": "12/2025",
+            "salario": "1518.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "IREC-INDPEND, IREC-LC123",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "31/12/2025"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO CONTRIBUINTE",
+        "tipo_vinculo": "EMPREGADO_DOMESTICO",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/02/2026",
+        "data_fim": "28/02/2026",
+        "contribuicoes": [
+          {
+            "competencia": "02/2026",
+            "salario": "1621.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "PREC-FACULTCONC, IREC-INDPEND, IREC-LC123",
+        "data_fim_inferida": false,
+        "data_fim_efetiva": "28/02/2026"
+      }
+    ],
+    "beneficios_anteriores": []
+  },
+  "planejamento": {
+    "der_base": "10/04/2026",
+    "tc_atual": {
+      "anos": 20,
+      "meses": 2,
+      "dias": 2,
+      "total_dias": 7362
+    },
+    "carencia_meses": 242,
+    "analise_tc_carencia": {
+      "tc_total_dias": 7362,
+      "tc_total_texto": "20a 2m 2d",
+      "tc_sem_b31_dias": 7362,
+      "tc_sem_b31_texto": "20a 2m 2d",
+      "dias_b31_intercalado": 0,
+      "meses_b31_intercalado": 0,
+      "carencia_meses": 242,
+      "carencia_exigida": 180,
+      "faltam_carencia": 0,
+      "faltam_carencia_texto": "Completa",
+      "carencia_ok": true,
+      "gargalo": "nenhum",
+      "explicacao": "",
+      "beneficios_b31": []
+    },
+    "salario_projetado": "1508.92",
+    "elegiveis_agora": false,
+    "melhor_data": "01/10/2028",
+    "melhor_regra": "Aposentadoria por Idade (Regra Permanente EC 103)",
+    "melhor_rmi": "1623.00",
+    "projecoes": [
+      {
+        "regra": "Aposentadoria por Idade (Regra Permanente EC 103)",
+        "base_legal": "EC 103/2019 Art. 19; Lei 8.213/91 Art. 48",
+        "data_elegibilidade": "01/10/2028",
+        "meses_faltantes": 30,
+        "anos_faltantes": 2,
+        "meses_resto": 6,
+        "texto_faltante": "2 anos e 6 meses",
+        "rmi_projetada": "1623.00",
+        "rmi_formatada": "R$ 1.623,00",
+        "salario_beneficio": "1467.40",
+        "coeficiente": "0.7532",
+        "fator_previdenciario": null,
+        "tc_na_data": {
+          "anos": 22,
+          "meses": 8,
+          "dias": 7,
+          "total_dias": 8277
+        },
+        "mensagem_cliente": "Pela aposentadoria por idade, você terá direito em 01/10/2028 (faltam 2 anos e 6 meses), com renda de R$ 1.623,00. Exige 65 anos (homem) ou 62 anos (mulher) e 180 meses de contribuição."
+      },
+      {
+        "regra": "Transição — Idade Mínima Progressiva (Art. 16 EC 103/2019)",
+        "base_legal": "EC 103/2019 Art. 16",
+        "data_elegibilidade": "01/03/2036",
+        "meses_faltantes": 119,
+        "anos_faltantes": 9,
+        "meses_resto": 11,
+        "texto_faltante": "9 anos e 11 meses",
+        "rmi_projetada": "1623.00",
+        "rmi_formatada": "R$ 1.623,00",
+        "salario_beneficio": "1499.58",
+        "coeficiente": "0.9015",
+        "fator_previdenciario": null,
+        "tc_na_data": {
+          "anos": 30,
+          "meses": 1,
+          "dias": 5,
+          "total_dias": 10985
+        },
+        "mensagem_cliente": "Pela regra de idade progressiva, sua aposentadoria será em 01/03/2036 (faltam 9 anos e 11 meses), com renda de R$ 1.623,00. Exige tempo de contribuição completo (35H/30M) e idade mínima crescente."
+      },
+      {
+        "regra": "Transição — Sistema de Pontos (Art. 15 EC 103/2019)",
+        "base_legal": "EC 103/2019 Art. 15",
+        "data_elegibilidade": "01/06/2036",
+        "meses_faltantes": 122,
+        "anos_faltantes": 10,
+        "meses_resto": 2,
+        "texto_faltante": "10 anos e 2 meses",
+        "rmi_projetada": "1623.00",
+        "rmi_formatada": "R$ 1.623,00",
+        "salario_beneficio": "1501.17",
+        "coeficiente": "0.9065",
+        "fator_previdenciario": null,
+        "tc_na_data": {
+          "anos": 30,
+          "meses": 4,
+          "dias": 6,
+          "total_dias": 11076
+        },
+        "mensagem_cliente": "Pela regra de pontos, você poderá se aposentar em 01/06/2036 (faltam 10 anos e 2 meses), com renda mensal de R$ 1.623,00. Esta regra exige soma de idade + tempo de contribuição."
+      },
+      {
+        "regra": "Transição — Pedágio 100% + Idade Mínima (Art. 20 EC 103/2019)",
+        "base_legal": "EC 103/2019 Art. 20",
+        "data_elegibilidade": "01/03/2051",
+        "meses_faltantes": 299,
+        "anos_faltantes": 24,
+        "meses_resto": 11,
+        "texto_faltante": "24 anos e 11 meses",
+        "rmi_projetada": "1623.00",
+        "rmi_formatada": "R$ 1.623,00",
+        "salario_beneficio": "1510.86",
+        "coeficiente": "1.0",
+        "fator_previdenciario": null,
+        "tc_na_data": {
+          "anos": 45,
+          "meses": 1,
+          "dias": 8,
+          "total_dias": 16463
+        },
+        "mensagem_cliente": "Pela regra do pedágio 100%, você se aposenta em 01/03/2051 (faltam 24 anos e 11 meses), com renda de R$ 1.623,00. Exige dobrar o tempo que faltava em novembro de 2019."
+      },
+      {
+        "regra": "Transição — Pedágio 50% + FP (Art. 17 EC 103/2019)",
+        "data_elegibilidade": null,
+        "meses_faltantes": null,
+        "texto_faltante": "Não alcançável",
+        "rmi_projetada": "0",
+        "rmi_formatada": "—",
+        "mensagem_cliente": "Esta regra não se aplica ao seu perfil."
+      },
+      {
+        "regra": "Direito Adquirido — TC completo antes de 13/11/2019",
+        "data_elegibilidade": null,
+        "meses_faltantes": null,
+        "texto_faltante": "Não alcançável",
+        "rmi_projetada": "0",
+        "rmi_formatada": "—",
+        "mensagem_cliente": "Esta regra não se aplica ao seu perfil."
+      }
+    ],
+    "recomendacao": "📌 A melhor estratégia é buscar aposentadoria pela regra 'Aposentadoria por Idade (Regra Permanente EC 103)' a partir de 01/10/2028 (faltam 2 anos e 6 meses), com renda estimada de R$ 1.623,00. Mantenha as contribuições em dia para não perder esse prazo.",
+    "argumentos_cliente": [
+      "Seu histórico no CNIS registra 20 anos, 2 meses e 2 dias de tempo de contribuição ao RGPS.",
+      "A aposentadoria mais rápida disponível é pela regra 'Aposentadoria por Idade (Regra Permanente EC 103)', prevista para 01/10/2028 (faltam 2 anos e 6 meses), com renda mensal estimada de R$ 1.623,00.",
+      "Uma alternativa é aguardar a regra 'Transição — Idade Mínima Progressiva (Art. 16 EC 103/2019)' com data prevista em 01/03/2036, que oferece renda de R$ 1.623,00.",
+      "Importante: as datas projetadas assumem contribuição contínua. Períodos sem contribuição (desemprego, doença) atrasam a elegibilidade.",
+      "O valor da renda (RMI) é uma estimativa baseada nos salários atuais. Aumentos salariais futuros e correção monetária podem alterar este valor.",
+      "O teto do INSS em 04/2026 é de R$ 8.621,00. Salários acima deste valor não aumentam a aposentadoria.",
+      "Verifique se há mais de um NIT/PIS/PASEP vinculado ao CPF. É comum que trabalhadores que alternaram entre emprego formal, autônomo ou MEI tenham cadastros fragmentados no INSS, com contribuições 'perdidas' em outro NIT. A unificação pode ser solicitada pelo 135 ou Meu INSS e pode revelar tempo de contribuição adicional decisivo para a aposentadoria."
+    ],
+    "custo_beneficio": [
+      {
+        "regra": "Aposentadoria por Idade (Regra Permanente EC 103)",
+        "data_elegibilidade": "01/10/2028",
+        "meses_faltantes": 30,
+        "rmi": "1623.00",
+        "rmi_formatada": "R$ 1.623,00",
+        "idade_aposentadoria": 62.1,
+        "meses_recebendo": 174.3,
+        "total_recebido": "282823.25",
+        "expectativa_vida_anos": 76.6,
+        "modalidades": [
+          {
+            "modalidade": "Empregado (CLT)",
+            "aliquota_pct": 11,
+            "contribuicao_mensal": "165.98",
+            "total_pago_ate_apos": "4979.40",
+            "meses_para_recuperar": "3.1",
+            "anos_para_recuperar": "0.3",
+            "total_recebido_ate_obito": "282823.25",
+            "lucro_liquido": "277843.85",
+            "roi_percentual": "5579.9",
+            "vale_a_pena": true
+          },
+          {
+            "modalidade": "Autônomo / Contribuinte Individual",
+            "aliquota_pct": 20,
+            "contribuicao_mensal": "301.78",
+            "total_pago_ate_apos": "9053.40",
+            "meses_para_recuperar": "5.6",
+            "anos_para_recuperar": "0.5",
+            "total_recebido_ate_obito": "282823.25",
+            "lucro_liquido": "273769.85",
+            "roi_percentual": "3023.9",
+            "vale_a_pena": true
+          },
+          {
+            "modalidade": "Segurado Facultativo",
+            "aliquota_pct": 20,
+            "contribuicao_mensal": "301.78",
+            "total_pago_ate_apos": "9053.40",
+            "meses_para_recuperar": "5.6",
+            "anos_para_recuperar": "0.5",
+            "total_recebido_ate_obito": "282823.25",
+            "lucro_liquido": "273769.85",
+            "roi_percentual": "3023.9",
+            "vale_a_pena": true
+          }
+        ],
+        "disclaimer": "AVISO: Esta analise de custo-beneficio e uma projecao NOMINAL simplificada. NAO constitui analise atuarial. Nao considera inflacao, reajustes reais, tributacao, valor presente do dinheiro no tempo nem risco de mortalidade. Serve APENAS como referencia ilustrativa para decisao do segurado sobre manter contribuicoes. NAO deve ser apresentada como garantia de retorno.",
+        "tipo_dado": "PROJECAO_SIMPLIFICADA"
+      },
+      {
+        "regra": "Transição — Idade Mínima Progressiva (Art. 16 EC 103/2019)",
+        "data_elegibilidade": "01/03/2036",
+        "meses_faltantes": 119,
+        "rmi": "1623.00",
+        "rmi_formatada": "R$ 1.623,00",
+        "idade_aposentadoria": 69.5,
+        "meses_recebendo": 85.3,
+        "total_recebido": "138376.25",
+        "expectativa_vida_anos": 76.6,
+        "modalidades": [
+          {
+            "modalidade": "Empregado (CLT)",
+            "aliquota_pct": 11,
+            "contribuicao_mensal": "165.98",
+            "total_pago_ate_apos": "19751.62",
+            "meses_para_recuperar": "12.2",
+            "anos_para_recuperar": "1.0",
+            "total_recebido_ate_obito": "138376.25",
+            "lucro_liquido": "118624.63",
+            "roi_percentual": "600.6",
+            "vale_a_pena": true
+          },
+          {
+            "modalidade": "Autônomo / Contribuinte Individual",
+            "aliquota_pct": 20,
+            "contribuicao_mensal": "301.78",
+            "total_pago_ate_apos": "35911.82",
+            "meses_para_recuperar": "22.1",
+            "anos_para_recuperar": "1.8",
+            "total_recebido_ate_obito": "138376.25",
+            "lucro_liquido": "102464.43",
+            "roi_percentual": "285.3",
+            "vale_a_pena": true
+          },
+          {
+            "modalidade": "Segurado Facultativo",
+            "aliquota_pct": 20,
+            "contribuicao_mensal": "301.78",
+            "total_pago_ate_apos": "35911.82",
+            "meses_para_recuperar": "22.1",
+            "anos_para_recuperar": "1.8",
+            "total_recebido_ate_obito": "138376.25",
+            "lucro_liquido": "102464.43",
+            "roi_percentual": "285.3",
+            "vale_a_pena": true
+          }
+        ],
+        "disclaimer": "AVISO: Esta analise de custo-beneficio e uma projecao NOMINAL simplificada. NAO constitui analise atuarial. Nao considera inflacao, reajustes reais, tributacao, valor presente do dinheiro no tempo nem risco de mortalidade. Serve APENAS como referencia ilustrativa para decisao do segurado sobre manter contribuicoes. NAO deve ser apresentada como garantia de retorno.",
+        "tipo_dado": "PROJECAO_SIMPLIFICADA"
+      },
+      {
+        "regra": "Transição — Sistema de Pontos (Art. 15 EC 103/2019)",
+        "data_elegibilidade": "01/06/2036",
+        "meses_faltantes": 122,
+        "rmi": "1623.00",
+        "rmi_formatada": "R$ 1.623,00",
+        "idade_aposentadoria": 69.7,
+        "meses_recebendo": 82.3,
+        "total_recebido": "133507.25",
+        "expectativa_vida_anos": 76.6,
+        "modalidades": [
+          {
+            "modalidade": "Empregado (CLT)",
+            "aliquota_pct": 11,
+            "contribuicao_mensal": "165.98",
+            "total_pago_ate_apos": "20249.56",
+            "meses_para_recuperar": "12.5",
+            "anos_para_recuperar": "1.0",
+            "total_recebido_ate_obito": "133507.25",
+            "lucro_liquido": "113257.69",
+            "roi_percentual": "559.3",
+            "vale_a_pena": true
+          },
+          {
+            "modalidade": "Autônomo / Contribuinte Individual",
+            "aliquota_pct": 20,
+            "contribuicao_mensal": "301.78",
+            "total_pago_ate_apos": "36817.16",
+            "meses_para_recuperar": "22.7",
+            "anos_para_recuperar": "1.9",
+            "total_recebido_ate_obito": "133507.25",
+            "lucro_liquido": "96690.09",
+            "roi_percentual": "262.6",
+            "vale_a_pena": true
+          },
+          {
+            "modalidade": "Segurado Facultativo",
+            "aliquota_pct": 20,
+            "contribuicao_mensal": "301.78",
+            "total_pago_ate_apos": "36817.16",
+            "meses_para_recuperar": "22.7",
+            "anos_para_recuperar": "1.9",
+            "total_recebido_ate_obito": "133507.25",
+            "lucro_liquido": "96690.09",
+            "roi_percentual": "262.6",
+            "vale_a_pena": true
+          }
+        ],
+        "disclaimer": "AVISO: Esta analise de custo-beneficio e uma projecao NOMINAL simplificada. NAO constitui analise atuarial. Nao considera inflacao, reajustes reais, tributacao, valor presente do dinheiro no tempo nem risco de mortalidade. Serve APENAS como referencia ilustrativa para decisao do segurado sobre manter contribuicoes. NAO deve ser apresentada como garantia de retorno.",
+        "tipo_dado": "PROJECAO_SIMPLIFICADA"
+      },
+      {
+        "regra": "Transição — Pedágio 100% + Idade Mínima (Art. 20 EC 103/2019)",
+        "data_elegibilidade": "01/03/2051",
+        "meses_faltantes": 299,
+        "rmi": "1623.00",
+        "rmi_formatada": "R$ 1.623,00",
+        "idade_aposentadoria": 84.5,
+        "meses_recebendo": 0,
+        "total_recebido": "0.00",
+        "expectativa_vida_anos": 76.6,
+        "modalidades": [
+          {
+            "modalidade": "Empregado (CLT)",
+            "aliquota_pct": 11,
+            "contribuicao_mensal": "165.98",
+            "total_pago_ate_apos": "49628.02",
+            "meses_para_recuperar": "30.6",
+            "anos_para_recuperar": "2.6",
+            "total_recebido_ate_obito": "0.00",
+            "lucro_liquido": "-49628.02",
+            "roi_percentual": "-100.0",
+            "vale_a_pena": false
+          },
+          {
+            "modalidade": "Autônomo / Contribuinte Individual",
+            "aliquota_pct": 20,
+            "contribuicao_mensal": "301.78",
+            "total_pago_ate_apos": "90232.22",
+            "meses_para_recuperar": "55.6",
+            "anos_para_recuperar": "4.6",
+            "total_recebido_ate_obito": "0.00",
+            "lucro_liquido": "-90232.22",
+            "roi_percentual": "-100.0",
+            "vale_a_pena": false
+          },
+          {
+            "modalidade": "Segurado Facultativo",
+            "aliquota_pct": 20,
+            "contribuicao_mensal": "301.78",
+            "total_pago_ate_apos": "90232.22",
+            "meses_para_recuperar": "55.6",
+            "anos_para_recuperar": "4.6",
+            "total_recebido_ate_obito": "0.00",
+            "lucro_liquido": "-90232.22",
+            "roi_percentual": "-100.0",
+            "vale_a_pena": false
+          }
+        ],
+        "disclaimer": "AVISO: Esta analise de custo-beneficio e uma projecao NOMINAL simplificada. NAO constitui analise atuarial. Nao considera inflacao, reajustes reais, tributacao, valor presente do dinheiro no tempo nem risco de mortalidade. Serve APENAS como referencia ilustrativa para decisao do segurado sobre manter contribuicoes. NAO deve ser apresentada como garantia de retorno.",
+        "tipo_dado": "PROJECAO_SIMPLIFICADA"
+      }
+    ],
+    "expectativa_vida": {
+      "anos": 76.6,
+      "sexo": "SEXO.FEMININO",
+      "fonte": "IBGE — Tábuas Completas de Mortalidade 2024"
+    },
+    "qualidade_segurado": {
+      "ultima_contribuicao": "02/2026",
+      "periodo_graca_meses": 24,
+      "data_perda_qualidade": "01/03/2028",
+      "status": "ATIVA",
+      "dias_restantes": 691,
+      "mensagem": "Qualidade de segurado ativa. Periodo de graca ate 01/03/2028 (restam 691 dias). Ultima contribuicao: 02/2026.",
+      "fonte": "CONTRIBUICOES_CNIS",
+      "nivel_confianca": "DADO_PRIMARIO"
+    },
+    "pensao_projetada": {
+      "rmi_base": "1623.00",
+      "rmi_base_formatada": "R$ 1.623,00",
+      "cenarios": [
+        {
+          "dependentes": 1,
+          "cota_pct": 60,
+          "valor": "1623.00",
+          "valor_formatado": "R$ 1.623,00"
+        },
+        {
+          "dependentes": 2,
+          "cota_pct": 70,
+          "valor": "1623.00",
+          "valor_formatado": "R$ 1.623,00"
+        },
+        {
+          "dependentes": 3,
+          "cota_pct": 80,
+          "valor": "1623.00",
+          "valor_formatado": "R$ 1.623,00"
+        }
+      ],
+      "mensagem": "Se o segurado falecer hoje, a pensão por morte será calculada sobre a RMI de R$ 1.623,00. Regra EC 103/2019: 50% + 10% por dependente habilitado. Com 1 dependente: R$ 1.623,00; com 2 dependentes: R$ 1.623,00."
+    },
+    "cenarios_vida": [
+      {
+        "cenario": "A",
+        "nome": "CLT (Empregado)",
+        "descricao": "Contribuição como empregado CLT. Empregador deposita FGTS de 8% adicional.",
+        "monthly_cost": "165.98",
+        "fgts_mensal": "120.71",
+        "annual_cost": "1991.76",
+        "total_cost_until_retirement": "4979.40",
+        "impact_on_date": "01/10/2028",
+        "impact_on_rmi": "R$ 1.623,00",
+        "conta_para_tc": true,
+        "observacao": "Desconto em folha ~11%. Adicionalmente, o empregador deposita R$ 120.71 de FGTS/mês."
+      },
+      {
+        "cenario": "B",
+        "nome": "MEI (5% do salário mínimo)",
+        "descricao": "Contribuição como MEI. ATENÇÃO: NÃO conta tempo para aposentadoria por tempo de contribuição.",
+        "monthly_cost": "75.90",
+        "fgts_mensal": "0",
+        "annual_cost": "910.80",
+        "total_cost_until_retirement": "2277.00",
+        "impact_on_date": "Não se aplica (só vale para aposentadoria por idade)",
+        "impact_on_rmi": "R$ 1.623,00",
+        "conta_para_tc": false,
+        "observacao": "Custo mais baixo, porém limita a aposentadoria por idade e valor ao salário mínimo."
+      },
+      {
+        "cenario": "C",
+        "nome": "Segurado Facultativo (20%)",
+        "descricao": "Contribuição como facultativo sobre o salário declarado. Conta para todas as regras.",
+        "monthly_cost": "301.78",
+        "fgts_mensal": "0",
+        "annual_cost": "3621.36",
+        "total_cost_until_retirement": "9053.40",
+        "impact_on_date": "01/10/2028",
+        "impact_on_rmi": "R$ 1.623,00",
+        "conta_para_tc": true,
+        "observacao": "Ideal para quem não tem vínculo empregatício. Mesmo progression de TC que CLT."
+      },
+      {
+        "cenario": "D",
+        "nome": "Complementação MEI (+15% do salário mínimo)",
+        "descricao": "Paga 15% adicional sobre o salário mínimo para que o tempo como MEI conte para TC.",
+        "monthly_cost": "227.70",
+        "custo_total_com_mei": "303.60",
+        "fgts_mensal": "0",
+        "annual_cost": "2732.40",
+        "total_cost_until_retirement": "6831.00",
+        "impact_on_date": "01/10/2028",
+        "impact_on_rmi": "R$ 1.623,00",
+        "conta_para_tc": true,
+        "observacao": "Custo total MEI + complementação: R$ 303.60/mês. RMI limitada ao salário mínimo."
+      },
+      {
+        "cenario": "E",
+        "nome": "Autônomo / Contribuinte Individual (20%)",
+        "descricao": "Contribuição como autônomo (CI) sobre o salário de contribuição. Conta para todas as regras.",
+        "monthly_cost": "301.78",
+        "fgts_mensal": "0",
+        "annual_cost": "3621.36",
+        "total_cost_until_retirement": "9053.40",
+        "impact_on_date": "01/10/2028",
+        "impact_on_rmi": "R$ 1.623,00",
+        "conta_para_tc": true,
+        "observacao": "Mesma progressão que facultativo. Exige comprovação de atividade remunerada."
+      }
+    ],
+    "plano_acao": [
+      {
+        "numero": 1,
+        "titulo": "Verificar e corrigir o CNIS",
+        "descricao": "Solicitar extrato CNIS atualizado no Meu INSS e conferir todos os 29 vínculos. Verificar se há períodos faltantes, salários incorretos ou vínculos não registrados. Se houver divergências, juntar carteira de trabalho, holerites e PPP para retificação. IMPORTANTE: Verificar se o segurado possui mais de um NIT/PIS/PASEP — cadastro fragmentado pode esconder tempo de contribuição. Ligar no 135 para consultar todos os NITs vinculados ao CPF.",
+        "prazo": "Imediato — até 30 dias",
+        "urgencia": "ALTA"
+      },
+      {
+        "numero": 2,
+        "titulo": "Situação da qualidade de segurado",
+        "descricao": "Qualidade de segurado ATIVA (expira em 01/03/2028). Manter contribuições regulares para não perder a condição.",
+        "prazo": "Mensal — manter contribuições",
+        "urgencia": "BAIXA"
+      },
+      {
+        "numero": 3,
+        "titulo": "Estratégia de contribuição recomendada",
+        "descricao": "A regra mais próxima é 'Aposentadoria por Idade (Regra Permanente EC 103)', faltando 2 anos e 6 meses. RMI estimada: R$ 1.623,00. Recomendação: contribuir como empregado CLT ou contribuinte individual (20%) para manter a progressão do tempo de contribuição. Evitar MEI 5% se busca aposentadoria por tempo.",
+        "prazo": "Definir nos próximos 30 dias",
+        "urgencia": "MEDIA"
+      },
+      {
+        "numero": 4,
+        "titulo": "Quando requerer o benefício",
+        "descricao": "Data prevista de elegibilidade: 01/10/2028. Iniciar preparação do requerimento a partir de 03/07/2028 (90 dias antes). Agendar atendimento no Meu INSS ou INSS Digital para protocolar o pedido.",
+        "prazo": "A partir de 03/07/2028",
+        "urgencia": "MEDIA"
+      },
+      {
+        "numero": 5,
+        "titulo": "Documentos a preparar",
+        "descricao": "Reunir os seguintes documentos: (1) RG e CPF; (2) Carteira de Trabalho (física e/ou digital); (3) Extrato CNIS atualizado; (4) Carnês de contribuição (GPS) se houver períodos como autônomo; (5) PPP — Perfil Profissiográfico Previdenciário (se trabalhou em atividade especial); (6) Comprovante de residência atualizado; (7) Dados bancários para recebimento do benefício.",
+        "prazo": "Reunir com antecedência de 90 dias da data de requerimento",
+        "urgencia": "MEDIA"
+      }
+    ],
+    "resumo_executivo": {
+      "situacao_atual": "BEATRIZ, 59 anos, possui 20 anos, 2 meses e 2 dias de tempo de contribuição. Qualidade de segurado: ativa.",
+      "melhor_caminho": "A aposentadoria mais próxima é pela regra 'Aposentadoria por Idade (Regra Permanente EC 103)', prevista para 01/10/2028 (faltam 2 anos e 6 meses), com renda mensal estimada de R$ 1.623,00.",
+      "acao_imediata": "Solicitar extrato CNIS atualizado e conferir todos os vínculos e salários registrados.",
+      "proximo_passo": "Manter contribuições regulares e acompanhar o CNIS para garantir que todos os períodos estejam corretamente registrados. Iniciar preparação dos documentos com 90 dias de antecedência."
+    },
+    "score_prontidao": {
+      "score": 731,
+      "maximo": 1000,
+      "percentual": 73.1,
+      "classificacao": "QUASE_PRONTO",
+      "cor": "#2196f3",
+      "mensagem": "Muito bom! Falta pouco para atingir todos os requisitos da aposentadoria.",
+      "disclaimer": "Este score e uma metrica INTERNA de acompanhamento. NAO tem valor juridico e NAO deve ser apresentado em peticoes ou laudos. Serve apenas como indicador visual do progresso em direcao a aposentadoria.",
+      "alertas": [],
+      "componentes": {
+        "tempo_contribuicao": {
+          "pontos": 201,
+          "maximo": 300,
+          "detalhe": "20a 2m de 30a necessarios"
+        },
+        "idade": {
+          "pontos": 192,
+          "maximo": 200,
+          "detalhe": "59 anos de 62 necessarios"
+        },
+        "carencia": {
+          "pontos": 150,
+          "maximo": 150,
+          "detalhe": "246 de 180 contribuicoes"
+        },
+        "qualidade_segurado": {
+          "pontos": 100,
+          "maximo": 100,
+          "detalhe": "ATIVA"
+        },
+        "proximidade": {
+          "pontos": 70,
+          "maximo": 150,
+          "detalhe": "30 meses para aposentar"
+        },
+        "valor_beneficio": {
+          "pontos": 18,
+          "maximo": 100,
+          "detalhe": "RMI projetada vs teto R$ 8.621,00"
+        }
+      }
+    },
+    "marcos_legais": [
+      {
+        "data": "05/10/1988",
+        "nome": "Constituição Federal de 1988",
+        "sigla": "CF/88",
+        "relevancia": "Define direitos previdenciários fundamentais. TC anterior conta para direito adquirido.",
+        "tc_anos": 8,
+        "tc_meses": 6,
+        "tc_dias": 1,
+        "tc_texto": "8a 6m 1d",
+        "contribuicoes": 105,
+        "idade_anos": 22,
+        "observacao": ""
+      },
+      {
+        "data": "15/12/1998",
+        "nome": "Emenda Constitucional nº 20/1998",
+        "sigla": "EC 20/98",
+        "relevancia": "Estabeleceu novas regras. TC até esta data gera direito adquirido às regras anteriores.",
+        "tc_anos": 13,
+        "tc_meses": 5,
+        "tc_dias": 3,
+        "tc_texto": "13a 5m 3d",
+        "contribuicoes": 164,
+        "idade_anos": 32,
+        "observacao": "TC de 13a (faltavam ~17a para direito adquirido pré-EC 20/98)."
+      },
+      {
+        "data": "28/11/1999",
+        "nome": "Lei 9.876/1999 (Fator Previdenciário)",
+        "sigla": "Lei 9.876/99",
+        "relevancia": "Criou o fator previdenciário e definiu o PBC a partir de 07/1994. TC aqui define o cálculo pela regra antiga vs nova.",
+        "tc_anos": 13,
+        "tc_meses": 5,
+        "tc_dias": 3,
+        "tc_texto": "13a 5m 3d",
+        "contribuicoes": 164,
+        "idade_anos": 33,
+        "observacao": "TC de 13a 5m — define proporção do cálculo pela regra antiga vs fator previdenciário."
+      },
+      {
+        "data": "13/11/2019",
+        "nome": "EC 103/2019 (Reforma da Previdência)",
+        "sigla": "EC 103/19",
+        "relevancia": "Reforma radical. TC até esta data define elegibilidade para regras de transição (pedágio 50%, 100%, pontos, idade progressiva).",
+        "tc_anos": 15,
+        "tc_meses": 0,
+        "tc_dias": 3,
+        "tc_texto": "15a 0m 3d",
+        "contribuicoes": 183,
+        "idade_anos": 53,
+        "observacao": "TC de 15a 0m (183 contribuições). Faltavam ~15a — sujeito às regras de transição."
+      },
+      {
+        "data": "10/04/2026",
+        "nome": "Data de Referência (10/04/2026)",
+        "sigla": "DER",
+        "relevancia": "Situação atual do segurado para análise de todas as regras vigentes.",
+        "tc_anos": 20,
+        "tc_meses": 2,
+        "tc_dias": 2,
+        "tc_texto": "20a 2m 2d",
+        "contribuicoes": 246,
+        "idade_anos": 59,
+        "observacao": "Situação atual: 20a 2m 2d (242 contribuições)."
+      }
+    ],
+    "competencias_sem_salario": {
+      "sem_salario": [],
+      "abaixo_minimo": [
+        {
+          "competencia": "01/1980",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.43",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "02/1980",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.43",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "03/1980",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.37",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "04/1980",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.37",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "05/1980",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.75",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "06/1980",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.75",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "07/1980",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.75",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "08/1980",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.75",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "09/1980",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.75",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "10/1980",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.75",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "11/1980",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "1.00",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "12/1980",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.93",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "01/1981",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.50",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "02/1981",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.50",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "03/1981",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.43",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "04/1981",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.43",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "05/1981",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.68",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "06/1981",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.62",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "07/1981",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.62",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "08/1981",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.56",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "09/1981",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.56",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "10/1981",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.50",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "11/1981",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.62",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "12/1981",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.62",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "01/1982",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.70",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "02/1982",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.70",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "03/1982",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.64",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "04/1982",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.59",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "05/1982",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.59",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "06/1982",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.54",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "07/1982",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.48",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "08/1982",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.48",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "09/1982",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.43",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "10/1982",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.43",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "11/1982",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.37",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "12/1982",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.37",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "01/1983",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "1.40",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "02/1983",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "1.29",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "03/1983",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "1.18",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "04/1983",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "1.08",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "05/1983",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "1.02",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "06/1983",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.91",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "07/1983",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.86",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "08/1983",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.75",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "09/1983",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.70",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "10/1983",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.64",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "11/1983",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.59",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "12/1983",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.54",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "01/1984",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "1.24",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "02/1984",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "1.13",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "03/1984",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "1.02",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "04/1984",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.97",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "05/1984",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.86",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "06/1984",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.81",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "07/1984",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.70",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "08/1984",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.64",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "09/1984",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.54",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "10/1984",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.48",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "11/1984",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.48",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "12/1984",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.43",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "01/1985",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.91",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "02/1985",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.81",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "03/1985",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.70",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "04/1985",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.64",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "05/1985",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.70",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "06/1985",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.64",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "07/1985",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.59",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "08/1985",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.54",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "09/1985",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.48",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "10/1985",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.43",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "11/1985",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.37",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "12/1985",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.32",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "02/1986",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "6.70",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "03/1986",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "2.21",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "04/1986",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "2.16",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "05/1986",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "2.16",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "06/1986",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "2.10",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "07/1986",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "2.10",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "08/1986",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "2.05",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "09/1986",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "2.00",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "10/1986",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "1.94",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "11/1986",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "1.78",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "12/1986",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "1.56",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "01/1987",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "1.29",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "02/1987",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "1.13",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "03/1987",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.91",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "04/1987",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.75",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "05/1987",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.64",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "06/1987",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.59",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "07/1987",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.54",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "08/1987",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.54",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "09/1987",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.48",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "10/1987",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.43",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "11/1987",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.37",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "12/1987",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.32",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "01/1989",
+          "empregador": "DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA",
+          "valor": "51.99",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "02/1989",
+          "empregador": "DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA",
+          "valor": "78.99",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "03/1989",
+          "empregador": "DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA",
+          "valor": "78.99",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "04/1989",
+          "empregador": "DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA",
+          "valor": "78.99",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "05/1989",
+          "empregador": "DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA",
+          "valor": "81.00",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "01/1990",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "1.45",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "02/1990",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.85",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "03/1990",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.65",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "04/1990",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.65",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "05/1990",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.65",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "06/1990",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.60",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "07/1990",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.50",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "08/1990",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.45",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "09/1990",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.40",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "10/1990",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.35",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "11/1990",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.30",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "12/1990",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.25",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "01/1991",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.75",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "02/1991",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.75",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "03/1991",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.75",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "04/1991",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.75",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "05/1991",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.75",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "06/1991",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.75",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "07/1991",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.75",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "08/1991",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.75",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "09/1991",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.75",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "10/1991",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.75",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "11/1991",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.75",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "12/1991",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.75",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "01/1992",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "6.05",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "02/1992",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "4.80",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "03/1992",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "3.90",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "04/1992",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "3.25",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "05/1992",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "2.65",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "06/1992",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "2.15",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "07/1992",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "1.75",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "08/1992",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "1.45",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "09/1992",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "1.15",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "10/1992",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.90",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "11/1992",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.75",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "12/1992",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.60",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "08/1993",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.15",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "09/1993",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.15",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "10/1993",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.15",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "11/1993",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.15",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "12/1993",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "0.15",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "03/1994",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "1.16",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "04/1994",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "1.66",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "05/1994",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "2.42",
+          "tipo": "ABAIXO_MINIMO"
+        },
+        {
+          "competencia": "06/1994",
+          "empregador": "RECOLHIMENTO Empregado",
+          "valor": "3.49",
+          "tipo": "ABAIXO_MINIMO"
+        }
+      ],
+      "total_problemas": 145,
+      "mensagem": "⚠️ Detectadas 145 competências com valores suspeitamente baixos. Verifique se são valores corretos ou erros no registro do CNIS.",
+      "impacto": "Valores abaixo do salário mínimo podem indicar erro de registro."
+    },
+    "analise_especial": [
+      {
+        "empregador": "RECOLHIMENTO Empregado",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/01/1980",
+        "data_fim": "31/12/1985",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "CALVO ATACADISTA LTDA",
+        "cnpj": "53863106000185",
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "07/10/1985",
+        "data_fim": "04/01/1986",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "HOSPITAL MENINO JESUS DE GUARULHOS S/A",
+        "cnpj": "49098601000178",
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "08/01/1986",
+        "data_fim": "29/01/1986",
+        "probabilidade": "ALTA",
+        "agentes_provaveis": [
+          "Micro-organismos e parasitas infecciosos vivos e suas toxinas - trabalho em saude",
+          "Radiacoes ionizantes (raios X, gama, alfa, beta, neutrons)"
+        ],
+        "fundamentacao": "Decreto 53.831/64 - codigo 1.3.2; Decreto 3.048/99 Anexo IV - codigo 3.0.1 (agentes biologicos)",
+        "recomendacao": "ALTA probabilidade de atividade especial. Solicitar PPP (Perfil Profissiografico Previdenciario) ao empregador. Verificar LTCAT (Laudo Tecnico das Condicoes Ambientais de Trabalho). Para periodos ate 28/04/1995, possivel enquadramento por categoria profissional (Decretos 53.831/64 e 83.080/79). Para periodos apos 28/04/1995, necessaria comprovacao de exposicao efetiva a agentes nocivos mediante PPP.",
+        "fator_conversao": {
+          "masculino": 1.4,
+          "feminino": 1.2
+        },
+        "aposentadoria_especial_anos": 25,
+        "padroes_encontrados": [
+          "Saude - Atendimento Hospitalar"
+        ],
+        "jurisprudencias": [
+          {
+            "tipo": "SUMULA_TNU",
+            "numero": "Súmula 82",
+            "tribunal": "TNU",
+            "ementa": "O código 1.3.2 do quadro anexo ao Decreto 53.831/64 prevê a insalubridade do trabalho em contato com doentes ou materiais infectocontagiantes, abrangendo não apenas os profissionais da saúde, mas todos os trabalhadores expostos a agentes biológicos nocivos.",
+            "data_julgamento": "09/04/2015",
+            "aplicabilidade": "Aplica-se a profissionais de saúde (médicos, enfermeiros, técnicos, auxiliares), trabalhadores de saneamento, coleta de lixo, funerária e qualquer função com exposição habitual e permanente a agentes biológicos.",
+            "confianca": 1,
+            "url": ""
+          },
+          {
+            "tipo": "TEMA_TNU",
+            "numero": "Tema 198 (PEDILEF 5001744-83.2016.4.04.7107)",
+            "tribunal": "TNU",
+            "ementa": "A exposição a agentes biológicos não é passível de neutralização pelo uso de EPIs, pois o risco de contaminação é inerente à atividade.",
+            "data_julgamento": "21/11/2019",
+            "aplicabilidade": "EPIs não neutralizam exposição biológica — a atividade especial é reconhecida mesmo com uso de equipamentos de proteção.",
+            "confianca": 1,
+            "url": ""
+          },
+          {
+            "tipo": "TEMA_STJ",
+            "numero": "Tema 208 (REsp 1.352.721/SP)",
+            "tribunal": "STJ",
+            "ementa": "O PPP emitido com base em laudo técnico das condições do ambiente de trabalho constitui documento hábil a comprovar a efetiva exposição a agentes nocivos, dispensando-se a apresentação do LTCAT correspondente.",
+            "data_julgamento": "14/11/2014",
+            "aplicabilidade": "O Perfil Profissiográfico Previdenciário (PPP) é suficiente para comprovar atividade especial, sem necessidade de LTCAT em separado. O PPP deve ser emitido pela empresa e indica os agentes nocivos, a intensidade e o tempo de exposição.",
+            "confianca": 1,
+            "url": ""
+          },
+          {
+            "tipo": "TEMA_STJ",
+            "numero": "Tema 422 (REsp 1.310.034/PR)",
+            "tribunal": "STJ",
+            "ementa": "A lei vigente por ocasião da aposentadoria é a aplicável ao direito à conversão entre tempos de serviço especial e comum, independentemente do regime jurídico à época da prestação do serviço.",
+            "data_julgamento": "24/10/2012",
+            "aplicabilidade": "A conversão de tempo especial em comum pode ser feita para qualquer período, mesmo anterior à Lei 6.887/80, desde que na data do requerimento a legislação preveja a conversão.",
+            "confianca": 1,
+            "url": ""
+          }
+        ]
+      },
+      {
+        "empregador": "RECOLHIMENTO Empregado",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/02/1986",
+        "data_fim": "31/12/1987",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "CHAMBORD AUTO LTDA",
+        "cnpj": "60885258000900",
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "11/07/1986",
+        "data_fim": "02/10/1986",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA",
+        "cnpj": "56755119000129",
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/05/1988",
+        "data_fim": null,
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO Empregado",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/01/1990",
+        "data_fim": "31/12/1992",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO Empregado",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/08/1993",
+        "data_fim": "31/12/1993",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO Empregado",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/03/1994",
+        "data_fim": "30/06/1994",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO CONTRIBUINTE",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/08/2014",
+        "data_fim": "31/05/2015",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO CONTRIBUINTE",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/07/2017",
+        "data_fim": "31/10/2017",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO CONTRIBUINTE",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/05/2019",
+        "data_fim": "31/05/2019",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO CONTRIBUINTE",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/08/2019",
+        "data_fim": "29/02/2020",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO CONTRIBUINTE",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/04/2020",
+        "data_fim": "30/04/2020",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO CONTRIBUINTE",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/06/2020",
+        "data_fim": "31/03/2022",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO Empregado",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/05/2021",
+        "data_fim": "31/05/2021",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO CONTRIBUINTE",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/05/2022",
+        "data_fim": "31/05/2022",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO CONTRIBUINTE",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/07/2022",
+        "data_fim": "31/08/2023",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO CONTRIBUINTE",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/10/2023",
+        "data_fim": "31/12/2023",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO CONTRIBUINTE",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/02/2024",
+        "data_fim": "31/03/2024",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO FACULTATIV",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/04/2024",
+        "data_fim": "30/04/2024",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO CONTRIBUINTE",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/05/2024",
+        "data_fim": "30/06/2024",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO CONTRIBUINTE",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/08/2024",
+        "data_fim": "31/08/2024",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO CONTRIBUINTE",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/09/2024",
+        "data_fim": "30/09/2024",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO CONTRIBUINTE",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/10/2024",
+        "data_fim": "31/10/2024",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO CONTRIBUINTE",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/02/2025",
+        "data_fim": "30/04/2025",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO CONTRIBUINTE",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/06/2025",
+        "data_fim": "31/10/2025",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO CONTRIBUINTE",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/12/2025",
+        "data_fim": "31/12/2025",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO CONTRIBUINTE",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/02/2026",
+        "data_fim": "28/02/2026",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      }
+    ],
+    "analise_revisao": {},
+    "cenarios_revisao": {},
+    "memoria_calculo": {
+      "linhas": [
+        {
+          "competencia": "08/2014",
+          "salario_original": "724.00",
+          "indice_correcao": "1.900273",
+          "salario_corrigido": "1375.80",
+          "teto_vigente": "4390.24",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "09/2014",
+          "salario_original": "724.00",
+          "indice_correcao": "1.890657",
+          "salario_corrigido": "1368.84",
+          "teto_vigente": "4390.24",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "10/2014",
+          "salario_original": "724.00",
+          "indice_correcao": "1.881041",
+          "salario_corrigido": "1361.87",
+          "teto_vigente": "4390.24",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "11/2014",
+          "salario_original": "724.00",
+          "indice_correcao": "1.871425",
+          "salario_corrigido": "1354.91",
+          "teto_vigente": "4390.24",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "12/2014",
+          "salario_original": "724.00",
+          "indice_correcao": "1.861809",
+          "salario_corrigido": "1347.95",
+          "teto_vigente": "4390.24",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "01/2015",
+          "salario_original": "788.00",
+          "indice_correcao": "1.852193",
+          "salario_corrigido": "1459.53",
+          "teto_vigente": "4663.75",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "02/2015",
+          "salario_original": "788.00",
+          "indice_correcao": "1.836548",
+          "salario_corrigido": "1447.20",
+          "teto_vigente": "4663.75",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "03/2015",
+          "salario_original": "788.00",
+          "indice_correcao": "1.820902",
+          "salario_corrigido": "1434.87",
+          "teto_vigente": "4663.75",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "04/2015",
+          "salario_original": "788.00",
+          "indice_correcao": "1.805256",
+          "salario_corrigido": "1422.54",
+          "teto_vigente": "4663.75",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "05/2015",
+          "salario_original": "788.00",
+          "indice_correcao": "1.789610",
+          "salario_corrigido": "1410.21",
+          "teto_vigente": "4663.75",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "07/2017",
+          "salario_original": "937.00",
+          "indice_correcao": "1.545850",
+          "salario_corrigido": "1448.46",
+          "teto_vigente": "5531.31",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "08/2017",
+          "salario_original": "937.00",
+          "indice_correcao": "1.543210",
+          "salario_corrigido": "1445.99",
+          "teto_vigente": "5531.31",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "09/2017",
+          "salario_original": "937.00",
+          "indice_correcao": "1.540571",
+          "salario_corrigido": "1443.52",
+          "teto_vigente": "5531.31",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "10/2017",
+          "salario_original": "937.00",
+          "indice_correcao": "1.537932",
+          "salario_corrigido": "1441.04",
+          "teto_vigente": "5531.31",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "05/2019",
+          "salario_original": "998.00",
+          "indice_correcao": "1.458131",
+          "salario_corrigido": "1455.21",
+          "teto_vigente": "5839.45",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "08/2019",
+          "salario_original": "998.00",
+          "indice_correcao": "1.442274",
+          "salario_corrigido": "1439.39",
+          "teto_vigente": "5839.45",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "09/2019",
+          "salario_original": "998.00",
+          "indice_correcao": "1.436988",
+          "salario_corrigido": "1434.11",
+          "teto_vigente": "5839.45",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "10/2019",
+          "salario_original": "998.00",
+          "indice_correcao": "1.431702",
+          "salario_corrigido": "1428.84",
+          "teto_vigente": "5839.45",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "11/2019",
+          "salario_original": "998.00",
+          "indice_correcao": "1.426417",
+          "salario_corrigido": "1423.56",
+          "teto_vigente": "5839.45",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "12/2019",
+          "salario_original": "998.00",
+          "indice_correcao": "1.421131",
+          "salario_corrigido": "1418.29",
+          "teto_vigente": "5839.45",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "01/2020",
+          "salario_original": "1039.00",
+          "indice_correcao": "1.415845",
+          "salario_corrigido": "1471.06",
+          "teto_vigente": "5839.45",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "02/2020",
+          "salario_original": "1045.00",
+          "indice_correcao": "1.409747",
+          "salario_corrigido": "1473.19",
+          "teto_vigente": "6101.06",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "04/2020",
+          "salario_original": "1045.00",
+          "indice_correcao": "1.397551",
+          "salario_corrigido": "1460.44",
+          "teto_vigente": "6101.06",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "06/2020",
+          "salario_original": "1045.00",
+          "indice_correcao": "1.385355",
+          "salario_corrigido": "1447.70",
+          "teto_vigente": "6101.06",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "07/2020",
+          "salario_original": "1045.00",
+          "indice_correcao": "1.379257",
+          "salario_corrigido": "1441.32",
+          "teto_vigente": "6101.06",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "08/2020",
+          "salario_original": "1045.00",
+          "indice_correcao": "1.373159",
+          "salario_corrigido": "1434.95",
+          "teto_vigente": "6101.06",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "09/2020",
+          "salario_original": "1045.00",
+          "indice_correcao": "1.367061",
+          "salario_corrigido": "1428.58",
+          "teto_vigente": "6101.06",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "10/2020",
+          "salario_original": "1045.00",
+          "indice_correcao": "1.360963",
+          "salario_corrigido": "1422.21",
+          "teto_vigente": "6101.06",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "11/2020",
+          "salario_original": "1045.00",
+          "indice_correcao": "1.354865",
+          "salario_corrigido": "1415.83",
+          "teto_vigente": "6101.06",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "12/2020",
+          "salario_original": "1045.00",
+          "indice_correcao": "1.348767",
+          "salario_corrigido": "1409.46",
+          "teto_vigente": "6101.06",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "01/2021",
+          "salario_original": "1100.00",
+          "indice_correcao": "1.342669",
+          "salario_corrigido": "1476.94",
+          "teto_vigente": "6433.57",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "02/2021",
+          "salario_original": "1100.00",
+          "indice_correcao": "1.332350",
+          "salario_corrigido": "1465.59",
+          "teto_vigente": "6433.57",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "03/2021",
+          "salario_original": "1100.00",
+          "indice_correcao": "1.322030",
+          "salario_corrigido": "1454.23",
+          "teto_vigente": "6433.57",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "04/2021",
+          "salario_original": "1100.00",
+          "indice_correcao": "1.311711",
+          "salario_corrigido": "1442.88",
+          "teto_vigente": "6433.57",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "05/2021",
+          "salario_original": "1100.00",
+          "indice_correcao": "1.301392",
+          "salario_corrigido": "1431.53",
+          "teto_vigente": "6433.57",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "05/2021",
+          "salario_original": "205.12",
+          "indice_correcao": "1.301392",
+          "salario_corrigido": "266.94",
+          "teto_vigente": "6433.57",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO Empregado"
+        },
+        {
+          "competencia": "06/2021",
+          "salario_original": "1100.00",
+          "indice_correcao": "1.291072",
+          "salario_corrigido": "1420.18",
+          "teto_vigente": "6433.57",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "07/2021",
+          "salario_original": "1100.00",
+          "indice_correcao": "1.280753",
+          "salario_corrigido": "1408.83",
+          "teto_vigente": "6433.57",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "08/2021",
+          "salario_original": "1100.00",
+          "indice_correcao": "1.270433",
+          "salario_corrigido": "1397.48",
+          "teto_vigente": "6433.57",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "09/2021",
+          "salario_original": "1100.00",
+          "indice_correcao": "1.260114",
+          "salario_corrigido": "1386.13",
+          "teto_vigente": "6433.57",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "10/2021",
+          "salario_original": "1100.00",
+          "indice_correcao": "1.249794",
+          "salario_corrigido": "1374.77",
+          "teto_vigente": "6433.57",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "11/2021",
+          "salario_original": "1100.00",
+          "indice_correcao": "1.239475",
+          "salario_corrigido": "1363.42",
+          "teto_vigente": "6433.57",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "12/2021",
+          "salario_original": "1100.00",
+          "indice_correcao": "1.229155",
+          "salario_corrigido": "1352.07",
+          "teto_vigente": "6433.57",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "01/2022",
+          "salario_original": "1212.00",
+          "indice_correcao": "1.218836",
+          "salario_corrigido": "1477.23",
+          "teto_vigente": "7087.22",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "02/2022",
+          "salario_original": "1212.00",
+          "indice_correcao": "1.213150",
+          "salario_corrigido": "1470.34",
+          "teto_vigente": "7087.22",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "03/2022",
+          "salario_original": "1212.00",
+          "indice_correcao": "1.207464",
+          "salario_corrigido": "1463.45",
+          "teto_vigente": "7087.22",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "05/2022",
+          "salario_original": "1212.00",
+          "indice_correcao": "1.196092",
+          "salario_corrigido": "1449.66",
+          "teto_vigente": "7087.22",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "07/2022",
+          "salario_original": "1212.00",
+          "indice_correcao": "1.184720",
+          "salario_corrigido": "1435.88",
+          "teto_vigente": "7087.22",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "08/2022",
+          "salario_original": "1212.00",
+          "indice_correcao": "1.179034",
+          "salario_corrigido": "1428.99",
+          "teto_vigente": "7087.22",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "09/2022",
+          "salario_original": "1212.00",
+          "indice_correcao": "1.173348",
+          "salario_corrigido": "1422.10",
+          "teto_vigente": "7087.22",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "10/2022",
+          "salario_original": "1212.00",
+          "indice_correcao": "1.167663",
+          "salario_corrigido": "1415.21",
+          "teto_vigente": "7087.22",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "11/2022",
+          "salario_original": "1212.00",
+          "indice_correcao": "1.161977",
+          "salario_corrigido": "1408.32",
+          "teto_vigente": "7087.22",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "12/2022",
+          "salario_original": "1212.00",
+          "indice_correcao": "1.156291",
+          "salario_corrigido": "1401.42",
+          "teto_vigente": "7087.22",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "01/2023",
+          "salario_original": "1302.00",
+          "indice_correcao": "1.150605",
+          "salario_corrigido": "1498.09",
+          "teto_vigente": "7507.49",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "02/2023",
+          "salario_original": "1302.00",
+          "indice_correcao": "1.147175",
+          "salario_corrigido": "1493.62",
+          "teto_vigente": "7507.49",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "03/2023",
+          "salario_original": "1320.00",
+          "indice_correcao": "1.143745",
+          "salario_corrigido": "1509.74",
+          "teto_vigente": "7507.49",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "04/2023",
+          "salario_original": "1302.00",
+          "indice_correcao": "1.140315",
+          "salario_corrigido": "1484.69",
+          "teto_vigente": "7507.49",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "05/2023",
+          "salario_original": "1320.00",
+          "indice_correcao": "1.136885",
+          "salario_corrigido": "1500.69",
+          "teto_vigente": "7507.49",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "06/2023",
+          "salario_original": "1320.00",
+          "indice_correcao": "1.133455",
+          "salario_corrigido": "1496.16",
+          "teto_vigente": "7507.49",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "07/2023",
+          "salario_original": "1320.00",
+          "indice_correcao": "1.130025",
+          "salario_corrigido": "1491.63",
+          "teto_vigente": "7507.49",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "08/2023",
+          "salario_original": "1320.00",
+          "indice_correcao": "1.126595",
+          "salario_corrigido": "1487.11",
+          "teto_vigente": "7507.49",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "10/2023",
+          "salario_original": "1320.00",
+          "indice_correcao": "1.119735",
+          "salario_corrigido": "1478.05",
+          "teto_vigente": "7507.49",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "11/2023",
+          "salario_original": "1320.00",
+          "indice_correcao": "1.116305",
+          "salario_corrigido": "1473.52",
+          "teto_vigente": "7507.49",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "12/2023",
+          "salario_original": "1320.00",
+          "indice_correcao": "1.112874",
+          "salario_corrigido": "1468.99",
+          "teto_vigente": "7507.49",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "02/2024",
+          "salario_original": "1412.00",
+          "indice_correcao": "1.105235",
+          "salario_corrigido": "1560.59",
+          "teto_vigente": "7786.02",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "03/2024",
+          "salario_original": "1412.00",
+          "indice_correcao": "1.101026",
+          "salario_corrigido": "1554.65",
+          "teto_vigente": "7786.02",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "04/2024",
+          "salario_original": "1412.00",
+          "indice_correcao": "1.096817",
+          "salario_corrigido": "1548.71",
+          "teto_vigente": "7786.02",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO FACULTATIV"
+        },
+        {
+          "competencia": "05/2024",
+          "salario_original": "1412.00",
+          "indice_correcao": "1.092607",
+          "salario_corrigido": "1542.76",
+          "teto_vigente": "7786.02",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "06/2024",
+          "salario_original": "1412.00",
+          "indice_correcao": "1.088398",
+          "salario_corrigido": "1536.82",
+          "teto_vigente": "7786.02",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "08/2024",
+          "salario_original": "1412.00",
+          "indice_correcao": "1.079980",
+          "salario_corrigido": "1524.93",
+          "teto_vigente": "7786.02",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "09/2024",
+          "salario_original": "1412.00",
+          "indice_correcao": "1.075770",
+          "salario_corrigido": "1518.99",
+          "teto_vigente": "7786.02",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "10/2024",
+          "salario_original": "1412.00",
+          "indice_correcao": "1.071561",
+          "salario_corrigido": "1513.04",
+          "teto_vigente": "7786.02",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "02/2025",
+          "salario_original": "1518.00",
+          "indice_correcao": "1.055133",
+          "salario_corrigido": "1601.69",
+          "teto_vigente": "7786.02",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "03/2025",
+          "salario_original": "1518.00",
+          "indice_correcao": "1.051333",
+          "salario_corrigido": "1595.92",
+          "teto_vigente": "7786.02",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "04/2025",
+          "salario_original": "1518.00",
+          "indice_correcao": "1.047533",
+          "salario_corrigido": "1590.16",
+          "teto_vigente": "7786.02",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "06/2025",
+          "salario_original": "1518.00",
+          "indice_correcao": "1.039933",
+          "salario_corrigido": "1578.62",
+          "teto_vigente": "7786.02",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "07/2025",
+          "salario_original": "1518.00",
+          "indice_correcao": "1.036133",
+          "salario_corrigido": "1572.85",
+          "teto_vigente": "7786.02",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "08/2025",
+          "salario_original": "1518.00",
+          "indice_correcao": "1.032333",
+          "salario_corrigido": "1567.08",
+          "teto_vigente": "7786.02",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "09/2025",
+          "salario_original": "1518.00",
+          "indice_correcao": "1.028533",
+          "salario_corrigido": "1561.31",
+          "teto_vigente": "7786.02",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "10/2025",
+          "salario_original": "1518.00",
+          "indice_correcao": "1.024733",
+          "salario_corrigido": "1555.54",
+          "teto_vigente": "7786.02",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "12/2025",
+          "salario_original": "1518.00",
+          "indice_correcao": "1.017133",
+          "salario_corrigido": "1544.01",
+          "teto_vigente": "7786.02",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "02/2026",
+          "salario_original": "1621.00",
+          "indice_correcao": "1.006667",
+          "salario_corrigido": "1631.81",
+          "teto_vigente": "7786.02",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        }
+      ],
+      "total_contribuicoes": 82,
+      "total_descartados": 0,
+      "media_80_maiores": "1483.98",
+      "media_100": "1449.54",
+      "media_com_descarte": "0",
+      "descarte": {
+        "aplicado": false,
+        "total_descartados": 0,
+        "economia_mensal": "0",
+        "fundamentacao": "Art. 26, §6º, EC 103/2019"
+      },
+      "fundamentacao": "Art. 29, I e II, Lei 8.213/91; Art. 26 EC 103/2019"
+    },
+    "roteamento": {
+      "modo_recomendado": "NOVO_BENEFICIO",
+      "confianca": 0.7,
+      "motivos": [
+        "Nenhum beneficio ativo ou indeferido detectado. Segurado aparenta nao ter beneficio concedido. Modo NOVO_BENEFICIO para calcular elegibilidade e projetar datas."
+      ],
+      "beneficio_ativo": {},
+      "revisoes_anteriores_detectadas": [],
+      "documentos_faltantes": [
+        "Carteira de trabalho (CTPS) para cruzamento com CNIS"
+      ],
+      "alertas": [],
+      "dados_pre_preenchidos": {
+        "nome_segurado": "BEATRIZ FELICIANO MENDES VELOSO",
+        "sexo": "FEMININO",
+        "data_nascimento": "11/09/1966",
+        "cpf": "28326990817",
+        "nit": "26819015435"
+      },
+      "conflitos_detectados": [
+        "Vinculos sobrepostos: 'RECOLHIMENTO Empregado' (01/01/1980) e 'CALVO ATACADISTA LTDA' (07/10/1985). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'RECOLHIMENTO Empregado' (01/02/1986) e 'CHAMBORD AUTO LTDA' (11/07/1986). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO Empregado' (01/01/1990). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO Empregado' (01/08/1993). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO Empregado' (01/03/1994). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO CONTRIBUINTE' (01/08/2014). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO CONTRIBUINTE' (01/07/2017). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO CONTRIBUINTE' (01/05/2019). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO CONTRIBUINTE' (01/08/2019). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO CONTRIBUINTE' (01/04/2020). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO CONTRIBUINTE' (01/06/2020). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO Empregado' (01/05/2021). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO CONTRIBUINTE' (01/05/2022). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO CONTRIBUINTE' (01/07/2022). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO CONTRIBUINTE' (01/10/2023). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO CONTRIBUINTE' (01/02/2024). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO FACULTATIV' (01/04/2024). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO CONTRIBUINTE' (01/05/2024). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO CONTRIBUINTE' (01/08/2024). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO CONTRIBUINTE' (01/09/2024). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO CONTRIBUINTE' (01/10/2024). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO CONTRIBUINTE' (01/02/2025). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO CONTRIBUINTE' (01/06/2025). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO CONTRIBUINTE' (01/12/2025). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'DISTRIBUIDORA DE CARNES GM ALMEIDA LTDA' (01/05/1988) e 'RECOLHIMENTO CONTRIBUINTE' (01/02/2026). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS.",
+        "Vinculos sobrepostos: 'RECOLHIMENTO CONTRIBUINTE' (01/06/2020) e 'RECOLHIMENTO Empregado' (01/05/2021). Verificar concomitancia — pode ser permitida ou indicar erro no CNIS."
+      ]
+    }
+  },
+  "arquivo": "BEATRIZ_FELICIANO_MENDES_VELOSO_2026-04-10_0552de060bb8.json"
+}

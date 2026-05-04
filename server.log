@@ -1,36 +1,36 @@
-INFO:     Will watch for changes in these directories: ['C:\\Users\\Administrador\\Documents\\Documents\\previdenciario\\backend']
-INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [14488] using StatReload
-INFO:     Started server process [19384]
+INFO:     Started server process [16476]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-INFO:     127.0.0.1:49210 - "GET /api/v1/estudos/listar HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49675 - "GET /api/v1/estudos/listar HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49677 - "GET /api/v1/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55668 - "GET / HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55668 - "GET /static/css/style.css HTTP/1.1" 304 Not Modified
-INFO:     127.0.0.1:55668 - "GET /static/js/app.js HTTP/1.1" 200 OK
-WARNING:  StatReload detected changes in 'app\parsers\cnis\parser.py'. Reloading...
- INFO:     127.0.0.1:52610 - "GET / HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52610 - "GET /static/css/style.css HTTP/1.1" 304 Not Modified
-INFO:     127.0.0.1:58451 - "GET /static/js/app.js HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58451 - "GET /favicon.ico HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61364 - "POST /api/v1/upload/cnis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50649 - "POST /api/v1/upload/carta-concessao HTTP/1.1" 422 Unprocessable Content
-INFO:     127.0.0.1:50649 - "POST /api/v1/upload/ctps HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52554 - "POST /api/v1/calculo/resumo HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64426 - "POST /api/v1/calculo/aposentadoria HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50378 - "POST /api/v1/calculo/resumo HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59547 - "POST /api/v1/relatorio/html HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58458 - "GET / HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57221 - "GET /static/js/app.js HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58458 - "GET /static/css/style.css HTTP/1.1" 304 Not Modified
-INFO:     127.0.0.1:54259 - "GET / HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54259 - "GET /static/js/app.js HTTP/1.1" 304 Not Modified
-INFO:     127.0.0.1:54259 - "GET / HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54259 - "POST /api/v1/upload/cnis HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65485 - "POST /api/v1/calculo/resumo HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62357 - "POST /api/v1/calculo/aposentadoria HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62357 - "POST /api/v1/planejamento/projecao HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53808 - "POST /api/v1/relatorio/planejamento/html HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61431 - "GET /static/js/app.js HTTP/1.1" 200 OK
+INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+INFO:     127.0.0.1:52283 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49362 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49362 - "GET /static/js/app.js?v=multifile20260419d HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49362 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65362 - "POST /api/v1/upload/cnis HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55530 - "POST /api/v1/upload/documento-comprobatorio HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63654 - "POST /api/v1/upload/documento-comprobatorio HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63654 - "POST /api/v1/upload/documento-comprobatorio HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63654 - "POST /api/v1/upload/documento-comprobatorio HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63654 - "POST /api/v1/upload/documento-comprobatorio HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63654 - "POST /api/v1/upload/documento-comprobatorio HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63654 - "POST /api/v1/upload/documento-comprobatorio HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63654 - "POST /api/v1/upload/documento-comprobatorio HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53064 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53064 - "GET /static/js/app.js?v=multifile20260419d HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:60067 - "POST /api/v1/upload/cnis HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61810 - "POST /api/v1/calculo/aposentadoria HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61810 - "POST /api/v1/calculo/aposentadoria HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59775 - "POST /api/v1/calculo/atrasados HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51732 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51732 - "GET /static/css/style.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58207 - "GET /static/js/app.js?v=multifile20260419d HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58207 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58207 - "POST /api/v1/upload/cnis HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63726 - "POST /api/v1/calculo/auxilio-doenca HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49164 - "POST /api/v1/calculo/atrasados HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53376 - "POST /api/v1/relatorio/docx HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60364 - "POST /api/v1/calculo/auxilio-doenca HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54597 - "POST /api/v1/calculo/atrasados HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55950 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55950 - "GET /static/js/app.js?v=multifile20260419d HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:55950 - "GET /favicon.ico HTTP/1.1" 200 OK

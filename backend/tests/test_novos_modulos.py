@@ -19,43 +19,43 @@ from decimal import Decimal
 
 class TestAcordoInternacional:
     def test_verificar_acordo_espanha(self):
-        from backend.app.domain.acordo_internacional import verificar_acordo
+        from app.domain.acordo_internacional import verificar_acordo
         acordo = verificar_acordo("Espanha")
         assert acordo is not None
         assert "1.689" in acordo.decreto or "1689" in acordo.decreto
         assert acordo.permite_totalizacao is True
 
     def test_verificar_acordo_portugal(self):
-        from backend.app.domain.acordo_internacional import verificar_acordo
+        from app.domain.acordo_internacional import verificar_acordo
         acordo = verificar_acordo("Portugal")
         assert acordo is not None
         assert acordo.permite_totalizacao is True
 
     def test_verificar_acordo_inexistente(self):
-        from backend.app.domain.acordo_internacional import verificar_acordo
+        from app.domain.acordo_internacional import verificar_acordo
         acordo = verificar_acordo("Marte")
         assert acordo is None
 
     def test_documentos_necessarios_espanha(self):
-        from backend.app.domain.acordo_internacional import documentos_necessarios
+        from app.domain.acordo_internacional import documentos_necessarios
         docs = documentos_necessarios("Espanha")
         assert isinstance(docs, list)
         assert len(docs) > 0
 
     def test_listar_acordos(self):
-        from backend.app.domain.acordo_internacional import listar_acordos
+        from app.domain.acordo_internacional import listar_acordos
         acordos = listar_acordos()
         assert isinstance(acordos, dict)
         assert len(acordos) >= 7  # pelo menos 7 acordos
 
     def test_totalizacao_basica(self):
-        from backend.app.domain.acordo_internacional import (
+        from app.domain.acordo_internacional import (
             calcular_totalizacao, PeriodoExterior
         )
-        from backend.app.domain.models.segurado import Segurado, DadosPessoais
-        from backend.app.domain.models.vinculo import Vinculo
-        from backend.app.domain.models.contribuicao import Contribuicao
-        from backend.app.domain.enums import Sexo, TipoVinculo, TipoAtividade, RegimePrevidenciario, OrigemDado
+        from app.domain.models.segurado import Segurado, DadosPessoais
+        from app.domain.models.vinculo import Vinculo
+        from app.domain.models.contribuicao import Contribuicao
+        from app.domain.enums import Sexo, TipoVinculo, TipoAtividade, RegimePrevidenciario, OrigemDado
 
         # Criar segurado com vínculos no Brasil
         contribs = []
@@ -108,7 +108,7 @@ class TestAcordoInternacional:
 
 class TestRetroativos:
     def test_calculo_basico_retroativos(self):
-        from backend.app.domain.retroativos import calcular_retroativos
+        from app.domain.retroativos import calcular_retroativos
         resultado = calcular_retroativos(
             rmi_corrigida=Decimal("2000.00"),
             rmi_original=Decimal("1500.00"),
@@ -122,7 +122,7 @@ class TestRetroativos:
         assert len(resultado.parcelas) > 0
 
     def test_prescricao_quinquenal(self):
-        from backend.app.domain.retroativos import calcular_retroativos
+        from app.domain.retroativos import calcular_retroativos
         resultado = calcular_retroativos(
             rmi_corrigida=Decimal("2000.00"),
             rmi_original=Decimal("1500.00"),
@@ -138,7 +138,7 @@ class TestRetroativos:
         assert resultado.valor_prescrito > Decimal("0") or resultado.parcelas_prescritas > 0
 
     def test_correcao_monetaria_positiva(self):
-        from backend.app.domain.retroativos import calcular_correcao_monetaria
+        from app.domain.retroativos import calcular_correcao_monetaria
         valor_corrigido, indice = calcular_correcao_monetaria(
             Decimal("1000.00"), date(2020, 1, 1), date(2026, 4, 1)
         )
@@ -146,14 +146,14 @@ class TestRetroativos:
         assert indice > Decimal("1"), "Índice deve ser > 1"
 
     def test_juros_mora(self):
-        from backend.app.domain.retroativos import calcular_juros_mora
+        from app.domain.retroativos import calcular_juros_mora
         valor_juros, taxa = calcular_juros_mora(
             Decimal("1000.00"), date(2022, 1, 1), date(2026, 4, 1)
         )
         assert valor_juros > Decimal("0"), "Juros deve ser positivo"
 
     def test_beneficio_negado_rmi_original_zero(self):
-        from backend.app.domain.retroativos import calcular_retroativos
+        from app.domain.retroativos import calcular_retroativos
         resultado = calcular_retroativos(
             rmi_corrigida=Decimal("1500.00"),
             rmi_original=Decimal("0"),
@@ -165,7 +165,7 @@ class TestRetroativos:
         assert resultado.total_bruto > Decimal("0")
 
     def test_disclaimer_presente(self):
-        from backend.app.domain.retroativos import calcular_retroativos
+        from app.domain.retroativos import calcular_retroativos
         resultado = calcular_retroativos(
             rmi_corrigida=Decimal("2000.00"),
             rmi_original=Decimal("1500.00"),
@@ -182,10 +182,10 @@ class TestRetroativos:
 
 class TestClassificacaoDados:
     def _criar_segurado_basico(self):
-        from backend.app.domain.models.segurado import Segurado, DadosPessoais
-        from backend.app.domain.models.vinculo import Vinculo
-        from backend.app.domain.models.contribuicao import Contribuicao
-        from backend.app.domain.enums import Sexo, TipoVinculo, TipoAtividade, RegimePrevidenciario, OrigemDado
+        from app.domain.models.segurado import Segurado, DadosPessoais
+        from app.domain.models.vinculo import Vinculo
+        from app.domain.models.contribuicao import Contribuicao
+        from app.domain.enums import Sexo, TipoVinculo, TipoAtividade, RegimePrevidenciario, OrigemDado
 
         contribs = []
         for ano in range(2010, 2026):
@@ -214,7 +214,7 @@ class TestClassificacaoDados:
         return Segurado(dados_pessoais=dados, vinculos=[vinculo])
 
     def test_classificacao_presente_no_planejamento(self):
-        from backend.app.domain.planejamento.projecao import calcular_planejamento
+        from app.domain.planejamento.projecao import calcular_planejamento
         segurado = self._criar_segurado_basico()
         resultado = calcular_planejamento(segurado, date(2026, 4, 7))
         assert "classificacao_dados" in resultado
@@ -225,7 +225,7 @@ class TestClassificacaoDados:
         assert "disclaimer_geral" in cd
 
     def test_fatos_tem_tc_carencia_idade(self):
-        from backend.app.domain.planejamento.projecao import calcular_planejamento
+        from app.domain.planejamento.projecao import calcular_planejamento
         segurado = self._criar_segurado_basico()
         resultado = calcular_planejamento(segurado, date(2026, 4, 7))
         cd = resultado["classificacao_dados"]
@@ -235,7 +235,7 @@ class TestClassificacaoDados:
         assert any("Idade" in d for d in descricoes_fatos)
 
     def test_projecoes_tem_disclaimer(self):
-        from backend.app.domain.planejamento.projecao import calcular_planejamento
+        from app.domain.planejamento.projecao import calcular_planejamento
         segurado = self._criar_segurado_basico()
         resultado = calcular_planejamento(segurado, date(2026, 4, 7))
         cd = resultado["classificacao_dados"]
@@ -244,7 +244,7 @@ class TestClassificacaoDados:
             assert p.get("confianca") in ("ALTA", "MEDIA", "BAIXA")
 
     def test_cada_item_tem_confianca(self):
-        from backend.app.domain.planejamento.projecao import calcular_planejamento
+        from app.domain.planejamento.projecao import calcular_planejamento
         segurado = self._criar_segurado_basico()
         resultado = calcular_planejamento(segurado, date(2026, 4, 7))
         cd = resultado["classificacao_dados"]
@@ -260,7 +260,7 @@ class TestClassificacaoDados:
 
 class TestEvidenciasEspeciais:
     def test_ppp_ltcat_nivel_forte(self):
-        from backend.app.domain.especial.classificacao_evidencias import classificar_evidencias
+        from app.domain.especial.classificacao_evidencias import classificar_evidencias
         resultado = classificar_evidencias(
             analise_empregador={"encontrado": True, "probabilidade": "ALTA"},
             analise_cargo={"encontrado": True, "probabilidade": "ALTA"},
@@ -277,7 +277,7 @@ class TestEvidenciasEspeciais:
         assert resultado.pode_reconhecer_automatico is True
 
     def test_nome_empresa_sozinho_nao_e_forte(self):
-        from backend.app.domain.especial.classificacao_evidencias import classificar_evidencias
+        from app.domain.especial.classificacao_evidencias import classificar_evidencias
         resultado = classificar_evidencias(
             analise_empregador={"encontrado": True, "probabilidade": "MEDIA"},
             analise_cargo={"encontrado": False, "probabilidade": "NENHUMA"},
@@ -290,7 +290,7 @@ class TestEvidenciasEspeciais:
         assert resultado.pode_reconhecer_automatico is False
 
     def test_sem_nada_nivel_sem_lastro(self):
-        from backend.app.domain.especial.classificacao_evidencias import classificar_evidencias
+        from app.domain.especial.classificacao_evidencias import classificar_evidencias
         resultado = classificar_evidencias(
             analise_empregador={"encontrado": False, "probabilidade": "NENHUMA"},
             analise_cargo={"encontrado": False, "probabilidade": "NENHUMA"},
@@ -309,7 +309,7 @@ class TestEvidenciasEspeciais:
 
 class TestRoteamento:
     def test_sem_dados_nao_e_revisao(self):
-        from backend.app.domain.roteamento.motor_roteamento import rotear_caso
+        from app.domain.roteamento.motor_roteamento import rotear_caso
         resultado = rotear_caso(
             segurado_data={"dados_pessoais": {"nome": "TESTE"}, "vinculos": []},
             beneficios=[],
@@ -318,7 +318,7 @@ class TestRoteamento:
         assert resultado["modo_recomendado"] != "REVISAO"
 
     def test_revisao_com_beneficio_ativo(self):
-        from backend.app.domain.roteamento.motor_roteamento import rotear_caso
+        from app.domain.roteamento.motor_roteamento import rotear_caso
         resultado = rotear_caso(
             segurado_data={"dados_pessoais": {"nome": "TESTE"}, "vinculos": []},
             beneficios=[{"especie": "B42", "nb": "123", "dib": "01/01/2020", "dcb": None, "situacao": "ATIVA"}],
@@ -327,7 +327,7 @@ class TestRoteamento:
         assert resultado["modo_recomendado"] == "REVISAO"
 
     def test_revisao_detecta_beneficio_ativo(self):
-        from backend.app.domain.roteamento.motor_roteamento import rotear_caso
+        from app.domain.roteamento.motor_roteamento import rotear_caso
         resultado = rotear_caso(
             segurado_data={"dados_pessoais": {"nome": "TESTE"}, "vinculos": []},
             beneficios=[{"especie": "B42", "nb": "456", "dib": "01/06/2021", "dcb": None, "situacao": "ATIVA"}],

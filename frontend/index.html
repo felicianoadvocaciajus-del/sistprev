@@ -43,7 +43,8 @@
             <div class="upload-icon">📑</div>
             <h3>CNIS</h3>
             <p>Cadastro Nacional de Informacoes Sociais</p>
-            <label class="btn btn-primary upload-label">Selecionar PDF<input type="file" accept=".pdf,.jpg,.png" id="input-cnis" hidden /></label>
+            <label class="btn btn-primary upload-label">Selecionar PDF(s)<input type="file" accept=".pdf,.jpg,.png" id="input-cnis" multiple hidden /></label>
+            <small style="display:block;font-size:10px;color:#6b7280;margin-top:4px;">💡 Pode anexar vários (páginas separadas, extratos adicionais)</small>
             <div class="upload-status" id="status-cnis"></div>
           </div>
           <div class="upload-card" id="card-carta">
@@ -51,7 +52,8 @@
             <div class="upload-icon">📃</div>
             <h3>Carta de Concessao</h3>
             <p>Documento de concessao do beneficio pelo INSS</p>
-            <label class="btn btn-secondary upload-label">Selecionar PDF<input type="file" accept=".pdf,.jpg,.png" id="input-carta" hidden /></label>
+            <label class="btn btn-secondary upload-label">Selecionar PDF(s)<input type="file" accept=".pdf,.jpg,.png" id="input-carta" multiple hidden /></label>
+            <small style="display:block;font-size:10px;color:#6b7280;margin-top:4px;">💡 Anexe cartas de todos os benefícios</small>
             <div class="upload-status" id="status-carta"></div>
           </div>
           <div class="upload-card" id="card-ctps">
@@ -59,7 +61,11 @@
             <div class="upload-icon">📘</div>
             <h3>CTPS Digital ou Escaneada</h3>
             <p>Carteira de Trabalho — digital ou foto/escaneamento</p>
-            <label class="btn btn-secondary upload-label">Selecionar PDF<input type="file" accept=".pdf,.jpg,.png" id="input-ctps" hidden /></label>
+            <label class="btn btn-secondary upload-label">Selecionar PDF(s)<input type="file" accept=".pdf,.jpg,.png" id="input-ctps" multiple hidden /></label>
+            <small style="display:block;font-size:10px;color:#6b7280;margin-top:4px;">💡 Anexe todas as páginas — o sistema junta e analisa cada vínculo.</small>
+            <label style="display:block;margin-top:8px;font-size:12px;color:#92400e;font-weight:600;cursor:pointer;">
+              <input type="checkbox" id="ctps-ocr-forcado" style="vertical-align:middle;"/> 🔍 <strong>OCR avançado</strong> — CTPS antiga/manuscrita (mais lento, mas lê letra à mão)
+            </label>
             <div class="upload-status" id="status-ctps"></div>
           </div>
           <div class="upload-card" id="card-ppp">
@@ -67,7 +73,8 @@
             <div class="upload-icon">⚠️</div>
             <h3>PPP</h3>
             <p>Perfil Profissiografico Previdenciario</p>
-            <label class="btn btn-secondary upload-label" style="background:#dc2626;border-color:#dc2626;color:#fff;">Selecionar PDF<input type="file" accept=".pdf,.jpg,.png" id="input-ppp" hidden /></label>
+            <label class="btn btn-secondary upload-label" style="background:#dc2626;border-color:#dc2626;color:#fff;">Selecionar PDF(s)<input type="file" accept=".pdf,.jpg,.png" id="input-ppp" multiple hidden /></label>
+            <small style="display:block;font-size:10px;color:#6b7280;margin-top:4px;">💡 Pode anexar PPPs de múltiplos empregadores</small>
             <div class="upload-status" id="status-ppp"></div>
           </div>
           <div class="upload-card" id="card-ltcat">
@@ -75,7 +82,8 @@
             <div class="upload-icon">🔬</div>
             <h3>LTCAT / Laudos</h3>
             <p>Laudo Tecnico, CAT, DIRBEN, Atestados</p>
-            <label class="btn btn-secondary upload-label" style="background:#7c3aed;border-color:#7c3aed;color:#fff;">Selecionar PDF<input type="file" accept=".pdf,.jpg,.png" id="input-ltcat" hidden /></label>
+            <label class="btn btn-secondary upload-label" style="background:#7c3aed;border-color:#7c3aed;color:#fff;">Selecionar PDF(s)<input type="file" accept=".pdf,.jpg,.png" id="input-ltcat" multiple hidden /></label>
+            <small style="display:block;font-size:10px;color:#6b7280;margin-top:4px;">💡 Anexe vários laudos — todos serão analisados</small>
             <div class="upload-status" id="status-ltcat"></div>
           </div>
           <div class="upload-card" id="card-outros">
@@ -83,7 +91,8 @@
             <div class="upload-icon">📂</div>
             <h3>Outros Documentos</h3>
             <p>Processo administrativo, sentenca, laudo, qualquer PDF</p>
-            <label class="btn btn-secondary upload-label" style="background:#0ea5e9;border-color:#0ea5e9;color:#fff;">Selecionar PDF<input type="file" accept=".pdf,.jpg,.png" id="input-outros" hidden /></label>
+            <label class="btn btn-secondary upload-label" style="background:#0ea5e9;border-color:#0ea5e9;color:#fff;">Selecionar PDF(s)<input type="file" accept=".pdf,.jpg,.png" id="input-outros" multiple hidden /></label>
+            <small style="display:block;font-size:10px;color:#6b7280;margin-top:4px;">💡 Múltiplos aceitos — sentenças, pareceres, petições</small>
             <div class="upload-status" id="status-outros"></div>
           </div>
         </div>
@@ -336,9 +345,16 @@
           <div style="background:#eff6ff;border-left:4px solid #2563eb;padding:10px 14px;border-radius:6px;margin-bottom:16px;font-size:12px;color:#1e40af;">
             <strong>Como funciona:</strong> Se o INSS pagava uma RMI errada (ex: R$ 1.200) e a correta é R$ 1.500, os atrasados são sobre a DIFERENÇA (R$ 300/mês), não sobre o benefício inteiro. Preencha os dois campos abaixo.
           </div>
+          <div style="background:#fef3c7;border-left:4px solid #d97706;padding:10px 14px;border-radius:6px;margin-bottom:16px;font-size:12px;color:#92400e;">
+            <strong>⚖️ Restabelecimento x Nova concessão:</strong> Quando o benefício foi <strong>cessado indevidamente</strong> e você pede o <strong>restabelecimento</strong>, a DIB correta é o <strong>dia seguinte à DCB</strong> (data da cessação no CNIS), e não a data da nova DER. Fundamento: Lei 8.213/91 Art. 47; Dec. 3.048/99 Art. 75 §2º; STJ REsp 1.739.818/Tema 862. Use o botão laranja "⚖️ Restabelecimento" acima para preencher automaticamente.
+          </div>
           <div id="at-sugestoes" style="margin-bottom:14px;"></div>
           <div class="form-grid">
-            <div class="form-group"><label>DIB *</label><input type="text" id="at-dib" placeholder="DD/MM/AAAA" maxlength="10" /></div>
+            <div class="form-group">
+              <label>DIB * <small style="color:#6b7280">— data início benefício</small></label>
+              <input type="text" id="at-dib" placeholder="DD/MM/AAAA" maxlength="10" />
+              <button type="button" id="btn-restab-dib" onclick="aplicarRestabelecimento()" style="margin-top:6px;background:#fef3c7;color:#92400e;border:1px solid #92400e33;border-radius:6px;padding:4px 8px;font-size:11px;font-weight:600;cursor:pointer;" title="Se você digitou a DCB (data de cessação), clique aqui para transformar em DIB de restabelecimento (DCB + 1 dia). Fundamento: Art. 75 §2º Dec. 3.048/99.">⚖️ Transformar em restabelecimento (DCB+1)</button>
+            </div>
             <div class="form-group"><label>RMI Correta (R$) * <small style="color:#6b7280">— como deveria ser</small></label><input type="text" id="at-rmi" placeholder="0,00" /></div>
             <div class="form-group"><label>RMI Paga pelo INSS (R$) <small style="color:#6b7280">— deixe vazio se não concedido</small></label><input type="text" id="at-rmi-paga" placeholder="0,00 (opcional)" /></div>
             <div class="form-group"><label>Data de Atualização *</label><input type="text" id="at-atualizacao" placeholder="DD/MM/AAAA" maxlength="10" /></div>
@@ -368,8 +384,13 @@
           </ul>
           <div class="actions-row">
             <button class="btn btn-primary btn-lg" id="btn-gerar-relatorio">📋 Gerar Relatório (PDF)</button>
+            <button class="btn btn-lg" id="btn-relatorio-docx-pericial" style="background:#1a3c6e;color:#fff;">📄 Relatório Word — Feliciano Advocacia</button>
             <button class="btn btn-secondary" id="btn-exportar-json">⬇️ Exportar JSON</button>
           </div>
+          <p style="font-size:11px;color:#6b7280;margin-top:10px;">
+            <strong>📋 PDF:</strong> abre o relatório no navegador — use Ctrl+P para salvar em PDF.
+            <strong style="margin-left:16px;">📄 Word:</strong> baixa um .docx editável com a identidade visual da Feliciano Advocacia (Visual Law). Você pode editar e depois salvar em PDF pelo próprio Word.
+          </p>
         </div>
         <div id="preview-relatorio" class="hidden"></div>
       </section>
@@ -474,6 +495,6 @@
   </div>
 
   <div class="toast-container" id="toast-container"></div>
-  <script src="/static/js/app.js"></script>
+  <script src="/static/js/app.js?v=multifile20260419d"></script>
 </body>
 </html>

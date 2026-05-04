@@ -48,7 +48,7 @@ class TestContagem:
         der = date(2020, 1, 1)
         tc = calcular_tempo_contribuicao([v], der, Sexo.MASCULINO)
         assert tc.anos == 10
-        assert tc.total_dias > 3600
+        assert tc.dias_total > 3600
 
     def test_vinculo_zero_dias(self):
         """Vínculo de 1 dia não deve contar TC significativo."""
@@ -56,7 +56,7 @@ class TestContagem:
         v = _vinculo(inicio, inicio, [])
         der = date(2020, 12, 31)
         tc = calcular_tempo_contribuicao([v], der, Sexo.MASCULINO)
-        assert tc.total_dias <= 1
+        assert tc.dias_total <= 1
 
     def test_sobreposicao_nao_duplica(self):
         """Dois vínculos sobrepostos não devem duplicar o tempo."""

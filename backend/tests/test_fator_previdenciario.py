@@ -74,10 +74,12 @@ class TestFatorPrevidenciario:
 
 class TestCoeficiente:
     def test_coeficiente_minimo_60(self):
-        """Segurado com TC exatamente no limiar recebe 60%."""
+        """Segurado com TC exatamente no limiar recebe 60% (EC 103/2019 Art. 26 II: 15 anos mulher / 20 anos homem)."""
         from app.domain.enums import Sexo
-        coef = calcular_coeficiente(Decimal("20"), Sexo.FEMININO)
+        coef = calcular_coeficiente(Decimal("15"), Sexo.FEMININO)
         assert coef == Decimal("0.60")
+        coef_h = calcular_coeficiente(Decimal("20"), Sexo.MASCULINO)
+        assert coef_h == Decimal("0.60")
 
     def test_coeficiente_35_anos_homem(self):
         """Homem com 35 anos de TC deve receber 60% + 2% × 15 = 90%."""

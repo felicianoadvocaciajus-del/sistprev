@@ -12,6 +12,8 @@ const state = {
   beneficiosAnteriores: [],
   ultimoCalculo: null,
   ultimoPlanejamento: null,
+  ultimaRevisao: null,
+  regraEscolhidaManual: null,
   beneficiosCNIS: [],
   editandoVinculoIdx: -1,
   contribEditando: [],
@@ -58,6 +60,12 @@ function salvarNoLocalStorage() {
     if (state.ultimoPlanejamento) {
       localStorage.setItem('sistprev_planejamento', JSON.stringify(state.ultimoPlanejamento));
     }
+    if (state.ultimaRevisao) {
+      localStorage.setItem('sistprev_revisao', JSON.stringify(state.ultimaRevisao));
+    }
+    if (state.regraEscolhidaManual) {
+      localStorage.setItem('sistprev_regra_manual', JSON.stringify(state.regraEscolhidaManual));
+    }
     document.getElementById('save-indicator').textContent = '💾 Salvo';
     document.getElementById('save-indicator').style.color = '#6ee7b7';
   } catch (e) { /* silencioso */ }
@@ -78,6 +86,12 @@ function carregarDoLocalStorage() {
 
     const planRaw = localStorage.getItem('sistprev_planejamento');
     if (planRaw) state.ultimoPlanejamento = JSON.parse(planRaw);
+
+    const revRaw = localStorage.getItem('sistprev_revisao');
+    if (revRaw) state.ultimaRevisao = JSON.parse(revRaw);
+
+    const regraManualRaw = localStorage.getItem('sistprev_regra_manual');
+    if (regraManualRaw) state.regraEscolhidaManual = JSON.parse(regraManualRaw);
 
     // Restaurar benefícios e modo de cálculo
     const benRaw = localStorage.getItem('sistprev_beneficios');
@@ -194,10 +208,60 @@ document.querySelectorAll('.tab').forEach(tab => {
   });
 });
 
+// ── Helper genérico: processa múltiplos arquivos sequencialmente ────────────
+// Mostra progresso "1/N", "2/N" e chama processOne(data, file, idx) para cada resposta
+async function processarArquivosMultiplos(files, endpoint, statusEl, cardEl, {
+  processOne,          // async (data, file, idx, total) => void
+  erroGenerico = 'Falha ao processar',
+  fdExtra = null,      // (file) => { key: value } para FormData extra
+  queryString = '',    // sufixo de URL (ex: '?force_ocr=true')
+} = {}) {
+  const arr = Array.from(files);
+  if (!arr.length) return { sucessos: 0, falhas: 0 };
+  cardEl.classList.remove('success', 'error');
+  let sucessos = 0, falhas = 0;
+  const erros = [];
+  for (let i = 0; i < arr.length; i++) {
+    const f = arr[i];
+    statusEl.innerHTML = `<span class="loader"></span> Processando ${i+1}/${arr.length}: ${f.name.substring(0,35)}${f.name.length>35?'...':''}`;
+    const fd = new FormData(); fd.append('arquivo', f);
+    if (fdExtra) { const extra = fdExtra(f); Object.entries(extra).forEach(([k,v]) => fd.append(k, v)); }
+    try {
+      const res = await fetch(`${API}${endpoint}${queryString}`, { method:'POST', body: fd });
+      const data = await res.json();
+      if (res.ok && (data.sucesso !== false)) {
+        sucessos++;
+        try { await processOne(data, f, i, arr.length); } catch(e){ console.error('processOne error:', e); }
+      } else {
+        falhas++;
+        const msg = data.erro || data.detail || erroGenerico;
+        erros.push(`${f.name}: ${msg}`);
+      }
+    } catch (err) {
+      falhas++;
+      erros.push(`${f.name}: ${err.message || 'conexão'}`);
+    }
+  }
+  if (sucessos > 0) cardEl.classList.add('success');
+  if (sucessos === 0 && falhas > 0) cardEl.classList.add('error');
+  if (erros.length) {
+    statusEl.innerHTML += `<div style="margin-top:6px;font-size:11px;color:#991b1b;">⚠ ${erros.slice(0,3).join(' · ')}${erros.length>3?` (+${erros.length-3})`:''}</div>`;
+  }
+  return { sucessos, falhas, erros };
+}
+
 // ── Upload CNIS ───────────────────────────────────────────────────────────
-document.getElementById('input-cnis').addEventListener('change', async e => {
-  const file = e.target.files[0];
-  if (!file) return;
+// Aceita múltiplos arquivos. CNIS costuma ser um único documento — o último
+// arquivo "vence" (seus dados ficam ativos). Se forem páginas separadas,
+// recomende juntar antes.
+document.getElementById('input-cnis').addEventListener('change', async evExt => {
+  const filesAll = Array.from(evExt.target.files || []);
+  if (!filesAll.length) return;
+  if (filesAll.length > 1) toast(`Processando ${filesAll.length} arquivos de CNIS — os dados do último prevalecem.`, 'info', 6000);
+  for (const fileCur of filesAll) {
+    const e = { target: { files: [fileCur], value: '' } };
+    const file = e.target.files[0];
+    if (!file) continue;
   const statusEl = document.getElementById('status-cnis');
   const cardEl = document.getElementById('card-cnis');
   statusEl.innerHTML = '<span class="loader"></span> Processando...';
@@ -387,11 +451,17 @@ document.getElementById('input-cnis').addEventListener('change', async e => {
     statusEl.textContent = '❌ Erro: ' + (err.message || 'Falha de conexão');
     console.error('Upload CNIS erro:', err);
   }
-  e.target.value = '';
+  } // fim do for (const fileCur of filesAll)
+  evExt.target.value = '';
 });
 
-document.getElementById('input-carta').addEventListener('change', async e => {
-  const file = e.target.files[0]; if (!file) return;
+document.getElementById('input-carta').addEventListener('change', async evExt => {
+  const filesAll = Array.from(evExt.target.files || []);
+  if (!filesAll.length) return;
+  if (filesAll.length > 1) toast(`Processando ${filesAll.length} cartas de concessão...`, 'info');
+  for (const fileCur of filesAll) {
+    const e = { target: { files: [fileCur], value: '' } };
+    const file = e.target.files[0]; if (!file) continue;
   const statusEl = document.getElementById('status-carta');
   const cardEl = document.getElementById('card-carta');
   statusEl.innerHTML = '<span class="loader"></span> Processando...';
@@ -438,26 +508,57 @@ document.getElementById('input-carta').addEventListener('change', async e => {
       if (data.avisos && data.avisos.length) toast(data.avisos.join('; '), 'warning');
     }
   } catch(err) { cardEl.classList.add('error'); statusEl.textContent = '❌ Erro: ' + (err.message || 'conexão'); }
-  e.target.value = '';
+  }  // fim do for
+  evExt.target.value = '';
 });
 
-document.getElementById('input-ctps').addEventListener('change', async e => {
-  const file = e.target.files[0]; if (!file) return;
+document.getElementById('input-ctps').addEventListener('change', async evExt => {
+  const filesAll = Array.from(evExt.target.files || []);
+  if (!filesAll.length) return;
+  const forceOcr = document.getElementById('ctps-ocr-forcado')?.checked || false;
+  if (filesAll.length > 1) toast(`📘 Processando ${filesAll.length} arquivos de CTPS — os vínculos serão agregados.`, 'info', 8000);
+  if (forceOcr) toast('🔍 OCR avançado ativado — pode demorar mais, mas lê anotações à mão', 'info', 6000);
+  // Estado acumulado de vínculos entre múltiplos arquivos da mesma CTPS
+  if (!state.vinculosCtpsAgregados) state.vinculosCtpsAgregados = [];
+  for (const fileCur of filesAll) {
+    const e = { target: { files: [fileCur], value: '' } };
+    const file = e.target.files[0]; if (!file) continue;
   const statusEl = document.getElementById('status-ctps');
   const cardEl = document.getElementById('card-ctps');
-  statusEl.innerHTML = '<span class="loader"></span> Analisando CTPS e pesquisando atividades especiais...';
+  const msgOcr = forceOcr ? ' (OCR avançado — manuscrito)' : '';
+  statusEl.innerHTML = `<span class="loader"></span> Analisando CTPS${msgOcr}: ${file.name.substring(0,30)}...`;
   const fd = new FormData(); fd.append('arquivo', file);
+  if (forceOcr) fd.append('force_ocr', 'true');
   try {
-    const res = await fetch(`${API}/upload/ctps`, { method: 'POST', body: fd });
+    const res = await fetch(`${API}/upload/ctps${forceOcr ? '?force_ocr=true' : ''}`, { method: 'POST', body: fd });
     if (res.ok) {
       const data = await res.json();
       cardEl.classList.add('success');
-      statusEl.innerHTML = renderizarAnaliseVinculos(data.vinculos || [], data.nome, data.cpf, data.pis_pasep, data.avisos, 'CTPS');
-      const especiais = (data.vinculos||[]).filter(v => v.especial?.possivel);
+      // Agregar vínculos entre múltiplos arquivos
+      const novosVinculos = data.vinculos || [];
+      novosVinculos.forEach(v => {
+        // evita duplicata pelo nome do empregador + data_inicio
+        const chave = `${(v.empregador_nome||'').toUpperCase().trim()}|${v.data_inicio||''}`;
+        const existente = state.vinculosCtpsAgregados.find(x =>
+          `${(x.empregador_nome||'').toUpperCase().trim()}|${x.data_inicio||''}` === chave);
+        if (!existente) {
+          state.vinculosCtpsAgregados.push({...v, _arquivo: file.name});
+        } else if ((existente.observacoes || '').length < (v.observacoes || '').length) {
+          Object.assign(existente, v, {_arquivo: file.name});
+        }
+      });
+      // Renderiza o agregado completo
+      statusEl.innerHTML = renderizarAnaliseVinculos(
+        state.vinculosCtpsAgregados,
+        data.nome, data.cpf, data.pis_pasep,
+        (data.avisos||[]).concat(filesAll.length > 1 ? [`Arquivos processados: ${filesAll.length}`] : []),
+        'CTPS'
+      );
+      const especiais = state.vinculosCtpsAgregados.filter(v => v.especial?.possivel);
       if (especiais.length) {
         toast(`CTPS: ${especiais.length} vinculo(s) com indicativo de atividade especial!`, 'success', 8000);
       } else {
-        toast(`CTPS importada: ${data.vinculos?.length || 0} vinculos`, 'success');
+        toast(`CTPS importada: ${state.vinculosCtpsAgregados.length} vinculo(s) total`, 'success');
       }
     } else {
       const errCtps = await res.json().catch(() => ({}));
@@ -465,91 +566,122 @@ document.getElementById('input-ctps').addEventListener('change', async e => {
       statusEl.textContent = '❌ ' + (errCtps.detail || 'Falha ao processar');
     }
   } catch(err) { cardEl.classList.add('error'); statusEl.textContent = '❌ Erro: ' + (err.message || 'conexão'); }
-  e.target.value = '';
+  }  // fim do for
+  evExt.target.value = '';
 });
 
 // ── Upload PPP ───────────────────────────────────────────────────────────
-document.getElementById('input-ppp').addEventListener('change', async e => {
-  const file = e.target.files[0]; if (!file) return;
+document.getElementById('input-ppp').addEventListener('change', async evExt => {
+  const filesAll = Array.from(evExt.target.files || []);
+  if (!filesAll.length) return;
+  if (filesAll.length > 1) toast(`📑 Processando ${filesAll.length} PPPs...`, 'info', 5000);
   const statusEl = document.getElementById('status-ppp');
   const cardEl = document.getElementById('card-ppp');
-  statusEl.innerHTML = '<span class="loader"></span> Analisando PPP e buscando jurisprudencia...';
-  const fd = new FormData(); fd.append('arquivo', file);
-  try {
-    const res = await fetch(`${API}/upload/ppp`, { method: 'POST', body: fd });
-    const data = await res.json();
-    if (data.sucesso) {
-      cardEl.classList.add('success');
-      // Guardar no state para cruzamento
-      if (!state.ppps) state.ppps = [];
-      state.ppps.push(data);
-      statusEl.innerHTML = renderizarPPP(data);
-      const nAgentes = data.exposicoes?.length || 0;
-      toast(`PPP processado: ${nAgentes} agente(s) nocivo(s) encontrado(s)!`, nAgentes > 0 ? 'success' : 'info', 8000);
-    } else {
-      cardEl.classList.add('error');
-      statusEl.textContent = '❌ ' + (data.erro || 'Falha ao processar PPP');
-    }
-  } catch(err) { cardEl.classList.add('error'); statusEl.textContent = '❌ Erro: ' + (err.message || 'conexao'); }
-  e.target.value = '';
+  if (!state.ppps) state.ppps = [];
+  let totalAgentes = 0, sucessos = 0, falhas = 0;
+  for (let idx = 0; idx < filesAll.length; idx++) {
+    const file = filesAll[idx];
+    statusEl.innerHTML = `<span class="loader"></span> PPP ${idx+1}/${filesAll.length}: ${file.name.substring(0,30)}...`;
+    const fd = new FormData(); fd.append('arquivo', file);
+    try {
+      const res = await fetch(`${API}/upload/ppp`, { method: 'POST', body: fd });
+      const data = await res.json();
+      if (data.sucesso) {
+        sucessos++;
+        data._arquivo = file.name;
+        state.ppps.push(data);
+        totalAgentes += (data.exposicoes?.length || 0);
+      } else {
+        falhas++;
+      }
+    } catch(err) { falhas++; }
+  }
+  if (sucessos > 0) {
+    cardEl.classList.add('success');
+    // Renderizar TODOS os PPPs acumulados
+    statusEl.innerHTML = state.ppps.map(p => renderizarPPP(p)).join('<hr style="border:none;border-top:1px dashed #e5e7eb;margin:10px 0;">');
+    toast(`${sucessos} PPP(s) processado(s): ${totalAgentes} agente(s) nocivo(s) total!`, totalAgentes > 0 ? 'success' : 'info', 8000);
+  }
+  if (falhas > 0) toast(`${falhas} PPP(s) falharam ao processar`, 'warning');
+  evExt.target.value = '';
 });
 
 // ── Upload LTCAT / Documentos Comprobatorios ─────────────────────────────
-document.getElementById('input-ltcat').addEventListener('change', async e => {
-  const file = e.target.files[0]; if (!file) return;
+document.getElementById('input-ltcat').addEventListener('change', async evExt => {
+  const filesAll = Array.from(evExt.target.files || []);
+  if (!filesAll.length) return;
+  if (filesAll.length > 1) toast(`🔬 Processando ${filesAll.length} laudos/documentos...`, 'info', 5000);
   const statusEl = document.getElementById('status-ltcat');
   const cardEl = document.getElementById('card-ltcat');
-  statusEl.innerHTML = '<span class="loader"></span> Analisando documento...';
-  const fd = new FormData(); fd.append('arquivo', file);
-  // Detectar tipo pelo nome do arquivo
-  const nomeUpper = file.name.toUpperCase();
-  let tipo = 'LTCAT';
-  if (nomeUpper.includes('CAT')) tipo = 'CAT';
-  if (nomeUpper.includes('LAUDO')) tipo = 'LAUDO';
-  if (nomeUpper.includes('DIRBEN')) tipo = 'DIRBEN';
-  if (nomeUpper.includes('ATESTADO')) tipo = 'ATESTADO';
-  fd.append('tipo', tipo);
-  try {
-    const res = await fetch(`${API}/upload/documento-comprobatorio`, { method: 'POST', body: fd });
-    const data = await res.json();
-    if (data.sucesso) {
-      cardEl.classList.add('success');
-      if (!state.documentosComprobatorios) state.documentosComprobatorios = [];
-      state.documentosComprobatorios.push(data);
-      statusEl.innerHTML = renderizarDocComprobatorio(data);
-      toast(`${tipo} processado: ${data.agentes_encontrados?.length || 0} agente(s) detectado(s)`, 'success');
-    } else {
-      cardEl.classList.add('error');
-      statusEl.textContent = '❌ ' + (data.erro || 'Falha ao processar');
-    }
-  } catch(err) { cardEl.classList.add('error'); statusEl.textContent = '❌ Erro: ' + (err.message || 'conexao'); }
-  e.target.value = '';
+  if (!state.documentosComprobatorios) state.documentosComprobatorios = [];
+  let totalAgentes = 0, sucessos = 0, falhas = 0;
+  for (let idx = 0; idx < filesAll.length; idx++) {
+    const file = filesAll[idx];
+    const nomeUpper = file.name.toUpperCase();
+    let tipo = 'LTCAT';
+    if (nomeUpper.includes('CAT')) tipo = 'CAT';
+    if (nomeUpper.includes('LAUDO')) tipo = 'LAUDO';
+    if (nomeUpper.includes('DIRBEN')) tipo = 'DIRBEN';
+    if (nomeUpper.includes('ATESTADO')) tipo = 'ATESTADO';
+    statusEl.innerHTML = `<span class="loader"></span> ${tipo} ${idx+1}/${filesAll.length}: ${file.name.substring(0,30)}...`;
+    const fd = new FormData(); fd.append('arquivo', file); fd.append('tipo', tipo);
+    try {
+      const res = await fetch(`${API}/upload/documento-comprobatorio`, { method: 'POST', body: fd });
+      const data = await res.json();
+      if (data.sucesso) {
+        sucessos++;
+        data._arquivo = file.name;
+        data._tipo_detectado = tipo;
+        state.documentosComprobatorios.push(data);
+        totalAgentes += (data.agentes_encontrados?.length || 0);
+      } else {
+        falhas++;
+      }
+    } catch(err) { falhas++; }
+  }
+  if (sucessos > 0) {
+    cardEl.classList.add('success');
+    // Renderizar TODOS os documentos acumulados
+    statusEl.innerHTML = state.documentosComprobatorios.map(d => renderizarDocComprobatorio(d)).join('<hr style="border:none;border-top:1px dashed #e5e7eb;margin:10px 0;">');
+    toast(`${sucessos} laudo(s) processado(s): ${totalAgentes} agente(s) total detectado(s)`, 'success', 8000);
+  }
+  if (falhas > 0) toast(`${falhas} laudo(s) falharam ao processar`, 'warning');
+  evExt.target.value = '';
 });
 
 // ── Upload "Outros Documentos" (usa mesmo endpoint documento-comprobatorio)
-document.getElementById('input-outros')?.addEventListener('change', async e => {
-  const file = e.target.files[0]; if (!file) return;
+document.getElementById('input-outros')?.addEventListener('change', async evExt => {
+  const filesAll = Array.from(evExt.target.files || []);
+  if (!filesAll.length) return;
+  if (filesAll.length > 1) toast(`📂 Processando ${filesAll.length} documentos...`, 'info');
   const statusEl = document.getElementById('status-outros');
   const cardEl = document.getElementById('card-outros');
-  statusEl.innerHTML = '<span class="loader"></span> Analisando documento...';
-  const fd = new FormData(); fd.append('arquivo', file);
-  fd.append('tipo', 'OUTROS');
-  try {
-    const res = await fetch(`${API}/upload/documento-comprobatorio`, { method: 'POST', body: fd });
-    const data = await res.json();
-    if (data.sucesso) {
-      cardEl.classList.add('success');
-      cardEl.querySelector('.upload-delete')?.classList.remove('hidden');
-      if (!state.documentosComprobatorios) state.documentosComprobatorios = [];
-      state.documentosComprobatorios.push(data);
-      statusEl.innerHTML = renderizarDocComprobatorio(data);
-      toast(`Documento processado: ${data.agentes_encontrados?.length || 0} agente(s), ${data.empresa ? 'empresa: ' + data.empresa : 'sem empresa'}`, 'success');
-    } else {
-      cardEl.classList.add('error');
-      statusEl.textContent = '❌ ' + (data.erro || 'Falha ao processar');
-    }
-  } catch(err) { cardEl.classList.add('error'); statusEl.textContent = '❌ Erro: ' + (err.message || 'conexao'); }
-  e.target.value = '';
+  if (!state.documentosComprobatorios) state.documentosComprobatorios = [];
+  let sucessos = 0, falhas = 0;
+  for (let idx = 0; idx < filesAll.length; idx++) {
+    const file = filesAll[idx];
+    statusEl.innerHTML = `<span class="loader"></span> Doc ${idx+1}/${filesAll.length}: ${file.name.substring(0,30)}...`;
+    const fd = new FormData(); fd.append('arquivo', file); fd.append('tipo', 'OUTROS');
+    try {
+      const res = await fetch(`${API}/upload/documento-comprobatorio`, { method: 'POST', body: fd });
+      const data = await res.json();
+      if (data.sucesso) {
+        sucessos++;
+        data._arquivo = file.name;
+        state.documentosComprobatorios.push(data);
+      } else { falhas++; }
+    } catch(err) { falhas++; }
+  }
+  if (sucessos > 0) {
+    cardEl.classList.add('success');
+    cardEl.querySelector('.upload-delete')?.classList.remove('hidden');
+    // Renderizar todos docs acumulados (evita duplicar os que já estavam do ltcat)
+    const docsOutros = state.documentosComprobatorios.filter(d => (d.tipo_documento || '').toUpperCase() === 'OUTROS' || d._tipo_detectado === undefined);
+    statusEl.innerHTML = docsOutros.map(d => renderizarDocComprobatorio(d)).join('<hr style="border:none;border-top:1px dashed #e5e7eb;margin:10px 0;">');
+    toast(`${sucessos} documento(s) processado(s)`, 'success');
+  }
+  if (falhas > 0) toast(`${falhas} documento(s) falharam`, 'warning');
+  evExt.target.value = '';
 });
 
 // ── Limpar upload individual ─────────────────────────────────────────────
@@ -1956,14 +2088,25 @@ function renderizarPlanejamento(data, container) {
   // ── Linha do tempo ────────────────────────────────────────────────────────
   if (alcancaveis.length) {
     const maxMeses = alcancaveis[alcancaveis.length - 1].meses_faltantes || 1;
-    html += `<div class="card"><h3 class="card-title">📅 Linha do Tempo — Datas de Aposentadoria</h3>`;
+    // Armazena os cenários acessíveis num global para o modal conseguir abrir
+    window.__planejamentoProjecoes = alcancaveis;
+    window.__planejamentoContexto = {
+      nome: nome,
+      tc_atual: data.tc_atual || {},
+      salario_projetado: data.salario_projetado,
+      der_base: data.der_base,
+    };
+    html += `<div class="card"><h3 class="card-title">📅 Linha do Tempo — Datas de Aposentadoria</h3>
+      <p style="font-size:12px;color:#6b7280;margin-bottom:12px;">
+        💡 <strong>Clique em qualquer opção</strong> para ver a conta detalhada. Se o cliente preferir outra regra em vez da "Melhor opção", você pode usar qualquer uma.
+      </p>`;
     html += `<div class="timeline">`;
     alcancaveis.forEach((p, i) => {
       const isMelhor = i === 0;
       const baraPct = Math.round((p.meses_faltantes / maxMeses) * 100);
       const msg = p.mensagem_cliente || '';
       html += `
-        <div class="timeline-item ${isMelhor ? 'timeline-melhor' : ''}">
+        <div class="timeline-item ${isMelhor ? 'timeline-melhor' : ''}" onclick="mostrarDetalhesProjecao(${i})" style="cursor:pointer;transition:transform .12s,box-shadow .12s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(26,60,110,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''" title="Clique para ver a conta detalhada desta regra">
           <div class="timeline-dot ${isMelhor ? 'dot-verde' : 'dot-azul'}"></div>
           <div class="timeline-content">
             <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
@@ -1973,7 +2116,9 @@ function renderizarPlanejamento(data, container) {
               </div>
               <div style="text-align:right;flex-shrink:0;">
                 <div class="timeline-rmi">${p.rmi_formatada}</div>
-                ${isMelhor ? '<span class="badge badge-ok" style="display:inline-block;margin-top:4px;">⭐ Melhor opção</span>' : ''}
+                ${isMelhor
+                  ? '<span class="badge badge-ok" style="display:inline-block;margin-top:4px;">⭐ Melhor opção</span>'
+                  : '<span style="display:inline-block;margin-top:4px;font-size:10px;color:#2563eb;font-weight:600;">🔍 Ver detalhes</span>'}
               </div>
             </div>
             <div class="timeline-periodo">Faltam: <strong>${p.texto_faltante || 'menos de 1 mês'}</strong></div>
@@ -2857,6 +3002,18 @@ document.getElementById('btn-teto').addEventListener('click', async () => {
     const data = await res.json();
     if (!res.ok) { toast(data.detail||'Erro','error'); return; }
     const aplicavel = data.ec20_aplicavel||data.ec41_aplicavel;
+    // Salvar resultado da revisão do teto para uso na tela de Atrasados
+    if (aplicavel && data.rmi_revisada) {
+      state.ultimaRevisao = {
+        tipo: 'Revisão do Teto',
+        fundamento: 'EC 20/98 e EC 41/03 (STF RE 937.595)',
+        dib: dib,
+        rmi_paga: data.rmi_original,      // RMI antiga — o que INSS pagou
+        rmi_correta: data.rmi_revisada,    // RMI nova — com revisão
+        diferenca_mensal: data.diferenca_mensal,
+      };
+      try { salvarNoLocalStorage(); } catch(e){}
+    }
     document.getElementById('resultado-teto').innerHTML = `
       <div class="alert ${aplicavel?'alert-success':'alert-warning'}" style="margin-top:16px;">
         ${aplicavel?'✅ Revisão aplicável':'⚠️ Sem direito à revisão do teto'}</div>
@@ -3099,6 +3256,199 @@ document.querySelectorAll('.tabs .tab[data-tab="especial-revisao"]').forEach(tab
 });
 
 // ── Atrasados ─────────────────────────────────────────────────────────────
+// Aplica regra de restabelecimento: DIB = DCB + 1 dia
+// Usado quando o advogado digitou a DCB no campo DIB por engano, ou quando
+// quer explicitamente calcular restabelecimento sem depender do CNIS.
+// Fundamento: Art. 75 §2º Dec. 3.048/99; STJ Tema 862.
+// Botão laranja do painel "Valores calculados": pergunta a DCB e preenche DIB=DCB+1
+window.preencherRestabelecimentoViaPrompt = function(rmiSugerida) {
+  const dcb = prompt('Informe a DCB (data de cessação do benefício no CNIS):\n\nFormato: DD/MM/AAAA\n\nExemplo: 14/08/2023');
+  if (!dcb) return;
+  const v = dcb.trim();
+  const m = v.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+  if (!m) {
+    if (typeof toast === 'function') toast('Data inválida. Use DD/MM/AAAA', 'error');
+    return;
+  }
+  const d = new Date(parseInt(m[3]), parseInt(m[2]) - 1, parseInt(m[1]));
+  d.setDate(d.getDate() + 1);
+  const dd = String(d.getDate()).padStart(2, '0');
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const yy = d.getFullYear();
+  const dibFinal = `${dd}/${mm}/${yy}`;
+  document.getElementById('at-dib').value = dibFinal;
+  if (rmiSugerida) document.getElementById('at-rmi').value = rmiSugerida;
+  // Em restabelecimento, o INSS deixou de pagar após cessar → RMI paga = 0
+  document.getElementById('at-rmi-paga').value = '0';
+  if (typeof toast === 'function') toast(`Restabelecimento: DIB ${dibFinal} (DCB+1 = ${v}). RMI paga = 0 (cessado).`, 'success');
+};
+
+// ── Modal de detalhamento da projeção (Linha do Tempo) ──────────────────────
+// Mostra a conta completa de qualquer regra da linha do tempo — não apenas a "melhor opção"
+window.mostrarDetalhesProjecao = function(idx) {
+  const projecoes = window.__planejamentoProjecoes || [];
+  const ctx = window.__planejamentoContexto || {};
+  const p = projecoes[idx];
+  if (!p) { toast('Projeção não encontrada', 'error'); return; }
+
+  const tc = ctx.tc_atual || {};
+  const tcAtualStr = `${tc.anos || 0} anos, ${tc.meses || 0} meses e ${tc.dias || 0} dias`;
+  const tcFuturo = p.tc_na_data || '—';
+  const sb = p.salario_beneficio ? 'R$ ' + fmtDecimal(p.salario_beneficio) : '—';
+  const coef = p.coeficiente ? (parseFloat(p.coeficiente) * 100).toFixed(2) + '%' : '—';
+  const fator = p.fator_previdenciario ? parseFloat(p.fator_previdenciario).toFixed(4) : '—';
+  const rmiProj = p.rmi_formatada || '—';
+  const baseLegal = p.base_legal || '—';
+  const msg = p.mensagem_cliente || '';
+
+  // Remover modal anterior se existir
+  const velho = document.getElementById('modal-projecao');
+  if (velho) velho.remove();
+
+  const modal = document.createElement('div');
+  modal.id = 'modal-projecao';
+  modal.style.cssText = `
+    position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,0.6);
+    display:flex;align-items:center;justify-content:center;padding:20px;
+  `;
+  modal.innerHTML = `
+    <div style="background:#fff;border-radius:12px;max-width:720px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+      <div style="background:#1a3c6e;color:#fff;padding:18px 24px;border-radius:12px 12px 0 0;display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <div style="font-size:11px;opacity:0.8;letter-spacing:1px;">DETALHAMENTO DO CÁLCULO</div>
+          <div style="font-size:18px;font-weight:700;margin-top:2px;">${p.regra}</div>
+        </div>
+        <button onclick="document.getElementById('modal-projecao').remove()"
+          style="background:rgba(255,255,255,0.15);border:none;color:#fff;width:36px;height:36px;border-radius:50%;font-size:20px;cursor:pointer;">×</button>
+      </div>
+
+      <div style="padding:24px;">
+        <!-- Destaque data + RMI -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+          <div style="background:#eff6ff;border-left:4px solid #2563eb;padding:14px;border-radius:6px;">
+            <div style="font-size:10px;color:#1e40af;letter-spacing:0.5px;font-weight:700;">📅 DATA DE ELEGIBILIDADE</div>
+            <div style="font-size:22px;font-weight:800;color:#1e40af;margin-top:4px;">${p.data_elegibilidade || '—'}</div>
+            <div style="font-size:11px;color:#6b7280;margin-top:2px;">Faltam ${p.texto_faltante || '—'}</div>
+          </div>
+          <div style="background:#dcfce7;border-left:4px solid #16a34a;padding:14px;border-radius:6px;">
+            <div style="font-size:10px;color:#065f46;letter-spacing:0.5px;font-weight:700;">💰 RMI PROJETADA</div>
+            <div style="font-size:22px;font-weight:800;color:#065f46;margin-top:4px;">${rmiProj}</div>
+            <div style="font-size:11px;color:#6b7280;margin-top:2px;">Renda Mensal Inicial estimada</div>
+          </div>
+        </div>
+
+        <!-- Tabela da memória de cálculo -->
+        <h3 style="font-size:14px;color:#1a3c6e;margin-bottom:10px;border-bottom:2px solid #1a3c6e;padding-bottom:4px;">Memória de Cálculo</h3>
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <tr style="background:#f9fafb;"><td style="padding:8px 12px;font-weight:600;color:#374151;width:45%;">Base legal</td><td style="padding:8px 12px;color:#1f2937;">${baseLegal}</td></tr>
+          <tr><td style="padding:8px 12px;font-weight:600;color:#374151;">Tempo de Contribuição atual (na DER base)</td><td style="padding:8px 12px;color:#1f2937;">${tcAtualStr}</td></tr>
+          <tr style="background:#f9fafb;"><td style="padding:8px 12px;font-weight:600;color:#374151;">Tempo de Contribuição na data de elegibilidade</td><td style="padding:8px 12px;color:#1f2937;">${tcFuturo}</td></tr>
+          <tr><td style="padding:8px 12px;font-weight:600;color:#374151;">Salário de Benefício (SB)</td><td style="padding:8px 12px;color:#1f2937;">${sb}</td></tr>
+          <tr style="background:#f9fafb;"><td style="padding:8px 12px;font-weight:600;color:#374151;">Coeficiente aplicado</td><td style="padding:8px 12px;color:#1f2937;">${coef}</td></tr>
+          <tr><td style="padding:8px 12px;font-weight:600;color:#374151;">Fator Previdenciário</td><td style="padding:8px 12px;color:#1f2937;">${fator}</td></tr>
+          <tr style="background:#dcfce7;border-top:2px solid #16a34a;"><td style="padding:10px 12px;font-weight:700;color:#065f46;">RMI Final</td><td style="padding:10px 12px;font-weight:800;color:#065f46;font-size:15px;">${rmiProj}</td></tr>
+        </table>
+
+        <!-- Fórmula explicativa -->
+        <div style="background:#fef9c3;border-left:4px solid #b45309;padding:12px 16px;border-radius:6px;margin-top:16px;">
+          <div style="font-size:11px;font-weight:700;color:#92400e;letter-spacing:0.5px;margin-bottom:4px;">📐 COMO CHEGOU NO VALOR</div>
+          <div style="font-size:13px;color:#78350f;line-height:1.5;">
+            ${_explicarFormulaProjecao(p)}
+          </div>
+        </div>
+
+        ${msg ? `
+        <div style="background:#eff6ff;border-left:4px solid #2563eb;padding:12px 16px;border-radius:6px;margin-top:12px;">
+          <div style="font-size:11px;font-weight:700;color:#1e40af;letter-spacing:0.5px;margin-bottom:4px;">💬 EXPLICAÇÃO PARA O CLIENTE</div>
+          <div style="font-size:13px;color:#1e3a8a;line-height:1.5;">${msg}</div>
+        </div>` : ''}
+
+        <!-- Ações -->
+        <div style="display:flex;gap:10px;margin-top:24px;padding-top:16px;border-top:1px solid #e5e7eb;">
+          <button onclick="escolherProjecaoComoBase(${idx})"
+            style="flex:1;background:#1a3c6e;color:#fff;border:none;padding:12px 18px;border-radius:8px;font-weight:700;cursor:pointer;">
+            ✅ Escolher esta regra como base do cálculo
+          </button>
+          <button onclick="document.getElementById('modal-projecao').remove()"
+            style="background:#f3f4f6;color:#374151;border:1px solid #e5e7eb;padding:12px 18px;border-radius:8px;cursor:pointer;">
+            Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+  // Fecha ao clicar fora
+  modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+  document.body.appendChild(modal);
+};
+
+// Gera a frase explicativa da fórmula para uma projeção
+function _explicarFormulaProjecao(p) {
+  const sb = p.salario_beneficio ? 'R$ ' + fmtDecimal(p.salario_beneficio) : '(SB)';
+  const rmi = p.rmi_formatada || '—';
+  const coef = p.coeficiente ? (parseFloat(p.coeficiente) * 100).toFixed(2) + '%' : null;
+  const fator = p.fator_previdenciario ? parseFloat(p.fator_previdenciario).toFixed(4) : null;
+
+  if (fator && fator !== '1.0000' && fator !== '0.0000') {
+    return `<strong>RMI = SB × Fator Previdenciário</strong><br/>
+      ${rmi} = ${sb} × ${fator}<br/>
+      <em style="font-size:11px;">Fator calculado pela fórmula da Lei 9.876/99: f = (Tc × 0,31 / Es) × [1 + (Id + Tc × 0,31)/100]</em>`;
+  }
+  if (coef) {
+    return `<strong>RMI = SB × Coeficiente</strong><br/>
+      ${rmi} = ${sb} × ${coef}<br/>
+      <em style="font-size:11px;">Coeficiente EC 103/2019 Art. 26: 60% + 2% por ano de TC acima do limiar (20H/15M), limitado a 100%.</em>`;
+  }
+  return `<strong>RMI projetada:</strong> ${rmi}.
+    <em style="font-size:11px;">Cálculo conforme a regra específica aplicada.</em>`;
+}
+
+// Marca uma projeção como a regra escolhida pelo cliente (alternativa à "Melhor opção")
+window.escolherProjecaoComoBase = function(idx) {
+  const projecoes = window.__planejamentoProjecoes || [];
+  const p = projecoes[idx];
+  if (!p) return;
+
+  // Guardar a escolha manual no state (sobrescreve a "melhor" apenas para exibição/uso)
+  state.regraEscolhidaManual = {
+    regra: p.regra,
+    data_elegibilidade: p.data_elegibilidade,
+    rmi_formatada: p.rmi_formatada,
+    rmi_projetada: p.rmi_projetada,
+    salario_beneficio: p.salario_beneficio,
+    coeficiente: p.coeficiente,
+    fator_previdenciario: p.fator_previdenciario,
+    tc_na_data: p.tc_na_data,
+    base_legal: p.base_legal,
+  };
+  try { salvarNoLocalStorage(); } catch(e){}
+
+  // Atualiza as sugestões da aba Atrasados/Revisões
+  try { popularSugestoesAtrasados(); } catch(e){}
+  try { popularSugestoesRevisao(); } catch(e){}
+
+  document.getElementById('modal-projecao')?.remove();
+  toast(`✅ Regra escolhida: ${p.regra.split('—')[0].trim()} — RMI ${p.rmi_formatada}`, 'success');
+};
+
+window.aplicarRestabelecimento = function() {
+  const el = document.getElementById('at-dib');
+  if (!el) return;
+  const v = (el.value || '').trim();
+  const m = v.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+  if (!m) {
+    if (typeof toast === 'function') toast('Digite primeiro a DCB (data de cessação) no formato DD/MM/AAAA', 'error');
+    return;
+  }
+  const d = new Date(parseInt(m[3]), parseInt(m[2]) - 1, parseInt(m[1]));
+  d.setDate(d.getDate() + 1);
+  const dd = String(d.getDate()).padStart(2, '0');
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const yy = d.getFullYear();
+  el.value = `${dd}/${mm}/${yy}`;
+  if (typeof toast === 'function') toast(`DIB ajustada para ${el.value} (dia seguinte à DCB ${v})`, 'success');
+};
+
 // ── Sugestões de RMI/DIB nos Atrasados ──────────────────────────────────
 function popularSugestoesAtrasados() {
   const container = document.getElementById('at-sugestoes');
@@ -3117,6 +3467,18 @@ function popularSugestoesAtrasados() {
         cor: '#065f46',
         bg: '#dcfce7',
       });
+
+      // Botão laranja de RESTABELECIMENTO — aparece sempre que há um cálculo feito
+      // Se o tipo for auxílio (B31/B91), usa esse mesmo; senão, usa qualquer benefício cessado do CNIS
+      const tipoEhAuxilio = /auxilio|B31|B91|31|91|incapacidade/i.test(calc.tipo || '');
+      sugestoes.push({
+        label: `⚖️ Restabelecimento — informar DCB — RMI R$ ${fmtDecimal(calc.rmi)}`,
+        rmi: calc.rmi,
+        der: '__ASK_DCB__',   // marcador especial — onclick vai pedir a DCB
+        cor: '#92400e',
+        bg: '#fef3c7',
+        titulo: `Clique para informar a DCB (data de cessação). O sistema calcula a DIB como dia seguinte (DCB+1). Fundamento: Art. 75 §2º Dec. 3.048/99; STJ Tema 862.`,
+      });
     }
     // Cenários elegíveis do último cálculo
     (calc.todos_cenarios || []).forEach(c => {
@@ -3133,19 +3495,89 @@ function popularSugestoesAtrasados() {
   }
 
   // 2) Benefícios do CNIS
+  // Helper: soma 1 dia à data DD/MM/AAAA (para DIB de restabelecimento = DCB + 1)
+  const addUmDia = (dataStr) => {
+    if (!dataStr) return '';
+    const m = dataStr.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    if (!m) return '';
+    const d = new Date(parseInt(m[3]), parseInt(m[2]) - 1, parseInt(m[1]));
+    d.setDate(d.getDate() + 1);
+    const dd = String(d.getDate()).padStart(2, '0');
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const yy = d.getFullYear();
+    return `${dd}/${mm}/${yy}`;
+  };
+
+  // RMI fallback — quando o CNIS não traz RMI do benefício, usa o último cálculo
+  // (que representa o valor que SERIA devido hoje se o benefício não tivesse sido cessado)
+  const rmiUltimoCalc = state.ultimoCalculo?.rmi || '';
+
   (state.beneficiosCNIS || []).forEach(b => {
+    // Botão 1: DIB original (nova concessão ou benefício ativo)
     if (b.rmi) {
       sugestoes.push({
-        label: `CNIS: ${b.especie || '?'} (${b.situacao || '?'}) — DER ${b.data_inicio || '?'} — RMI R$ ${b.rmi}`,
+        label: `CNIS: ${b.especie || '?'} (${b.situacao || '?'}) — DIB ${b.data_inicio || '?'} — RMI R$ ${b.rmi}`,
         rmi: b.rmi,
         der: b.data_inicio || '',
         cor: b.situacao === 'ATIVO' ? '#065f46' : '#991b1b',
         bg: b.situacao === 'ATIVO' ? '#dcfce7' : '#fef2f2',
       });
     }
+
+    // Botão 2: RESTABELECIMENTO — DIB = DCB + 1 dia (Lei 8.213/91 Art. 47; Dec. 3.048/99 Art. 75 §2º; STJ Tema 862)
+    // Para qualquer benefício com data_fim (cessado) conhecida e que NÃO esteja ativo
+    const temDCB = b.data_fim || b.dcb;
+    const naoAtivo = b.situacao !== 'ATIVO';
+    if (temDCB && naoAtivo) {
+      const dibRestab = addUmDia(temDCB);
+      if (dibRestab) {
+        // RMI a usar: do próprio CNIS se tiver, senão do último cálculo feito
+        const rmiParaUsar = b.rmi || rmiUltimoCalc;
+        const rmiLabel = rmiParaUsar ? `— RMI R$ ${typeof rmiParaUsar === 'string' ? rmiParaUsar : fmtDecimal(rmiParaUsar)}` : '(digite a RMI)';
+        sugestoes.push({
+          label: `⚖️ Restabelecimento: ${b.especie || '?'} — DIB ${dibRestab} (DCB+1) ${rmiLabel}`,
+          rmi: rmiParaUsar,
+          rmi_paga: '0',  // Restabelecimento: nada foi pago após a cessação
+          der: dibRestab,
+          cor: '#92400e',
+          bg: '#fef3c7',
+          titulo: `Restabelecimento de benefício cessado em ${temDCB}. DIB = dia seguinte à DCB (Art. 75 §2º Dec. 3.048/99). RMI paga = 0 (cessado).`,
+        });
+      }
+    }
   });
 
-  // 3) Melhor regra do planejamento
+  // 3) Última Revisão feita (Teto, Melhor Benefício, Especial, etc.)
+  // Aqui a lógica é diferente: RMI Correta = nova (revisada), RMI Paga = antiga (o que INSS pagava)
+  if (state.ultimaRevisao && state.ultimaRevisao.rmi_correta) {
+    const rev = state.ultimaRevisao;
+    const dif = rev.diferenca_mensal || (parseFloat(rev.rmi_correta) - parseFloat(rev.rmi_paga || 0));
+    sugestoes.push({
+      label: `🔍 ${rev.tipo}: dif. R$ ${fmtDecimal(dif)}/mês (paga R$ ${fmtDecimal(rev.rmi_paga)} → correta R$ ${fmtDecimal(rev.rmi_correta)})`,
+      rmi: rev.rmi_correta,
+      rmi_paga: rev.rmi_paga,
+      der: rev.dib || '',
+      cor: '#5b21b6',
+      bg: '#ede9fe',
+      titulo: `${rev.tipo} — ${rev.fundamento || ''}. Atrasados calculados sobre a DIFERENÇA de R$ ${fmtDecimal(dif)}/mês desde ${rev.dib}.`,
+    });
+  }
+
+  // 3.b) Regra escolhida MANUALMENTE pelo advogado na Linha do Tempo (prioridade sobre a "melhor")
+  if (state.regraEscolhidaManual) {
+    const r = state.regraEscolhidaManual;
+    const rmiVal = typeof r.rmi_projetada === 'string' ? r.rmi_projetada : String(r.rmi_projetada || '');
+    sugestoes.push({
+      label: `👉 Escolha do advogado: ${r.regra || 'Regra'} — RMI ${r.rmi_formatada || 'R$ ' + fmtDecimal(rmiVal)} (${r.data_elegibilidade || '—'})`,
+      rmi: rmiVal.replace('R$','').replace(/\./g,'').replace(',','.').trim() || rmiVal,
+      der: r.data_elegibilidade || '',
+      cor: '#1a3c6e',
+      bg: '#dbeafe',
+      titulo: `Regra escolhida manualmente em vez da "Melhor opção". ${r.base_legal || ''}`,
+    });
+  }
+
+  // 4) Melhor regra do planejamento
   if (state.ultimoPlanejamento?.melhor_rmi) {
     const p = state.ultimoPlanejamento;
     const rmiVal = typeof p.melhor_rmi === 'string' ? p.melhor_rmi : String(p.melhor_rmi);
@@ -3167,7 +3599,23 @@ function popularSugestoesAtrasados() {
     <div style="display:flex;flex-wrap:wrap;gap:6px;">`;
 
   sugestoes.forEach(s => {
-    html += `<button onclick="document.getElementById('at-rmi').value='${s.rmi}'; ${s.der ? "document.getElementById('at-dib').value='"+s.der+"';" : ''} toast('Valores preenchidos!','success');"
+    const tooltip = s.titulo ? ` title="${s.titulo.replace(/"/g,'&quot;')}"` : '';
+    let onclickAction = '';
+    if (s.der === '__ASK_DCB__') {
+      // Botão de restabelecimento — pede DCB e calcula DIB = DCB+1
+      onclickAction = `preencherRestabelecimentoViaPrompt('${s.rmi || ''}')`;
+    } else {
+      // Preenche DIB, RMI correta e (se aplicável) RMI paga pelo INSS
+      const parts = [];
+      if (s.rmi) parts.push(`document.getElementById('at-rmi').value='${s.rmi}'`);
+      if (s.der) parts.push(`document.getElementById('at-dib').value='${s.der}'`);
+      if (s.rmi_paga !== undefined && s.rmi_paga !== null) {
+        parts.push(`document.getElementById('at-rmi-paga').value='${s.rmi_paga}'`);
+      }
+      parts.push(`toast('Valores preenchidos!','success')`);
+      onclickAction = parts.join('; ');
+    }
+    html += `<button${tooltip} onclick="${onclickAction}"
       style="background:${s.bg};color:${s.cor};border:1px solid ${s.cor}33;border-radius:6px;padding:5px 10px;font-size:11px;font-weight:600;cursor:pointer;">${s.label}</button>`;
   });
 
@@ -3256,6 +3704,44 @@ document.getElementById('btn-gerar-relatorio').addEventListener('click', async (
     } else { const e=await res.json(); toast(e.detail||'Erro','error'); }
   } catch { toast('Erro','error'); }
   finally { btn.disabled=false; btn.textContent='📋 Gerar Relatório (PDF)'; }
+});
+
+// ── Relatório Pericial em DOCX Feliciano Advocacia (Visual Law) ──
+document.getElementById('btn-relatorio-docx-pericial')?.addEventListener('click', async () => {
+  if (!state.ultimoCalculo) { toast('Faça um cálculo antes de gerar o relatório','error'); return; }
+  const btn = document.getElementById('btn-relatorio-docx-pericial');
+  btn.disabled = true; btn.innerHTML = '<span class="loader"></span> Gerando Word...';
+  try {
+    const nomeAdv = prompt('Nome do advogado(a) para assinatura do relatório:\n(deixe em branco para usar genérico)', '') || null;
+    const res = await fetch(`${API}/relatorio/docx`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        segurado: coletarSegurado(),
+        calculo: state.ultimoCalculo,
+        nome_advogado: nomeAdv,
+      }),
+    });
+    if (!res.ok) {
+      let msg = 'Erro ao gerar Word';
+      try { const e = await res.json(); msg = e.detail || msg; } catch(_){}
+      toast(msg, 'error');
+      return;
+    }
+    const blob = await res.blob();
+    const nomeSeg = (coletarSegurado().dados_pessoais?.nome || 'Cliente').replace(/\s+/g, '_');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `Relatorio_Pericial_${nomeSeg}.docx`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+    toast('Relatório Word baixado!', 'success');
+  } catch (e) {
+    toast('Erro de conexão: ' + e.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '📄 Relatório Word — Feliciano Advocacia';
+  }
 });
 
 document.getElementById('btn-exportar-json').addEventListener('click', () => {

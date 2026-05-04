@@ -54,8 +54,36 @@ class Vinculo:
 
     @property
     def data_fim_efetiva(self) -> date:
-        """Data fim efetiva: usa hoje se vínculo em aberto."""
-        return self.data_fim or date.today()
+        """
+        Data fim efetiva para cálculo de TC.
+
+        REGRA: Se data_fim não está informada (vínculo sem baixa no CNIS),
+        usa o ÚLTIMO MÊS DE CONTRIBUIÇÃO do próprio vínculo como data fim.
+        Isso evita que vínculos sem data_fim se estendam até hoje,
+        inflando artificialmente o TC.
+
+        Só usa date.today() se NÃO há nenhuma contribuição registrada
+        E não há data_fim — situação de vínculo realmente em aberto/ativo.
+        """
+        if self.data_fim:
+            return self.data_fim
+        # Sem data_fim: usar último mês de contribuição + último dia do mês
+        if self.contribuicoes:
+            ultima_comp = max(c.competencia for c in self.contribuicoes)
+            # Último dia do mês da última contribuição
+            from calendar import monthrange
+            ultimo_dia = monthrange(ultima_comp.year, ultima_comp.month)[1]
+            return date(ultima_comp.year, ultima_comp.month, ultimo_dia)
+        # Sem data_fim e sem contribuições: vínculo realmente em aberto
+        return date.today()
+
+    @property
+    def data_fim_inferida(self) -> bool:
+        """
+        True quando a data fim foi inferida da última contribuição
+        (data_fim não estava no CNIS). Usado para sinalizar em vermelho no frontend.
+        """
+        return self.data_fim is None and bool(self.contribuicoes)
 
     @property
     def duracao_dias(self) -> int:
@@ -68,7 +96,11 @@ class Vinculo:
 
     @property
     def is_em_aberto(self) -> bool:
-        return self.data_fim is None
+        """
+        True apenas se não tem data_fim E não tem contribuições
+        (vínculo genuinamente em aberto/ativo).
+        """
+        return self.data_fim is None and not self.contribuicoes
 
     def competencias_validas(self) -> List[Contribuicao]:
         """Retorna apenas competências que contam para tempo de contribuição."""

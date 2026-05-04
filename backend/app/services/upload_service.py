@@ -29,15 +29,22 @@ from ..parsers.ctps.parser import parsear_ctps_digital, ResultadoParserCTPS
 logger = logging.getLogger("sistprev.upload")
 
 
-def _extrair_texto_ocr(caminho_pdf: str, nome_arquivo: str) -> str:
+def _extrair_texto_ocr(caminho_pdf: str, nome_arquivo: str, force_ocr: bool = False) -> str:
     """
     Tenta extrair texto via OCR pipeline.
+    Se force_ocr=True, força OCR em todas as páginas (útil para CTPS manuscrita antiga).
     Retorna string vazia se OCR não disponível ou falhar.
     """
     try:
         from ..parsers.pipeline.ocr_engine import extract_document
-        logger.info(f"Iniciando OCR para: {nome_arquivo}")
-        doc_result = extract_document(caminho_pdf, filename=nome_arquivo)
+        modo = "FORÇADO em todas páginas" if force_ocr else "automático"
+        logger.info(f"Iniciando OCR ({modo}) para: {nome_arquivo}")
+        doc_result = extract_document(
+            caminho_pdf,
+            filename=nome_arquivo,
+            force_ocr=force_ocr,
+            ocr_all_pages=force_ocr,
+        )
         if doc_result.full_text.strip():
             logger.info(
                 f"OCR concluído: {doc_result.total_pages} páginas, "
@@ -99,17 +106,33 @@ class UploadService:
         return resultado if resultado.sucesso else None, aviso
 
     @staticmethod
-    def processar_ctps(arquivo: BinaryIO, nome_arquivo: str) -> Tuple[Optional[ResultadoParserCTPS], str]:
-        """Processa CTPS Digital. Tenta OCR se texto nativo vazio."""
+    def processar_ctps(
+        arquivo: BinaryIO,
+        nome_arquivo: str,
+        force_ocr: bool = False,
+    ) -> Tuple[Optional[ResultadoParserCTPS], str]:
+        """
+        Processa CTPS Digital. Tenta OCR se texto nativo vazio.
+        Se force_ocr=True: força OCR em todas as páginas desde o início — útil para
+        CTPS antiga/manuscrita em que o texto nativo pode estar vazio ou incompleto.
+        """
         caminho = _salvar_temp(arquivo, nome_arquivo)
         try:
-            resultado = parsear_ctps_digital(caminho)
-
-            # Se falhou por falta de texto, tentar OCR
-            if not resultado.sucesso and _erro_sem_texto(resultado.erros):
-                texto_ocr = _extrair_texto_ocr(caminho, nome_arquivo)
-                if texto_ocr:
-                    resultado = parsear_ctps_digital(caminho, texto_ocr=texto_ocr)
+            if force_ocr:
+                # Pula tentativa de texto nativo e vai direto ao OCR agressivo
+                texto_ocr = _extrair_texto_ocr(caminho, nome_arquivo, force_ocr=True)
+                resultado = parsear_ctps_digital(caminho, texto_ocr=texto_ocr if texto_ocr else None)
+                if resultado and not resultado.avisos:
+                    resultado.avisos.append("OCR avançado aplicado (modo manuscrito)")
+                elif resultado:
+                    resultado.avisos.append("OCR avançado aplicado (modo manuscrito)")
+            else:
+                resultado = parsear_ctps_digital(caminho)
+                # Se falhou por falta de texto, tentar OCR automático
+                if not resultado.sucesso and _erro_sem_texto(resultado.erros):
+                    texto_ocr = _extrair_texto_ocr(caminho, nome_arquivo, force_ocr=False)
+                    if texto_ocr:
+                        resultado = parsear_ctps_digital(caminho, texto_ocr=texto_ocr)
         finally:
             _remover_temp(caminho)
 

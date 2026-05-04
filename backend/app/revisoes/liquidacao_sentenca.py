@@ -130,7 +130,13 @@ def calcular_atrasados(
         ano_presc = data_ajuizamento.year - 5
         data_prescricao = date(ano_presc, data_ajuizamento.month, data_ajuizamento.day)
 
-    competencias = Competencia.intervalo(dib, data_atualizacao)
+    # Parcelas vencidas: intervalo half-open [DIB, data_atualizacao).
+    # A competencia de data_atualizacao ainda nao venceu, nao entra no atrasado.
+    data_atualizacao_norm = date(data_atualizacao.year, data_atualizacao.month, 1)
+    competencias = [
+        c for c in Competencia.intervalo(dib, data_atualizacao)
+        if c < data_atualizacao_norm
+    ]
     parcelas = []
     total_principal = Decimal("0")
     total_juros = Decimal("0")

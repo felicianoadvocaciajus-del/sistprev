@@ -1,0 +1,4213 @@
+{
+  "id": "b7cf96234c0e",
+  "nome_cliente": "RAFAEL VICENTE MARCO PONS",
+  "data_elaboracao": "2026-04-06",
+  "nome_advogado": "Dra. Beatriz Feliciano Mendes Veloso - custa de planejamento R$ 3.200,00, tabela OAB 2026",
+  "observacoes": "",
+  "segurado": {
+    "dados_pessoais": {
+      "nome": "RAFAEL VICENTE MARCO PONS",
+      "data_nascimento": "18/12/1959",
+      "sexo": "MASCULINO",
+      "cpf": "00974095885",
+      "nit": "26812192005"
+    },
+    "vinculos": [
+      {
+        "empregador_cnpj": "61577193000132",
+        "empregador_nome": "SATURNO MAROTE FABRICA DE ABRASIVOS LTDA",
+        "tipo_vinculo": "EMPREGADO",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "03/02/1976",
+        "data_fim": "20/01/1978",
+        "contribuicoes": [],
+        "indicadores": ""
+      },
+      {
+        "empregador_cnpj": "33719311003694",
+        "empregador_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A",
+        "tipo_vinculo": "EMPREGADO",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "23/01/1978",
+        "data_fim": "02/08/2000",
+        "contribuicoes": [
+          {
+            "competencia": "01/1982",
+            "salario": "54327.03",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1982",
+            "salario": "54327.03",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1982",
+            "salario": "54327.03",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1982",
+            "salario": "54327.03",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1982",
+            "salario": "54326.92",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1982",
+            "salario": "77616.98",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1982",
+            "salario": "78463.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1982",
+            "salario": "78136.98",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1982",
+            "salario": "144436.95",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1982",
+            "salario": "78463.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1982",
+            "salario": "78463.05",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1982",
+            "salario": "191535.01",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1983",
+            "salario": "112963.07",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1983",
+            "salario": "117289.92",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1983",
+            "salario": "172670.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1983",
+            "salario": "114404.96",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1983",
+            "salario": "115366.94",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1983",
+            "salario": "175661.92",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1983",
+            "salario": "171987.14",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1983",
+            "salario": "176397.08",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1983",
+            "salario": "175661.92",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1983",
+            "salario": "175662.96",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1983",
+            "salario": "175662.27",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1983",
+            "salario": "547110.78",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1984",
+            "salario": "303029.02",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1984",
+            "salario": "303029.02",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1984",
+            "salario": "303029.02",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1984",
+            "salario": "454543.82",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1984",
+            "salario": "300504.14",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1984",
+            "salario": "502112.27",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1984",
+            "salario": "502112.27",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1984",
+            "salario": "502112.27",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1984",
+            "salario": "602271.58",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1984",
+            "salario": "604363.78",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1984",
+            "salario": "604364.62",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1984",
+            "salario": "1935956.86",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1985",
+            "salario": "1043736.58",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1985",
+            "salario": "1116283.45",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1985",
+            "salario": "1250237.66",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1985",
+            "salario": "1250237.66",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1985",
+            "salario": "1250239.33",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1985",
+            "salario": "2076286.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1985",
+            "salario": "2076286.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1985",
+            "salario": "2867963.32",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1985",
+            "salario": "3298157.82",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1985",
+            "salario": "3298157.82",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1985",
+            "salario": "3298158.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1985",
+            "salario": "5377722.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1986",
+            "salario": "5377002.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1986",
+            "salario": "5377998.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1986",
+            "salario": "6442.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1986",
+            "salario": "6442.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1986",
+            "salario": "6442.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1986",
+            "salario": "6442.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1986",
+            "salario": "6442.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1986",
+            "salario": "12895.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1986",
+            "salario": "10010.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1986",
+            "salario": "10010.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1986",
+            "salario": "10010.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1986",
+            "salario": "11909.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1987",
+            "salario": "11921.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1987",
+            "salario": "13497.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1987",
+            "salario": "16566.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1987",
+            "salario": "21810.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1987",
+            "salario": "24399.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1987",
+            "salario": "29248.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1987",
+            "salario": "29248.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1987",
+            "salario": "29248.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1987",
+            "salario": "31439.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1987",
+            "salario": "35172.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1987",
+            "salario": "55540.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1987",
+            "salario": "108189.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1988",
+            "salario": "59294.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1988",
+            "salario": "64703.01",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1988",
+            "salario": "88327.98",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1988",
+            "salario": "104950.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1988",
+            "salario": "121870.02",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1988",
+            "salario": "143337.03",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1988",
+            "salario": "168600.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1988",
+            "salario": "219327.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1988",
+            "salario": "266242.04",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1988",
+            "salario": "323191.95",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1988",
+            "salario": "392323.02",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1988",
+            "salario": "1468274.06",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1989",
+            "salario": "931.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1989",
+            "salario": "1021.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1989",
+            "salario": "1021.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1989",
+            "salario": "1446.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1989",
+            "salario": "1227.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1989",
+            "salario": "1418.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1989",
+            "salario": "2604.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1989",
+            "salario": "2853.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1989",
+            "salario": "3703.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1989",
+            "salario": "5034.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1989",
+            "salario": "6929.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1989",
+            "salario": "26223.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1990",
+            "salario": "20217.97",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1990",
+            "salario": "31563.81",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1990",
+            "salario": "66560.74",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1990",
+            "salario": "54536.64",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1990",
+            "salario": "54536.64",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1990",
+            "salario": "71615.84",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1990",
+            "salario": "71645.64",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1990",
+            "salario": "71654.76",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1990",
+            "salario": "116125.50",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1990",
+            "salario": "208604.37",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1990",
+            "salario": "92985.26",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1990",
+            "salario": "228051.81",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1991",
+            "salario": "190428.05",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1991",
+            "salario": "161168.83",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1991",
+            "salario": "1070969.40",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1991",
+            "salario": "263749.90",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1991",
+            "salario": "260749.40",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1991",
+            "salario": "249750.40",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1991",
+            "salario": "337752.60",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1991",
+            "salario": "505600.40",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1991",
+            "salario": "533097.60",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1991",
+            "salario": "682365.60",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1991",
+            "salario": "682365.60",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1991",
+            "salario": "2510718.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1992",
+            "salario": "1506883.33",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1992",
+            "salario": "7946186.30",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1992",
+            "salario": "4771028.91",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1992",
+            "salario": "2984619.33",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1992",
+            "salario": "3482154.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1992",
+            "salario": "4109985.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1992",
+            "salario": "4849803.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1992",
+            "salario": "5855754.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1992",
+            "salario": "6979446.20",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1992",
+            "salario": "8318124.64",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1992",
+            "salario": "10053299.62",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1992",
+            "salario": "29207638.77",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1993",
+            "salario": "18789991.50",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1993",
+            "salario": "39334990.26",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1993",
+            "salario": "31161985.93",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1993",
+            "salario": "61005990.27",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1993",
+            "salario": "56182988.86",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1993",
+            "salario": "82869986.19",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1993",
+            "salario": "103016969.02",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1993",
+            "salario": "128723.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1993",
+            "salario": "163104.98",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1993",
+            "salario": "256034.96",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1993",
+            "salario": "649531.92",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1993",
+            "salario": "447694.83",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1994",
+            "salario": "548179.43",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1994",
+            "salario": "1115093.70",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1994",
+            "salario": "1413.84",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1994",
+            "salario": "1413.84",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1994",
+            "salario": "1413.84",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1994",
+            "salario": "1633.81",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1994",
+            "salario": "1633.81",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1994",
+            "salario": "1633.81",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1994",
+            "salario": "1633.80",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1994",
+            "salario": "1867.56",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1994",
+            "salario": "3723.55",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1994",
+            "salario": "1968.09",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1995",
+            "salario": "3216.74",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1995",
+            "salario": "1876.39",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1995",
+            "salario": "1876.39",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1995",
+            "salario": "1876.39",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1995",
+            "salario": "2352.40",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1995",
+            "salario": "2352.40",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1995",
+            "salario": "2352.40",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1995",
+            "salario": "2352.40",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1995",
+            "salario": "2870.62",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1995",
+            "salario": "3422.37",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1995",
+            "salario": "5156.37",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1995",
+            "salario": "3052.37",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1996",
+            "salario": "3116.62",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1996",
+            "salario": "3086.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1996",
+            "salario": "3086.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1996",
+            "salario": "3086.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1996",
+            "salario": "3085.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1996",
+            "salario": "3759.75",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1996",
+            "salario": "3085.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1996",
+            "salario": "3085.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1996",
+            "salario": "3318.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1996",
+            "salario": "3741.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1996",
+            "salario": "7430.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1996",
+            "salario": "4121.37",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1997",
+            "salario": "3754.49",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1997",
+            "salario": "4574.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1997",
+            "salario": "3754.49",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1997",
+            "salario": "3754.49",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1997",
+            "salario": "3754.50",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1997",
+            "salario": "3754.50",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1997",
+            "salario": "3754.50",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1997",
+            "salario": "3754.50",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1997",
+            "salario": "3754.50",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1997",
+            "salario": "3902.49",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1997",
+            "salario": "7738.50",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1997",
+            "salario": "3930.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1998",
+            "salario": "3936.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1998",
+            "salario": "3936.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1998",
+            "salario": "3936.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1998",
+            "salario": "740.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": ""
+      },
+      {
+        "empregador_cnpj": "12268405003371",
+        "empregador_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A.",
+        "tipo_vinculo": "EMPREGADO",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "02/05/1998",
+        "data_fim": "01/09/1999",
+        "contribuicoes": [
+          {
+            "competencia": "04/1998",
+            "salario": "4676.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1998",
+            "salario": "4675.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/1998",
+            "salario": "4576.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1998",
+            "salario": "4775.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1998",
+            "salario": "4675.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1998",
+            "salario": "4675.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1998",
+            "salario": "4675.99",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1998",
+            "salario": "2288.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1998",
+            "salario": "4676.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/1999",
+            "salario": "4576.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/1999",
+            "salario": "4676.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/1999",
+            "salario": "4676.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/1999",
+            "salario": "4676.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/1999",
+            "salario": "5692.89",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1999",
+            "salario": "4706.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1999",
+            "salario": "4706.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": ""
+      },
+      {
+        "empregador_cnpj": "33366980012530",
+        "empregador_nome": "COMPANHIA CERVEJARIA BRAHMA",
+        "tipo_vinculo": "EMPREGADO",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "02/05/1998",
+        "data_fim": "02/08/2000",
+        "contribuicoes": [
+          {
+            "competencia": "09/1999",
+            "salario": "4576.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1999",
+            "salario": "4786.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1999",
+            "salario": "9152.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1999",
+            "salario": "4576.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/2000",
+            "salario": "4915.90",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/2000",
+            "salario": "5502.82",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/2000",
+            "salario": "4908.74",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/2000",
+            "salario": "4705.36",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/2000",
+            "salario": "4705.36",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/2000",
+            "salario": "4705.36",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/2000",
+            "salario": "4705.36",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/2000",
+            "salario": "3080.51",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": ""
+      },
+      {
+        "empregador_cnpj": "12268405003371",
+        "empregador_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A.",
+        "tipo_vinculo": "EMPREGADO",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/06/1998",
+        "data_fim": "27/03/2026",
+        "contribuicoes": [
+          {
+            "competencia": "06/1998",
+            "salario": "4578.03",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/1998",
+            "salario": "4778.13",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/1998",
+            "salario": "4678.13",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/1998",
+            "salario": "4678.13",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/1998",
+            "salario": "4678.13",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/1998",
+            "salario": "9254.13",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/1998",
+            "salario": "4678.13",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": ""
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO CONTRIBUINTE",
+        "tipo_vinculo": "CONTRIBUINTE_INDIVIDUAL",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/12/2001",
+        "data_fim": "31/12/2001",
+        "contribuicoes": [
+          {
+            "competencia": "12/2001",
+            "salario": "286.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": ""
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO CONTRIBUINTE",
+        "tipo_vinculo": "CONTRIBUINTE_INDIVIDUAL",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/03/2002",
+        "data_fim": "31/03/2002",
+        "contribuicoes": [
+          {
+            "competencia": "03/2002",
+            "salario": "400.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": ""
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO Empregado",
+        "tipo_vinculo": "EMPREGADO_DOMESTICO",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/06/2002",
+        "data_fim": "30/06/2002",
+        "contribuicoes": [
+          {
+            "competencia": "06/2002",
+            "salario": "407.12",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": "IREC-INDPEND"
+      },
+      {
+        "empregador_cnpj": null,
+        "empregador_nome": "RECOLHIMENTO CONTRIBUINTE",
+        "tipo_vinculo": "CONTRIBUINTE_INDIVIDUAL",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/08/2002",
+        "data_fim": "31/08/2002",
+        "contribuicoes": [
+          {
+            "competencia": "08/2002",
+            "salario": "400.00",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": ""
+      },
+      {
+        "empregador_cnpj": "46005914000146",
+        "empregador_nome": "Normal",
+        "tipo_vinculo": "CONTRIBUINTE_INDIVIDUAL",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "01/05/2003",
+        "data_fim": "31/10/2003",
+        "contribuicoes": [],
+        "indicadores": ""
+      },
+      {
+        "empregador_cnpj": "50221019002007",
+        "empregador_nome": "HNK BR INDUSTRIA DE BEBIDAS LTDA.",
+        "tipo_vinculo": "EMPREGADO",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "22/09/2003",
+        "data_fim": "17/05/2004",
+        "contribuicoes": [
+          {
+            "competencia": "09/2003",
+            "salario": "1236.54",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/2003",
+            "salario": "4121.88",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/2003",
+            "salario": "4121.82",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/2003",
+            "salario": "3621.83",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/2004",
+            "salario": "4579.95",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/2004",
+            "salario": "5154.96",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/2004",
+            "salario": "4194.94",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/2004",
+            "salario": "4194.94",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/2004",
+            "salario": "3289.99",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": ""
+      },
+      {
+        "empregador_cnpj": "01438784000105",
+        "empregador_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE",
+        "tipo_vinculo": "EMPREGADO",
+        "tipo_atividade": "NORMAL",
+        "data_inicio": "08/05/2013",
+        "data_fim": "16/01/2017",
+        "contribuicoes": [
+          {
+            "competencia": "05/2013",
+            "salario": "3833.33",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/2013",
+            "salario": "5000.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/2013",
+            "salario": "5297.63",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/2013",
+            "salario": "5000.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/2013",
+            "salario": "5000.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/2013",
+            "salario": "5333.34",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/2013",
+            "salario": "5000.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/2013",
+            "salario": "5872.46",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/2014",
+            "salario": "5284.50",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/2014",
+            "salario": "7869.47",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/2014",
+            "salario": "5833.19",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/2014",
+            "salario": "5380.15",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/2014",
+            "salario": "5380.15",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/2014",
+            "salario": "5380.15",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/2014",
+            "salario": "7319.59",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/2014",
+            "salario": "5380.15",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/2014",
+            "salario": "5380.15",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/2014",
+            "salario": "6197.94",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/2014",
+            "salario": "5810.56",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/2014",
+            "salario": "5810.56",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/2015",
+            "salario": "5810.56",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/2015",
+            "salario": "9113.12",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/2015",
+            "salario": "6682.23",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/2015",
+            "salario": "6102.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/2015",
+            "salario": "6102.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/2015",
+            "salario": "6102.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/2015",
+            "salario": "8779.07",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/2015",
+            "salario": "6102.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/2015",
+            "salario": "6102.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/2015",
+            "salario": "8142.16",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/2015",
+            "salario": "6102.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/2015",
+            "salario": "6102.00",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "01/2016",
+            "salario": "6806.10",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "02/2016",
+            "salario": "14301.37",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "03/2016",
+            "salario": "6706.10",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "04/2016",
+            "salario": "6706.10",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "05/2016",
+            "salario": "6706.10",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "06/2016",
+            "salario": "6706.10",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "07/2016",
+            "salario": "8409.13",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "08/2016",
+            "salario": "6706.10",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "09/2016",
+            "salario": "6706.10",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "10/2016",
+            "salario": "7253.18",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "11/2016",
+            "salario": "6706.10",
+            "teto_aplicado": false
+          },
+          {
+            "competencia": "12/2016",
+            "salario": "2906.01",
+            "teto_aplicado": false
+          }
+        ],
+        "indicadores": ""
+      }
+    ],
+    "beneficios_anteriores": [
+      {
+        "numero_beneficio": "Benefício 42 - APOSE",
+        "especie": "B42",
+        "dib": "02/06/2017",
+        "dcb": null,
+        "rmi": "0"
+      }
+    ]
+  },
+  "planejamento": {
+    "der_base": "02/06/2017",
+    "tc_atual": {
+      "anos": 41,
+      "meses": 4,
+      "dias": 9,
+      "total_dias": 15094
+    },
+    "carencia_meses": 497,
+    "analise_tc_carencia": {
+      "tc_total_dias": 15094,
+      "tc_total_texto": "41a 4m 9d",
+      "tc_sem_b31_dias": 15094,
+      "tc_sem_b31_texto": "41a 4m 9d",
+      "dias_b31_intercalado": 0,
+      "meses_b31_intercalado": 0,
+      "carencia_meses": 497,
+      "carencia_exigida": 180,
+      "faltam_carencia": 0,
+      "faltam_carencia_texto": "Completa",
+      "carencia_ok": true,
+      "gargalo": "nenhum",
+      "explicacao": "",
+      "beneficios_b31": []
+    },
+    "salario_projetado": "7218.21",
+    "elegiveis_agora": true,
+    "melhor_data": "01/07/2017",
+    "melhor_regra": "Transição — Sistema de Pontos (Art. 15 EC 103/2019)",
+    "melhor_rmi": "3557.13",
+    "projecoes": [
+      {
+        "regra": "Transição — Sistema de Pontos (Art. 15 EC 103/2019)",
+        "base_legal": "EC 103/2019 Art. 15",
+        "data_elegibilidade": "01/07/2017",
+        "meses_faltantes": 1,
+        "anos_faltantes": 0,
+        "meses_resto": 1,
+        "texto_faltante": "1 mês",
+        "rmi_projetada": "3557.13",
+        "rmi_formatada": "R$ 3.557,13",
+        "salario_beneficio": "3557.13",
+        "coeficiente": "1.0000",
+        "fator_previdenciario": null,
+        "tc_na_data": {
+          "anos": 41,
+          "meses": 6,
+          "dias": 8,
+          "total_dias": 15153
+        },
+        "mensagem_cliente": "Pela regra de pontos, você poderá se aposentar em 01/07/2017 (faltam 1 mês), com renda mensal de R$ 3.557,13. Esta regra exige soma de idade + tempo de contribuição."
+      },
+      {
+        "regra": "Direito Adquirido — TC completo antes de 13/11/2019",
+        "base_legal": "EC 103/2019 Art. 3º; Lei 9.876/99",
+        "data_elegibilidade": "01/07/2017",
+        "meses_faltantes": 1,
+        "anos_faltantes": 0,
+        "meses_resto": 1,
+        "texto_faltante": "1 mês",
+        "rmi_projetada": "3328.41",
+        "rmi_formatada": "R$ 3.328,41",
+        "salario_beneficio": "3557.13",
+        "coeficiente": "0",
+        "fator_previdenciario": "0.9357",
+        "tc_na_data": {
+          "anos": 41,
+          "meses": 6,
+          "dias": 8,
+          "total_dias": 15153
+        },
+        "mensagem_cliente": "Aposentadoria prevista para 01/07/2017 (faltam 1 mês), com renda de R$ 3.328,41."
+      },
+      {
+        "regra": "Transição — Pedágio 50% + FP (Art. 17 EC 103/2019)",
+        "base_legal": "EC 103/2019 Art. 17",
+        "data_elegibilidade": "01/11/2019",
+        "meses_faltantes": 29,
+        "anos_faltantes": 2,
+        "meses_resto": 5,
+        "texto_faltante": "2 anos e 5 meses",
+        "rmi_projetada": "4015.77",
+        "rmi_formatada": "R$ 4.015,77",
+        "salario_beneficio": "4107.36",
+        "coeficiente": "0",
+        "fator_previdenciario": "0.9777",
+        "tc_na_data": {
+          "anos": 43,
+          "meses": 10,
+          "dias": 10,
+          "total_dias": 16005
+        },
+        "mensagem_cliente": "Pela regra do pedágio 50%, você se aposenta em 01/11/2019 (faltam 2 anos e 5 meses), com renda de R$ 4.015,77. Esta é uma das regras mais favoráveis para quem estava próximo de se aposentar em 2019."
+      },
+      {
+        "regra": "Transição — Pedágio 100% + Idade Mínima (Art. 20 EC 103/2019)",
+        "base_legal": "EC 103/2019 Art. 20",
+        "data_elegibilidade": "01/01/2020",
+        "meses_faltantes": 31,
+        "anos_faltantes": 2,
+        "meses_resto": 7,
+        "texto_faltante": "2 anos e 7 meses",
+        "rmi_projetada": "4179.29",
+        "rmi_formatada": "R$ 4.179,29",
+        "salario_beneficio": "4179.29",
+        "coeficiente": "1.0",
+        "fator_previdenciario": null,
+        "tc_na_data": {
+          "anos": 44,
+          "meses": 0,
+          "dias": 7,
+          "total_dias": 16067
+        },
+        "mensagem_cliente": "Pela regra do pedágio 100%, você se aposenta em 01/01/2020 (faltam 2 anos e 7 meses), com renda de R$ 4.179,29. Exige dobrar o tempo que faltava em novembro de 2019."
+      },
+      {
+        "regra": "Transição — Idade Mínima Progressiva (Art. 16 EC 103/2019)",
+        "base_legal": "EC 103/2019 Art. 16",
+        "data_elegibilidade": "01/01/2025",
+        "meses_faltantes": 91,
+        "anos_faltantes": 7,
+        "meses_resto": 7,
+        "texto_faltante": "7 anos e 7 meses",
+        "rmi_projetada": "7008.36",
+        "rmi_formatada": "R$ 7.008,36",
+        "salario_beneficio": "7008.36",
+        "coeficiente": "1.0000",
+        "fator_previdenciario": null,
+        "tc_na_data": {
+          "anos": 49,
+          "meses": 0,
+          "dias": 9,
+          "total_dias": 17894
+        },
+        "mensagem_cliente": "Pela regra de idade progressiva, sua aposentadoria será em 01/01/2025 (faltam 7 anos e 7 meses), com renda de R$ 7.008,36. Exige tempo de contribuição completo (35H/30M) e idade mínima crescente."
+      },
+      {
+        "regra": "Aposentadoria por Idade (Regra Permanente)",
+        "base_legal": "EC 103/2019 Art. 19; Lei 8.213/91 Art. 48",
+        "data_elegibilidade": "01/01/2025",
+        "meses_faltantes": 91,
+        "anos_faltantes": 7,
+        "meses_resto": 7,
+        "texto_faltante": "7 anos e 7 meses",
+        "rmi_projetada": "7008.36",
+        "rmi_formatada": "R$ 7.008,36",
+        "salario_beneficio": "7008.36",
+        "coeficiente": "1.0000",
+        "fator_previdenciario": null,
+        "tc_na_data": {
+          "anos": 49,
+          "meses": 0,
+          "dias": 9,
+          "total_dias": 17894
+        },
+        "mensagem_cliente": "Pela aposentadoria por idade, você terá direito em 01/01/2025 (faltam 7 anos e 7 meses), com renda de R$ 7.008,36. Exige 65 anos (homem) ou 62 anos (mulher) e 180 meses de contribuição."
+      }
+    ],
+    "recomendacao": "✅ ATENÇÃO: RAFAEL já tem direito à aposentadoria HOJE pela regra 'Transição — Sistema de Pontos (Art. 15 EC 103/2019)', com RMI de R$ 3.558,20. Recomenda-se dar entrada no requerimento imediatamente para não perder competências.",
+    "argumentos_cliente": [
+      "Seu histórico no CNIS registra 41 anos, 4 meses e 9 dias de tempo de contribuição ao RGPS.",
+      "A aposentadoria mais rápida disponível é pela regra 'Transição — Sistema de Pontos (Art. 15 EC 103/2019)', prevista para 01/07/2017 (faltam 1 mês), com renda mensal estimada de R$ 3.557,13.",
+      "Uma alternativa é aguardar a regra 'Direito Adquirido — TC completo antes de 13/11/2019' com data prevista em 01/07/2017, que oferece renda de R$ 3.328,41.",
+      "Importante: as datas projetadas assumem contribuição contínua. Períodos sem contribuição (desemprego, doença) atrasam a elegibilidade.",
+      "O valor da renda (RMI) é uma estimativa baseada nos salários atuais. Aumentos salariais futuros e correção monetária podem alterar este valor.",
+      "O teto do INSS em 06/2017 é de R$ 5.531,31. Salários acima deste valor não aumentam a aposentadoria.",
+      "Verifique se há mais de um NIT/PIS/PASEP vinculado ao CPF. É comum que trabalhadores que alternaram entre emprego formal, autônomo ou MEI tenham cadastros fragmentados no INSS, com contribuições 'perdidas' em outro NIT. A unificação pode ser solicitada pelo 135 ou Meu INSS e pode revelar tempo de contribuição adicional decisivo para a aposentadoria."
+    ],
+    "custo_beneficio": [
+      {
+        "regra": "Transição — Sistema de Pontos (Art. 15 EC 103/2019)",
+        "data_elegibilidade": "01/07/2017",
+        "meses_faltantes": 1,
+        "rmi": "3557.13",
+        "rmi_formatada": "R$ 3.557,13",
+        "idade_aposentadoria": 57.5,
+        "meses_recebendo": 228.7,
+        "total_recebido": "813592.32",
+        "expectativa_vida_anos": 76.6,
+        "modalidades": [
+          {
+            "modalidade": "Empregado (CLT)",
+            "aliquota_pct": 11,
+            "contribuicao_mensal": "794.00",
+            "total_pago_ate_apos": "794.00",
+            "meses_para_recuperar": "0.2",
+            "anos_para_recuperar": "0.0",
+            "total_recebido_ate_obito": "813592.32",
+            "lucro_liquido": "812798.32",
+            "roi_percentual": "102367.5",
+            "vale_a_pena": true
+          },
+          {
+            "modalidade": "Autônomo / Contribuinte Individual",
+            "aliquota_pct": 20,
+            "contribuicao_mensal": "1443.64",
+            "total_pago_ate_apos": "1443.64",
+            "meses_para_recuperar": "0.4",
+            "anos_para_recuperar": "0.0",
+            "total_recebido_ate_obito": "813592.32",
+            "lucro_liquido": "812148.68",
+            "roi_percentual": "56257.0",
+            "vale_a_pena": true
+          },
+          {
+            "modalidade": "Segurado Facultativo",
+            "aliquota_pct": 20,
+            "contribuicao_mensal": "1443.64",
+            "total_pago_ate_apos": "1443.64",
+            "meses_para_recuperar": "0.4",
+            "anos_para_recuperar": "0.0",
+            "total_recebido_ate_obito": "813592.32",
+            "lucro_liquido": "812148.68",
+            "roi_percentual": "56257.0",
+            "vale_a_pena": true
+          }
+        ]
+      },
+      {
+        "regra": "Direito Adquirido — TC completo antes de 13/11/2019",
+        "data_elegibilidade": "01/07/2017",
+        "meses_faltantes": 1,
+        "rmi": "3328.41",
+        "rmi_formatada": "R$ 3.328,41",
+        "idade_aposentadoria": 57.5,
+        "meses_recebendo": 228.7,
+        "total_recebido": "761279.13",
+        "expectativa_vida_anos": 76.6,
+        "modalidades": [
+          {
+            "modalidade": "Empregado (CLT)",
+            "aliquota_pct": 11,
+            "contribuicao_mensal": "794.00",
+            "total_pago_ate_apos": "794.00",
+            "meses_para_recuperar": "0.2",
+            "anos_para_recuperar": "0.0",
+            "total_recebido_ate_obito": "761279.13",
+            "lucro_liquido": "760485.13",
+            "roi_percentual": "95779.0",
+            "vale_a_pena": true
+          },
+          {
+            "modalidade": "Autônomo / Contribuinte Individual",
+            "aliquota_pct": 20,
+            "contribuicao_mensal": "1443.64",
+            "total_pago_ate_apos": "1443.64",
+            "meses_para_recuperar": "0.4",
+            "anos_para_recuperar": "0.0",
+            "total_recebido_ate_obito": "761279.13",
+            "lucro_liquido": "759835.49",
+            "roi_percentual": "52633.3",
+            "vale_a_pena": true
+          },
+          {
+            "modalidade": "Segurado Facultativo",
+            "aliquota_pct": 20,
+            "contribuicao_mensal": "1443.64",
+            "total_pago_ate_apos": "1443.64",
+            "meses_para_recuperar": "0.4",
+            "anos_para_recuperar": "0.0",
+            "total_recebido_ate_obito": "761279.13",
+            "lucro_liquido": "759835.49",
+            "roi_percentual": "52633.3",
+            "vale_a_pena": true
+          }
+        ]
+      },
+      {
+        "regra": "Transição — Pedágio 50% + FP (Art. 17 EC 103/2019)",
+        "data_elegibilidade": "01/11/2019",
+        "meses_faltantes": 29,
+        "rmi": "4015.77",
+        "rmi_formatada": "R$ 4.015,77",
+        "idade_aposentadoria": 59.9,
+        "meses_recebendo": 200.7,
+        "total_recebido": "806051.62",
+        "expectativa_vida_anos": 76.6,
+        "modalidades": [
+          {
+            "modalidade": "Empregado (CLT)",
+            "aliquota_pct": 11,
+            "contribuicao_mensal": "794.00",
+            "total_pago_ate_apos": "23026.00",
+            "meses_para_recuperar": "5.7",
+            "anos_para_recuperar": "0.5",
+            "total_recebido_ate_obito": "806051.62",
+            "lucro_liquido": "783025.62",
+            "roi_percentual": "3400.6",
+            "vale_a_pena": true
+          },
+          {
+            "modalidade": "Autônomo / Contribuinte Individual",
+            "aliquota_pct": 20,
+            "contribuicao_mensal": "1443.64",
+            "total_pago_ate_apos": "41865.56",
+            "meses_para_recuperar": "10.4",
+            "anos_para_recuperar": "0.9",
+            "total_recebido_ate_obito": "806051.62",
+            "lucro_liquido": "764186.06",
+            "roi_percentual": "1825.3",
+            "vale_a_pena": true
+          },
+          {
+            "modalidade": "Segurado Facultativo",
+            "aliquota_pct": 20,
+            "contribuicao_mensal": "1443.64",
+            "total_pago_ate_apos": "41865.56",
+            "meses_para_recuperar": "10.4",
+            "anos_para_recuperar": "0.9",
+            "total_recebido_ate_obito": "806051.62",
+            "lucro_liquido": "764186.06",
+            "roi_percentual": "1825.3",
+            "vale_a_pena": true
+          }
+        ]
+      },
+      {
+        "regra": "Transição — Pedágio 100% + Idade Mínima (Art. 20 EC 103/2019)",
+        "data_elegibilidade": "01/01/2020",
+        "meses_faltantes": 31,
+        "rmi": "4179.29",
+        "rmi_formatada": "R$ 4.179,29",
+        "idade_aposentadoria": 60,
+        "meses_recebendo": 198.7,
+        "total_recebido": "830515.03",
+        "expectativa_vida_anos": 76.6,
+        "modalidades": [
+          {
+            "modalidade": "Empregado (CLT)",
+            "aliquota_pct": 11,
+            "contribuicao_mensal": "794.00",
+            "total_pago_ate_apos": "24614.00",
+            "meses_para_recuperar": "5.9",
+            "anos_para_recuperar": "0.5",
+            "total_recebido_ate_obito": "830515.03",
+            "lucro_liquido": "805901.03",
+            "roi_percentual": "3274.2",
+            "vale_a_pena": true
+          },
+          {
+            "modalidade": "Autônomo / Contribuinte Individual",
+            "aliquota_pct": 20,
+            "contribuicao_mensal": "1443.64",
+            "total_pago_ate_apos": "44752.84",
+            "meses_para_recuperar": "10.7",
+            "anos_para_recuperar": "0.9",
+            "total_recebido_ate_obito": "830515.03",
+            "lucro_liquido": "785762.19",
+            "roi_percentual": "1755.8",
+            "vale_a_pena": true
+          },
+          {
+            "modalidade": "Segurado Facultativo",
+            "aliquota_pct": 20,
+            "contribuicao_mensal": "1443.64",
+            "total_pago_ate_apos": "44752.84",
+            "meses_para_recuperar": "10.7",
+            "anos_para_recuperar": "0.9",
+            "total_recebido_ate_obito": "830515.03",
+            "lucro_liquido": "785762.19",
+            "roi_percentual": "1755.8",
+            "vale_a_pena": true
+          }
+        ]
+      },
+      {
+        "regra": "Transição — Idade Mínima Progressiva (Art. 16 EC 103/2019)",
+        "data_elegibilidade": "01/01/2025",
+        "meses_faltantes": 91,
+        "rmi": "7008.36",
+        "rmi_formatada": "R$ 7.008,36",
+        "idade_aposentadoria": 65,
+        "meses_recebendo": 138.7,
+        "total_recebido": "972210.64",
+        "expectativa_vida_anos": 76.6,
+        "modalidades": [
+          {
+            "modalidade": "Empregado (CLT)",
+            "aliquota_pct": 11,
+            "contribuicao_mensal": "794.00",
+            "total_pago_ate_apos": "72254.00",
+            "meses_para_recuperar": "10.3",
+            "anos_para_recuperar": "0.9",
+            "total_recebido_ate_obito": "972210.64",
+            "lucro_liquido": "899956.64",
+            "roi_percentual": "1245.5",
+            "vale_a_pena": true
+          },
+          {
+            "modalidade": "Autônomo / Contribuinte Individual",
+            "aliquota_pct": 20,
+            "contribuicao_mensal": "1443.64",
+            "total_pago_ate_apos": "131371.24",
+            "meses_para_recuperar": "18.7",
+            "anos_para_recuperar": "1.6",
+            "total_recebido_ate_obito": "972210.64",
+            "lucro_liquido": "840839.40",
+            "roi_percentual": "640.0",
+            "vale_a_pena": true
+          },
+          {
+            "modalidade": "Segurado Facultativo",
+            "aliquota_pct": 20,
+            "contribuicao_mensal": "1443.64",
+            "total_pago_ate_apos": "131371.24",
+            "meses_para_recuperar": "18.7",
+            "anos_para_recuperar": "1.6",
+            "total_recebido_ate_obito": "972210.64",
+            "lucro_liquido": "840839.40",
+            "roi_percentual": "640.0",
+            "vale_a_pena": true
+          }
+        ]
+      },
+      {
+        "regra": "Aposentadoria por Idade (Regra Permanente)",
+        "data_elegibilidade": "01/01/2025",
+        "meses_faltantes": 91,
+        "rmi": "7008.36",
+        "rmi_formatada": "R$ 7.008,36",
+        "idade_aposentadoria": 65,
+        "meses_recebendo": 138.7,
+        "total_recebido": "972210.64",
+        "expectativa_vida_anos": 76.6,
+        "modalidades": [
+          {
+            "modalidade": "Empregado (CLT)",
+            "aliquota_pct": 11,
+            "contribuicao_mensal": "794.00",
+            "total_pago_ate_apos": "72254.00",
+            "meses_para_recuperar": "10.3",
+            "anos_para_recuperar": "0.9",
+            "total_recebido_ate_obito": "972210.64",
+            "lucro_liquido": "899956.64",
+            "roi_percentual": "1245.5",
+            "vale_a_pena": true
+          },
+          {
+            "modalidade": "Autônomo / Contribuinte Individual",
+            "aliquota_pct": 20,
+            "contribuicao_mensal": "1443.64",
+            "total_pago_ate_apos": "131371.24",
+            "meses_para_recuperar": "18.7",
+            "anos_para_recuperar": "1.6",
+            "total_recebido_ate_obito": "972210.64",
+            "lucro_liquido": "840839.40",
+            "roi_percentual": "640.0",
+            "vale_a_pena": true
+          },
+          {
+            "modalidade": "Segurado Facultativo",
+            "aliquota_pct": 20,
+            "contribuicao_mensal": "1443.64",
+            "total_pago_ate_apos": "131371.24",
+            "meses_para_recuperar": "18.7",
+            "anos_para_recuperar": "1.6",
+            "total_recebido_ate_obito": "972210.64",
+            "lucro_liquido": "840839.40",
+            "roi_percentual": "640.0",
+            "vale_a_pena": true
+          }
+        ]
+      }
+    ],
+    "expectativa_vida": {
+      "anos": 76.6,
+      "sexo": "SEXO.MASCULINO",
+      "fonte": "IBGE — Tábuas Completas de Mortalidade 2024"
+    },
+    "qualidade_segurado": {
+      "ultima_contribuicao": "12/2016",
+      "periodo_graca_meses": 24,
+      "data_perda_qualidade": "01/01/2019",
+      "status": "ATIVA",
+      "dias_restantes": 578,
+      "mensagem": "Qualidade de segurado ativa. Período de graça até 01/01/2019 (restam 578 dias). Última contribuição: 12/2016."
+    },
+    "pensao_projetada": {
+      "rmi_base": "3557.13",
+      "rmi_base_formatada": "R$ 3.557,13",
+      "cenarios": [
+        {
+          "dependentes": 1,
+          "cota_pct": 60,
+          "valor": "2134.28",
+          "valor_formatado": "R$ 2.134,28"
+        },
+        {
+          "dependentes": 2,
+          "cota_pct": 70,
+          "valor": "2489.99",
+          "valor_formatado": "R$ 2.489,99"
+        },
+        {
+          "dependentes": 3,
+          "cota_pct": 80,
+          "valor": "2845.70",
+          "valor_formatado": "R$ 2.845,70"
+        }
+      ],
+      "mensagem": "Se o segurado falecer hoje, a pensão por morte será calculada sobre a RMI de R$ 3.557,13. Regra EC 103/2019: 50% + 10% por dependente habilitado. Com 1 dependente: R$ 2.134,28; com 2 dependentes: R$ 2.489,99."
+    },
+    "cenarios_vida": [
+      {
+        "cenario": "A",
+        "nome": "CLT (Empregado)",
+        "descricao": "Contribuição como empregado CLT. Empregador deposita FGTS de 8% adicional.",
+        "monthly_cost": "794.00",
+        "fgts_mensal": "577.46",
+        "annual_cost": "9528.00",
+        "total_cost_until_retirement": "794.00",
+        "impact_on_date": "01/07/2017",
+        "impact_on_rmi": "R$ 3.557,13",
+        "conta_para_tc": true,
+        "observacao": "Desconto em folha ~11%. Adicionalmente, o empregador deposita R$ 577.46 de FGTS/mês."
+      },
+      {
+        "cenario": "B",
+        "nome": "MEI (5% do salário mínimo)",
+        "descricao": "Contribuição como MEI. ATENÇÃO: NÃO conta tempo para aposentadoria por tempo de contribuição.",
+        "monthly_cost": "75.90",
+        "fgts_mensal": "0",
+        "annual_cost": "910.80",
+        "total_cost_until_retirement": "75.90",
+        "impact_on_date": "Não se aplica (só vale para aposentadoria por idade)",
+        "impact_on_rmi": "R$ 937,00",
+        "conta_para_tc": false,
+        "observacao": "Custo mais baixo, porém limita a aposentadoria por idade e valor ao salário mínimo."
+      },
+      {
+        "cenario": "C",
+        "nome": "Segurado Facultativo (20%)",
+        "descricao": "Contribuição como facultativo sobre o salário declarado. Conta para todas as regras.",
+        "monthly_cost": "1443.64",
+        "fgts_mensal": "0",
+        "annual_cost": "17323.68",
+        "total_cost_until_retirement": "1443.64",
+        "impact_on_date": "01/07/2017",
+        "impact_on_rmi": "R$ 3.557,13",
+        "conta_para_tc": true,
+        "observacao": "Ideal para quem não tem vínculo empregatício. Mesmo progression de TC que CLT."
+      },
+      {
+        "cenario": "D",
+        "nome": "Complementação MEI (+15% do salário mínimo)",
+        "descricao": "Paga 15% adicional sobre o salário mínimo para que o tempo como MEI conte para TC.",
+        "monthly_cost": "227.70",
+        "custo_total_com_mei": "303.60",
+        "fgts_mensal": "0",
+        "annual_cost": "2732.40",
+        "total_cost_until_retirement": "227.70",
+        "impact_on_date": "01/07/2017",
+        "impact_on_rmi": "R$ 937,00",
+        "conta_para_tc": true,
+        "observacao": "Custo total MEI + complementação: R$ 303.60/mês. RMI limitada ao salário mínimo."
+      },
+      {
+        "cenario": "E",
+        "nome": "Autônomo / Contribuinte Individual (20%)",
+        "descricao": "Contribuição como autônomo (CI) sobre o salário de contribuição. Conta para todas as regras.",
+        "monthly_cost": "1443.64",
+        "fgts_mensal": "0",
+        "annual_cost": "17323.68",
+        "total_cost_until_retirement": "1443.64",
+        "impact_on_date": "01/07/2017",
+        "impact_on_rmi": "R$ 3.557,13",
+        "conta_para_tc": true,
+        "observacao": "Mesma progressão que facultativo. Exige comprovação de atividade remunerada."
+      }
+    ],
+    "plano_acao": [
+      {
+        "numero": 1,
+        "titulo": "Verificar e corrigir o CNIS",
+        "descricao": "Solicitar extrato CNIS atualizado no Meu INSS e conferir todos os 12 vínculos. Verificar se há períodos faltantes, salários incorretos ou vínculos não registrados. Se houver divergências, juntar carteira de trabalho, holerites e PPP para retificação. IMPORTANTE: Verificar se o segurado possui mais de um NIT/PIS/PASEP — cadastro fragmentado pode esconder tempo de contribuição. Ligar no 135 para consultar todos os NITs vinculados ao CPF.",
+        "prazo": "Imediato — até 30 dias",
+        "urgencia": "ALTA"
+      },
+      {
+        "numero": 2,
+        "titulo": "Situação da qualidade de segurado",
+        "descricao": "Qualidade de segurado ATIVA (expira em 01/01/2019). Manter contribuições regulares para não perder a condição.",
+        "prazo": "Mensal — manter contribuições",
+        "urgencia": "BAIXA"
+      },
+      {
+        "numero": 3,
+        "titulo": "Estratégia de contribuição recomendada",
+        "descricao": "A regra mais próxima é 'Transição — Sistema de Pontos (Art. 15 EC 103/2019)', faltando 1 mês. RMI estimada: R$ 3.557,13. Recomendação: contribuir como empregado CLT ou contribuinte individual (20%) para manter a progressão do tempo de contribuição. Evitar MEI 5% se busca aposentadoria por tempo.",
+        "prazo": "Definir nos próximos 30 dias",
+        "urgencia": "MEDIA"
+      },
+      {
+        "numero": 4,
+        "titulo": "Quando requerer o benefício",
+        "descricao": "Data prevista de elegibilidade: 01/07/2017. Iniciar preparação do requerimento a partir de 02/04/2017 (90 dias antes). Agendar atendimento no Meu INSS ou INSS Digital para protocolar o pedido.",
+        "prazo": "A partir de 02/04/2017",
+        "urgencia": "MEDIA"
+      },
+      {
+        "numero": 5,
+        "titulo": "Documentos a preparar",
+        "descricao": "Reunir os seguintes documentos: (1) RG e CPF; (2) Carteira de Trabalho (física e/ou digital); (3) Extrato CNIS atualizado; (4) Carnês de contribuição (GPS) se houver períodos como autônomo; (5) PPP — Perfil Profissiográfico Previdenciário (se trabalhou em atividade especial); (6) Comprovante de residência atualizado; (7) Dados bancários para recebimento do benefício.",
+        "prazo": "Reunir com antecedência de 90 dias da data de requerimento",
+        "urgencia": "MEDIA"
+      }
+    ],
+    "resumo_executivo": {
+      "situacao_atual": "RAFAEL, 57 anos, possui 41 anos, 4 meses e 9 dias de tempo de contribuição. Qualidade de segurado: ativa.",
+      "melhor_caminho": "A aposentadoria mais próxima é pela regra 'Transição — Sistema de Pontos (Art. 15 EC 103/2019)', prevista para 01/07/2017 (faltam 1 mês), com renda mensal estimada de R$ 3.557,13.",
+      "acao_imediata": "Solicitar extrato CNIS atualizado e conferir todos os vínculos e salários registrados.",
+      "proximo_passo": "Manter contribuições regulares e acompanhar o CNIS para garantir que todos os períodos estejam corretamente registrados. Iniciar preparação dos documentos com 90 dias de antecedência."
+    },
+    "score_prontidao": {
+      "score": 930,
+      "maximo": 1000,
+      "percentual": 93,
+      "classificacao": "PRONTO",
+      "cor": "#00c853",
+      "mensagem": "Excelente! O segurado está pronto ou praticamente pronto para se aposentar.",
+      "componentes": {
+        "tempo_contribuicao": {
+          "pontos": 300,
+          "maximo": 300,
+          "detalhe": "41a 4m de 35a necessários"
+        },
+        "idade": {
+          "pontos": 176,
+          "maximo": 200,
+          "detalhe": "57 anos de 65 necessários"
+        },
+        "carencia": {
+          "pontos": 150,
+          "maximo": 150,
+          "detalhe": "288 de 180 contribuições"
+        },
+        "qualidade_segurado": {
+          "pontos": 100,
+          "maximo": 100,
+          "detalhe": "ATIVA"
+        },
+        "proximidade": {
+          "pontos": 140,
+          "maximo": 150,
+          "detalhe": "1 meses para aposentar"
+        },
+        "valor_beneficio": {
+          "pontos": 64,
+          "maximo": 100,
+          "detalhe": "RMI projetada vs teto R$ 5.531,31"
+        }
+      }
+    },
+    "marcos_legais": [
+      {
+        "data": "05/10/1988",
+        "nome": "Constituição Federal de 1988",
+        "sigla": "CF/88",
+        "relevancia": "Define direitos previdenciários fundamentais. TC anterior conta para direito adquirido.",
+        "tc_anos": 12,
+        "tc_meses": 8,
+        "tc_dias": 7,
+        "tc_texto": "12a 8m 7d",
+        "contribuicoes": 82,
+        "idade_anos": 28,
+        "observacao": ""
+      },
+      {
+        "data": "15/12/1998",
+        "nome": "Emenda Constitucional nº 20/1998",
+        "sigla": "EC 20/98",
+        "relevancia": "Estabeleceu novas regras. TC até esta data gera direito adquirido às regras anteriores.",
+        "tc_anos": 22,
+        "tc_meses": 10,
+        "tc_dias": 20,
+        "tc_texto": "22a 10m 20d",
+        "contribuicoes": 212,
+        "idade_anos": 39,
+        "observacao": "TC de 22a (faltavam ~13a para direito adquirido pré-EC 20/98)."
+      },
+      {
+        "data": "28/11/1999",
+        "nome": "Lei 9.876/1999 (Fator Previdenciário)",
+        "sigla": "Lei 9.876/99",
+        "relevancia": "Criou o fator previdenciário e definiu o PBC a partir de 07/1994. TC aqui define o cálculo pela regra antiga vs nova.",
+        "tc_anos": 23,
+        "tc_meses": 10,
+        "tc_dias": 3,
+        "tc_texto": "23a 10m 3d",
+        "contribuicoes": 222,
+        "idade_anos": 39,
+        "observacao": "TC de 23a 10m — define proporção do cálculo pela regra antiga vs fator previdenciário."
+      },
+      {
+        "data": "13/11/2019",
+        "nome": "EC 103/2019 (Reforma da Previdência)",
+        "sigla": "EC 103/19",
+        "relevancia": "Reforma radical. TC até esta data define elegibilidade para regras de transição (pedágio 50%, 100%, pontos, idade progressiva).",
+        "tc_anos": 43,
+        "tc_meses": 9,
+        "tc_dias": 23,
+        "tc_texto": "43a 9m 23d",
+        "contribuicoes": 288,
+        "idade_anos": 59,
+        "observacao": "✅ TC completo (43a 9m) — direito adquirido pré-reforma!"
+      },
+      {
+        "data": "02/06/2017",
+        "nome": "Data de Referência (02/06/2017)",
+        "sigla": "DER",
+        "relevancia": "Situação atual do segurado para análise de todas as regras vigentes.",
+        "tc_anos": 41,
+        "tc_meses": 4,
+        "tc_dias": 9,
+        "tc_texto": "41a 4m 9d",
+        "contribuicoes": 288,
+        "idade_anos": 57,
+        "observacao": "Situação atual: 41a 4m 9d (497 contribuições)."
+      }
+    ],
+    "competencias_sem_salario": {
+      "sem_salario": [],
+      "abaixo_minimo": [],
+      "total_problemas": 0,
+      "mensagem": "✅ Todas as competências possuem salário de contribuição registrado. Nenhuma irregularidade detectada.",
+      "impacto": "Nenhum impacto negativo detectado."
+    },
+    "analise_especial": [
+      {
+        "empregador": "SATURNO MAROTE FABRICA DE ABRASIVOS LTDA",
+        "cnpj": "61577193000132",
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "03/02/1976",
+        "data_fim": "20/01/1978",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "CERVEJARIAS REUNIDAS SKOL CARACU S A",
+        "cnpj": "33719311003694",
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "23/01/1978",
+        "data_fim": "02/08/2000",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A.",
+        "cnpj": "12268405003371",
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "02/05/1998",
+        "data_fim": "01/09/1999",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "COMPANHIA CERVEJARIA BRAHMA",
+        "cnpj": "33366980012530",
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "02/05/1998",
+        "data_fim": "02/08/2000",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A.",
+        "cnpj": "12268405003371",
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/06/1998",
+        "data_fim": "27/03/2026",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO CONTRIBUINTE",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/12/2001",
+        "data_fim": "31/12/2001",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO CONTRIBUINTE",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/03/2002",
+        "data_fim": "31/03/2002",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO Empregado",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/06/2002",
+        "data_fim": "30/06/2002",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "RECOLHIMENTO CONTRIBUINTE",
+        "cnpj": null,
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/08/2002",
+        "data_fim": "31/08/2002",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "Normal",
+        "cnpj": "46005914000146",
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "01/05/2003",
+        "data_fim": "31/10/2003",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "HNK BR INDUSTRIA DE BEBIDAS LTDA.",
+        "cnpj": "50221019002007",
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "22/09/2003",
+        "data_fim": "17/05/2004",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      },
+      {
+        "empregador": "LEROY MERLIN COMPANHIA BRASILEIRA DE",
+        "cnpj": "01438784000105",
+        "cargo_ctps": "",
+        "via_cargo": false,
+        "data_inicio": "08/05/2013",
+        "data_fim": "16/01/2017",
+        "probabilidade": "NENHUMA",
+        "agentes_provaveis": [],
+        "fundamentacao": "",
+        "recomendacao": "Nenhum padrao de atividade especial identificado pelo nome do empregador. Isso NAO significa que nao ha atividade especial - apenas que o nome da empresa nao corresponde a padroes conhecidos. Verificar a funcao exercida, o CNAE da empresa e solicitar PPP se houver qualquer indicio de exposicao a agentes nocivos (ruido, produtos quimicos, agentes biologicos, etc.).",
+        "fator_conversao": {},
+        "aposentadoria_especial_anos": 0,
+        "padroes_encontrados": [],
+        "jurisprudencias": []
+      }
+    ],
+    "analise_revisao": {
+      "beneficio_ativo": true,
+      "especie": "APOSENTADORIA POR TEMPO DE 0 -",
+      "especie_codigo": 42,
+      "data_concessao": "02/06/2017",
+      "revisoes_possiveis": [
+        {
+          "tipo": "Revisão da Vida Toda (ENCERRADA)",
+          "aplicavel": false,
+          "viavel": false,
+          "fundamentacao": "Tema 1102 STF — DEFINITIVAMENTE ENCERRADO em 26/11/2025. ADIs 2.110 e 2.111 (21/03/2024) reverteram a tese. Embargos de Declaração julgados em 26/11/2025 por 8x3.",
+          "analise": "TESE ENCERRADA. O STF decidiu que a regra de transição da Lei 9.876/99 é de aplicação OBRIGATÓRIA. O segurado NÃO pode optar pelo cálculo que inclui contribuições anteriores a julho/1994. Não cabe mais ação judicial com base nesta tese. Modulação: valores já recebidos até 05/04/2024 não precisam ser devolvidos.",
+          "impacto_estimado": "NENHUM — tese encerrada pelo STF.",
+          "prazo": "Encerrada definitivamente.",
+          "documentos_necessarios": "N/A"
+        },
+        {
+          "tipo": "Revisão do Teto (EC 20/98 e EC 41/03)",
+          "aplicavel": false,
+          "viavel": false,
+          "fundamentacao": "RE 564.354/SE — STF decidiu que o teto é aplicável de imediato, sem decadência.",
+          "analise": "NÃO APLICÁVEL — Benefício concedido após dezembro/2003. Teto já atualizado.",
+          "impacto_estimado": "ALTO para quem teve SB acima do teto na época da concessão.",
+          "prazo": "Sem decadência — direito imprescritível (STF). Prescrição quinquenal dos atrasados.",
+          "documentos_necessarios": "Carta de concessão original, processo administrativo do INSS.",
+          "como_calcular_diferenca": "1) Obter o Salário de Benefício (SB) original da carta de concessão. 2) Verificar se o SB foi limitado ao teto vigente na DIB. 3) Aplicar os novos tetos: EC 20/98 (R$ 1.200,00 para R$ 1.328,25) e EC 41/03 (R$ 2.400,00). 4) Recalcular a RMI com o SB reajustado. 5) A diferença mensal = RMI_revisada - RMI_atual. 6) Atrasados = soma das diferenças mensais desde a vigência da EC, com correção INPC + juros SELIC."
+        },
+        {
+          "tipo": "Revisão do Buraco Negro",
+          "aplicavel": false,
+          "viavel": false,
+          "fundamentacao": "Art. 144, Lei 8.213/91 — revisão obrigatória de benefícios do período constitucional.",
+          "analise": "NÃO APLICÁVEL — Benefício fora do período do Buraco Negro.",
+          "impacto_estimado": "VARIÁVEL — depende da diferença entre cálculo original e revisado.",
+          "prazo": "Direito adquirido — não há decadência para erro material.",
+          "documentos_necessarios": "Carta de concessão, processo administrativo.",
+          "como_calcular_diferenca": "1) Obter a memória de cálculo original da concessão (antes da Lei 8.213/91). 2) Recalcular pela regra definitiva do Art. 29 da Lei 8.213/91. 3) A diferença mensal = RMI_recalculada - RMI_que_vem_sendo_paga. 4) Atrasados incidem SOMENTE sobre a diferença mensal, não sobre o benefício integral."
+        },
+        {
+          "tipo": "Revisão do Art. 29, II (Divisor Mínimo)",
+          "aplicavel": false,
+          "viavel": false,
+          "fundamentacao": "Art. 29, II, Lei 8.213/91 — cálculo correto da média dos 80% maiores SC.",
+          "analise": "NÃO APLICÁVEL ao perfil deste benefício.",
+          "impacto_estimado": "MODERADO a ALTO — especialmente para quem teve períodos sem contribuição no PBC.",
+          "prazo": "Sujeito à decadência de 10 anos.",
+          "documentos_necessarios": "CNIS, carta de concessão, processo administrativo.",
+          "como_calcular_diferenca": "1) Verificar se o INSS usou o divisor mínimo (60% do PBC) no cálculo. 2) O correto é usar APENAS os 80% maiores salários de contribuição como divisor. 3) Recalcular: média = soma dos 80% maiores SC / quantidade desses 80%. 4) RMI_correta = média correta x coeficiente da espécie. 5) Diferença mensal = RMI_correta - RMI_paga. 6) Atrasados = soma das diferenças mensais (NÃO do benefício inteiro), corrigidas INPC + SELIC."
+        },
+        {
+          "tipo": "Revisão por Atividade Especial Não Reconhecida",
+          "aplicavel": true,
+          "viavel": true,
+          "fundamentacao": "Art. 57 e 58, Lei 8.213/91 — conversão de tempo especial em comum.",
+          "analise": "VERIFICAR. Se o segurado trabalhou em condições especiais (insalubridade, periculosidade, penosidade) e o tempo não foi computado com o fator de conversão, a revisão pode aumentar o tempo de contribuição e, consequentemente, a RMI. Aplicável mesmo para aposentados.",
+          "impacto_estimado": "ALTO — fator de conversão de 1.4 (homem) ou 1.2 (mulher) sobre o período especial.",
+          "prazo": "Sem decadência para reconhecimento de tempo — apenas prescrição quinquenal dos valores.",
+          "documentos_necessarios": "PPP (Perfil Profissiográfico Previdenciário), LTCAT, laudo técnico.",
+          "como_calcular_diferenca": "1) Identificar períodos especiais não reconhecidos pelo INSS. 2) Aplicar fator de conversão: 1.4 (homem 25 anos) ou 1.2 (mulher 25 anos). 3) Recalcular o TC total com a conversão. 4) Recalcular a RMI com o novo TC (pode alterar coeficiente e/ou fator previdenciário). 5) Diferença mensal = RMI_nova - RMI_atual. 6) Atrasados = soma das diferenças mensais desde a DIB (limitado à prescrição 5 anos)."
+        }
+      ],
+      "recomendacao_geral": "Foi identificada 1 possibilidade de revisão: Revisão por Atividade Especial Não Reconhecida. Recomenda-se análise aprofundada para confirmar viabilidade e estimar impacto financeiro.",
+      "total_revisoes_viaveis": 1,
+      "decadencia": {
+        "prazo_decenal": "02/06/2027",
+        "dentro_prazo": true,
+        "mensagem": "Prazo decenal de revisão: até 02/06/2027. DENTRO do prazo — revisão é possível.",
+        "fundamentacao": "Art. 103 da Lei 8.213/91 — prazo de 10 anos para revisão do ato de concessão."
+      }
+    },
+    "cenarios_revisao": {
+      "modo": "revisao",
+      "der_revisao": "02/06/2017",
+      "rmi_inss": "2875.19",
+      "tc_na_der": {
+        "anos": 41,
+        "meses": 4,
+        "dias": 9,
+        "total_dias": 15094,
+        "dias_especial": 0,
+        "dias_comum": 15094
+      },
+      "carencia_na_der": 497,
+      "tem_especial": false,
+      "cenarios": [
+        {
+          "regra": "Transição — Sistema de Pontos (Art. 15 EC 103/2019)",
+          "base_legal": "EC 103/2019 Art. 15",
+          "elegivel": true,
+          "rmi": "3558.20",
+          "rmi_formatada": "R$ 3.558,20",
+          "salario_beneficio": "3558.20",
+          "coeficiente": "1.0000",
+          "fator_previdenciario": null,
+          "diferenca_mensal": "683.01",
+          "diferenca_favoravel": true
+        },
+        {
+          "regra": "Direito Adquirido — TC completo antes de 13/11/2019",
+          "base_legal": "EC 103/2019 Art. 3º; Lei 9.876/99",
+          "elegivel": true,
+          "rmi": "3314.11",
+          "rmi_formatada": "R$ 3.314,11",
+          "salario_beneficio": "3558.20",
+          "coeficiente": "0",
+          "fator_previdenciario": "0.9314",
+          "diferenca_mensal": "438.92",
+          "diferenca_favoravel": true
+        },
+        {
+          "regra": "Aposentadoria por Idade (Regra Permanente)",
+          "base_legal": "EC 103/2019 Art. 19; Lei 8.213/91 Art. 48",
+          "elegivel": false,
+          "rmi": "3558.20",
+          "rmi_formatada": "R$ 3.558,20",
+          "salario_beneficio": "3558.20",
+          "coeficiente": "1.0000",
+          "fator_previdenciario": null
+        },
+        {
+          "regra": "Transição — Pedágio 50% + FP (Art. 17 EC 103/2019)",
+          "base_legal": "EC 103/2019 Art. 17",
+          "elegivel": false,
+          "rmi": "0",
+          "rmi_formatada": "R$ 0,00",
+          "salario_beneficio": "0",
+          "coeficiente": "0",
+          "fator_previdenciario": null
+        },
+        {
+          "regra": "Transição — Pedágio 100% + Idade Mínima (Art. 20 EC 103/2019)",
+          "base_legal": "EC 103/2019 Art. 20",
+          "elegivel": false,
+          "rmi": "0",
+          "rmi_formatada": "R$ 0,00",
+          "salario_beneficio": "0",
+          "coeficiente": "0",
+          "fator_previdenciario": null
+        },
+        {
+          "regra": "Transição — Idade Mínima Progressiva (Art. 16 EC 103/2019)",
+          "base_legal": "EC 103/2019 Art. 16",
+          "elegivel": false,
+          "rmi": "0",
+          "rmi_formatada": "R$ 0,00",
+          "salario_beneficio": "0",
+          "coeficiente": "0",
+          "fator_previdenciario": null
+        }
+      ],
+      "melhor_beneficio": {
+        "regra": "Transição — Sistema de Pontos (Art. 15 EC 103/2019)",
+        "rmi": "3558.20",
+        "rmi_formatada": "R$ 3.558,20",
+        "diferenca_mensal": "683.01",
+        "diferenca_favoravel": true,
+        "explicacao": "Na DER (02/06/2017), o segurado tinha direito a RMI de R$ R$ 3.558,20 pela regra \"Transição — Sistema de Pontos (Art. 15 EC 103/2019)\", mas o INSS concedeu R$ 2875.19. Diferenca mensal: R$ 683.01. Fundamentacao: Art. 687, IN PRES/INSS 128/2022 — principio do melhor beneficio (STF Tema 334, RE 630.501/RS)."
+      }
+    },
+    "memoria_calculo": {
+      "linhas": [
+        {
+          "competencia": "07/1994",
+          "salario_original": "1633.81",
+          "indice_correcao": "5.411893",
+          "salario_corrigido": "3154.38",
+          "teto_vigente": "582.86",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "08/1994",
+          "salario_original": "1633.81",
+          "indice_correcao": "5.321009",
+          "salario_corrigido": "3101.40",
+          "teto_vigente": "582.86",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "09/1994",
+          "salario_original": "1633.80",
+          "indice_correcao": "5.230125",
+          "salario_corrigido": "3048.43",
+          "teto_vigente": "582.86",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "10/1994",
+          "salario_original": "1867.56",
+          "indice_correcao": "5.139242",
+          "salario_corrigido": "2995.46",
+          "teto_vigente": "582.86",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "11/1994",
+          "salario_original": "3723.55",
+          "indice_correcao": "5.048358",
+          "salario_corrigido": "2942.49",
+          "teto_vigente": "582.86",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "12/1994",
+          "salario_original": "1968.09",
+          "indice_correcao": "4.957475",
+          "salario_corrigido": "2889.51",
+          "teto_vigente": "582.86",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "01/1995",
+          "salario_original": "3216.74",
+          "indice_correcao": "4.866591",
+          "salario_corrigido": "2836.54",
+          "teto_vigente": "582.86",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "02/1995",
+          "salario_original": "1876.39",
+          "indice_correcao": "4.792346",
+          "salario_corrigido": "2793.27",
+          "teto_vigente": "582.86",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "03/1995",
+          "salario_original": "1876.39",
+          "indice_correcao": "4.718101",
+          "salario_corrigido": "2749.99",
+          "teto_vigente": "582.86",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "04/1995",
+          "salario_original": "1876.39",
+          "indice_correcao": "4.643855",
+          "salario_corrigido": "2706.72",
+          "teto_vigente": "582.86",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "05/1995",
+          "salario_original": "2352.40",
+          "indice_correcao": "4.569610",
+          "salario_corrigido": "3804.93",
+          "teto_vigente": "832.66",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "06/1995",
+          "salario_original": "2352.40",
+          "indice_correcao": "4.495365",
+          "salario_corrigido": "3743.11",
+          "teto_vigente": "832.66",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "07/1995",
+          "salario_original": "2352.40",
+          "indice_correcao": "4.421120",
+          "salario_corrigido": "3681.29",
+          "teto_vigente": "832.66",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "08/1995",
+          "salario_original": "2352.40",
+          "indice_correcao": "4.346874",
+          "salario_corrigido": "3619.47",
+          "teto_vigente": "832.66",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "09/1995",
+          "salario_original": "2870.62",
+          "indice_correcao": "4.272629",
+          "salario_corrigido": "3557.65",
+          "teto_vigente": "832.66",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "10/1995",
+          "salario_original": "3422.37",
+          "indice_correcao": "4.198384",
+          "salario_corrigido": "3495.83",
+          "teto_vigente": "832.66",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "11/1995",
+          "salario_original": "5156.37",
+          "indice_correcao": "4.124139",
+          "salario_corrigido": "3434.01",
+          "teto_vigente": "832.66",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "12/1995",
+          "salario_original": "3052.37",
+          "indice_correcao": "4.049893",
+          "salario_corrigido": "3372.18",
+          "teto_vigente": "832.66",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "01/1996",
+          "salario_original": "3116.62",
+          "indice_correcao": "3.975648",
+          "salario_corrigido": "3310.36",
+          "teto_vigente": "832.66",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "02/1996",
+          "salario_original": "3086.00",
+          "indice_correcao": "3.947959",
+          "salario_corrigido": "3287.31",
+          "teto_vigente": "832.66",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "03/1996",
+          "salario_original": "3086.00",
+          "indice_correcao": "3.920269",
+          "salario_corrigido": "3264.25",
+          "teto_vigente": "832.66",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "04/1996",
+          "salario_original": "3086.00",
+          "indice_correcao": "3.892579",
+          "salario_corrigido": "3241.19",
+          "teto_vigente": "832.66",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "05/1996",
+          "salario_original": "3085.99",
+          "indice_correcao": "3.864890",
+          "salario_corrigido": "3700.86",
+          "teto_vigente": "957.56",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "06/1996",
+          "salario_original": "3759.75",
+          "indice_correcao": "3.837200",
+          "salario_corrigido": "3674.35",
+          "teto_vigente": "957.56",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "07/1996",
+          "salario_original": "3085.99",
+          "indice_correcao": "3.809510",
+          "salario_corrigido": "3647.83",
+          "teto_vigente": "957.56",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "08/1996",
+          "salario_original": "3085.99",
+          "indice_correcao": "3.781821",
+          "salario_corrigido": "3621.32",
+          "teto_vigente": "957.56",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "09/1996",
+          "salario_original": "3318.00",
+          "indice_correcao": "3.754131",
+          "salario_corrigido": "3594.81",
+          "teto_vigente": "957.56",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "10/1996",
+          "salario_original": "3741.99",
+          "indice_correcao": "3.726442",
+          "salario_corrigido": "3568.29",
+          "teto_vigente": "957.56",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "11/1996",
+          "salario_original": "7430.00",
+          "indice_correcao": "3.698752",
+          "salario_corrigido": "3541.78",
+          "teto_vigente": "957.56",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "12/1996",
+          "salario_original": "4121.37",
+          "indice_correcao": "3.671062",
+          "salario_corrigido": "3515.26",
+          "teto_vigente": "957.56",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "01/1997",
+          "salario_original": "3754.49",
+          "indice_correcao": "3.643373",
+          "salario_corrigido": "3488.75",
+          "teto_vigente": "957.56",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "02/1997",
+          "salario_original": "4574.00",
+          "indice_correcao": "3.630744",
+          "salario_corrigido": "3476.66",
+          "teto_vigente": "957.56",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "03/1997",
+          "salario_original": "3754.49",
+          "indice_correcao": "3.618115",
+          "salario_corrigido": "3464.56",
+          "teto_vigente": "957.56",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "04/1997",
+          "salario_original": "3754.49",
+          "indice_correcao": "3.605486",
+          "salario_corrigido": "3452.47",
+          "teto_vigente": "957.56",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "05/1997",
+          "salario_original": "3754.50",
+          "indice_correcao": "3.592858",
+          "salario_corrigido": "3440.38",
+          "teto_vigente": "957.56",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "06/1997",
+          "salario_original": "3754.50",
+          "indice_correcao": "3.580229",
+          "salario_corrigido": "3694.33",
+          "teto_vigente": "1031.87",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "07/1997",
+          "salario_original": "3754.50",
+          "indice_correcao": "3.567600",
+          "salario_corrigido": "3681.30",
+          "teto_vigente": "1031.87",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "08/1997",
+          "salario_original": "3754.50",
+          "indice_correcao": "3.554971",
+          "salario_corrigido": "3668.27",
+          "teto_vigente": "1031.87",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "09/1997",
+          "salario_original": "3754.50",
+          "indice_correcao": "3.542342",
+          "salario_corrigido": "3655.24",
+          "teto_vigente": "1031.87",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "10/1997",
+          "salario_original": "3902.49",
+          "indice_correcao": "3.529714",
+          "salario_corrigido": "3642.21",
+          "teto_vigente": "1031.87",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "11/1997",
+          "salario_original": "7738.50",
+          "indice_correcao": "3.517085",
+          "salario_corrigido": "3629.17",
+          "teto_vigente": "1031.87",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "12/1997",
+          "salario_original": "3930.99",
+          "indice_correcao": "3.504456",
+          "salario_corrigido": "3616.14",
+          "teto_vigente": "1031.87",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "01/1998",
+          "salario_original": "3936.00",
+          "indice_correcao": "3.491827",
+          "salario_corrigido": "3603.11",
+          "teto_vigente": "1031.87",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "02/1998",
+          "salario_original": "3936.00",
+          "indice_correcao": "3.484758",
+          "salario_corrigido": "3595.82",
+          "teto_vigente": "1031.87",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "03/1998",
+          "salario_original": "3936.00",
+          "indice_correcao": "3.477688",
+          "salario_corrigido": "3588.52",
+          "teto_vigente": "1031.87",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "04/1998",
+          "salario_original": "740.00",
+          "indice_correcao": "3.470619",
+          "salario_corrigido": "2568.26",
+          "teto_vigente": "1031.87",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "CERVEJARIAS REUNIDAS SKOL CARACU S A"
+        },
+        {
+          "competencia": "04/1998",
+          "salario_original": "4676.00",
+          "indice_correcao": "3.470619",
+          "salario_corrigido": "3581.23",
+          "teto_vigente": "1031.87",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "05/1998",
+          "salario_original": "4675.99",
+          "indice_correcao": "3.463549",
+          "salario_corrigido": "3573.93",
+          "teto_vigente": "1031.87",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "06/1998",
+          "salario_original": "4576.00",
+          "indice_correcao": "3.456480",
+          "salario_corrigido": "3738.18",
+          "teto_vigente": "1081.50",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "06/1998",
+          "salario_original": "4578.03",
+          "indice_correcao": "3.456480",
+          "salario_corrigido": "3738.18",
+          "teto_vigente": "1081.50",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "07/1998",
+          "salario_original": "4775.99",
+          "indice_correcao": "3.449410",
+          "salario_corrigido": "3730.54",
+          "teto_vigente": "1081.50",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "07/1998",
+          "salario_original": "4778.13",
+          "indice_correcao": "3.449410",
+          "salario_corrigido": "3730.54",
+          "teto_vigente": "1081.50",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "08/1998",
+          "salario_original": "4675.99",
+          "indice_correcao": "3.442341",
+          "salario_corrigido": "3722.89",
+          "teto_vigente": "1081.50",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "08/1998",
+          "salario_original": "4678.13",
+          "indice_correcao": "3.442341",
+          "salario_corrigido": "3722.89",
+          "teto_vigente": "1081.50",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "09/1998",
+          "salario_original": "4675.99",
+          "indice_correcao": "3.435271",
+          "salario_corrigido": "3715.25",
+          "teto_vigente": "1081.50",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "09/1998",
+          "salario_original": "4678.13",
+          "indice_correcao": "3.435271",
+          "salario_corrigido": "3715.25",
+          "teto_vigente": "1081.50",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "10/1998",
+          "salario_original": "4675.99",
+          "indice_correcao": "3.428202",
+          "salario_corrigido": "3707.60",
+          "teto_vigente": "1081.50",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "10/1998",
+          "salario_original": "4678.13",
+          "indice_correcao": "3.428202",
+          "salario_corrigido": "3707.60",
+          "teto_vigente": "1081.50",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "11/1998",
+          "salario_original": "2288.00",
+          "indice_correcao": "3.421132",
+          "salario_corrigido": "3699.95",
+          "teto_vigente": "1081.50",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "11/1998",
+          "salario_original": "9254.13",
+          "indice_correcao": "3.421132",
+          "salario_corrigido": "3699.95",
+          "teto_vigente": "1081.50",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "12/1998",
+          "salario_original": "4676.00",
+          "indice_correcao": "3.414063",
+          "salario_corrigido": "3692.31",
+          "teto_vigente": "1081.50",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "12/1998",
+          "salario_original": "4678.13",
+          "indice_correcao": "3.414063",
+          "salario_corrigido": "3692.31",
+          "teto_vigente": "1081.50",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "01/1999",
+          "salario_original": "4576.00",
+          "indice_correcao": "3.406993",
+          "salario_corrigido": "4088.39",
+          "teto_vigente": "1200.00",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "02/1999",
+          "salario_original": "4676.00",
+          "indice_correcao": "3.384920",
+          "salario_corrigido": "4061.90",
+          "teto_vigente": "1200.00",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "03/1999",
+          "salario_original": "4676.00",
+          "indice_correcao": "3.362847",
+          "salario_corrigido": "4035.42",
+          "teto_vigente": "1200.00",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "04/1999",
+          "salario_original": "4676.00",
+          "indice_correcao": "3.340773",
+          "salario_corrigido": "4008.93",
+          "teto_vigente": "1200.00",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "05/1999",
+          "salario_original": "5692.89",
+          "indice_correcao": "3.318700",
+          "salario_corrigido": "3982.44",
+          "teto_vigente": "1200.00",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "07/1999",
+          "salario_original": "4706.00",
+          "indice_correcao": "3.274553",
+          "salario_corrigido": "4110.61",
+          "teto_vigente": "1255.32",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "08/1999",
+          "salario_original": "4706.00",
+          "indice_correcao": "3.252480",
+          "salario_corrigido": "4082.90",
+          "teto_vigente": "1255.32",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "EAGLE DISTRIBUIDORA DE BEBIDAS S.A."
+        },
+        {
+          "competencia": "09/1999",
+          "salario_original": "4576.00",
+          "indice_correcao": "3.230406",
+          "salario_corrigido": "4055.19",
+          "teto_vigente": "1255.32",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "COMPANHIA CERVEJARIA BRAHMA"
+        },
+        {
+          "competencia": "10/1999",
+          "salario_original": "4786.00",
+          "indice_correcao": "3.208333",
+          "salario_corrigido": "4027.48",
+          "teto_vigente": "1255.32",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "COMPANHIA CERVEJARIA BRAHMA"
+        },
+        {
+          "competencia": "11/1999",
+          "salario_original": "9152.00",
+          "indice_correcao": "3.186260",
+          "salario_corrigido": "3999.78",
+          "teto_vigente": "1255.32",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "COMPANHIA CERVEJARIA BRAHMA"
+        },
+        {
+          "competencia": "12/1999",
+          "salario_original": "4576.00",
+          "indice_correcao": "3.164186",
+          "salario_corrigido": "3972.07",
+          "teto_vigente": "1255.32",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "COMPANHIA CERVEJARIA BRAHMA"
+        },
+        {
+          "competencia": "01/2000",
+          "salario_original": "4915.90",
+          "indice_correcao": "3.142113",
+          "salario_corrigido": "3944.36",
+          "teto_vigente": "1255.32",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "COMPANHIA CERVEJARIA BRAHMA"
+        },
+        {
+          "competencia": "02/2000",
+          "salario_original": "5502.82",
+          "indice_correcao": "3.129005",
+          "salario_corrigido": "3927.90",
+          "teto_vigente": "1255.32",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "COMPANHIA CERVEJARIA BRAHMA"
+        },
+        {
+          "competencia": "03/2000",
+          "salario_original": "4908.74",
+          "indice_correcao": "3.115896",
+          "salario_corrigido": "3911.45",
+          "teto_vigente": "1255.32",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "COMPANHIA CERVEJARIA BRAHMA"
+        },
+        {
+          "competencia": "04/2000",
+          "salario_original": "4705.36",
+          "indice_correcao": "3.102788",
+          "salario_corrigido": "3894.99",
+          "teto_vigente": "1255.32",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "COMPANHIA CERVEJARIA BRAHMA"
+        },
+        {
+          "competencia": "05/2000",
+          "salario_original": "4705.36",
+          "indice_correcao": "3.089680",
+          "salario_corrigido": "3878.54",
+          "teto_vigente": "1255.32",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "COMPANHIA CERVEJARIA BRAHMA"
+        },
+        {
+          "competencia": "06/2000",
+          "salario_original": "4705.36",
+          "indice_correcao": "3.076572",
+          "salario_corrigido": "4086.46",
+          "teto_vigente": "1328.25",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "COMPANHIA CERVEJARIA BRAHMA"
+        },
+        {
+          "competencia": "07/2000",
+          "salario_original": "4705.36",
+          "indice_correcao": "3.063463",
+          "salario_corrigido": "4069.04",
+          "teto_vigente": "1328.25",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "COMPANHIA CERVEJARIA BRAHMA"
+        },
+        {
+          "competencia": "08/2000",
+          "salario_original": "3080.51",
+          "indice_correcao": "3.050355",
+          "salario_corrigido": "4051.63",
+          "teto_vigente": "1328.25",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "COMPANHIA CERVEJARIA BRAHMA"
+        },
+        {
+          "competencia": "12/2001",
+          "salario_original": "286.00",
+          "indice_correcao": "2.748807",
+          "salario_corrigido": "786.16",
+          "teto_vigente": "1430.00",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "03/2002",
+          "salario_original": "400.00",
+          "indice_correcao": "2.668957",
+          "salario_corrigido": "1067.58",
+          "teto_vigente": "1430.00",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "06/2002",
+          "salario_original": "407.12",
+          "indice_correcao": "2.581365",
+          "salario_corrigido": "1050.93",
+          "teto_vigente": "1561.56",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO Empregado"
+        },
+        {
+          "competencia": "08/2002",
+          "salario_original": "400.00",
+          "indice_correcao": "2.522970",
+          "salario_corrigido": "1009.19",
+          "teto_vigente": "1561.56",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "RECOLHIMENTO CONTRIBUINTE"
+        },
+        {
+          "competencia": "09/2003",
+          "salario_original": "1236.54",
+          "indice_correcao": "2.227965",
+          "salario_corrigido": "2754.97",
+          "teto_vigente": "1869.34",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "HNK BR INDUSTRIA DE BEBIDAS LTDA."
+        },
+        {
+          "competencia": "10/2003",
+          "salario_original": "4121.88",
+          "indice_correcao": "2.209338",
+          "salario_corrigido": "4130.00",
+          "teto_vigente": "1869.34",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "HNK BR INDUSTRIA DE BEBIDAS LTDA."
+        },
+        {
+          "competencia": "11/2003",
+          "salario_original": "4121.82",
+          "indice_correcao": "2.190710",
+          "salario_corrigido": "4095.18",
+          "teto_vigente": "1869.34",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "HNK BR INDUSTRIA DE BEBIDAS LTDA."
+        },
+        {
+          "competencia": "12/2003",
+          "salario_original": "3621.83",
+          "indice_correcao": "2.172083",
+          "salario_corrigido": "4060.36",
+          "teto_vigente": "1869.34",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "HNK BR INDUSTRIA DE BEBIDAS LTDA."
+        },
+        {
+          "competencia": "01/2004",
+          "salario_original": "4579.95",
+          "indice_correcao": "2.153455",
+          "salario_corrigido": "4025.54",
+          "teto_vigente": "1869.34",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "HNK BR INDUSTRIA DE BEBIDAS LTDA."
+        },
+        {
+          "competencia": "02/2004",
+          "salario_original": "5154.96",
+          "indice_correcao": "2.143090",
+          "salario_corrigido": "4006.16",
+          "teto_vigente": "1869.34",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "HNK BR INDUSTRIA DE BEBIDAS LTDA."
+        },
+        {
+          "competencia": "03/2004",
+          "salario_original": "4194.94",
+          "indice_correcao": "2.132725",
+          "salario_corrigido": "3986.79",
+          "teto_vigente": "1869.34",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "HNK BR INDUSTRIA DE BEBIDAS LTDA."
+        },
+        {
+          "competencia": "04/2004",
+          "salario_original": "4194.94",
+          "indice_correcao": "2.122360",
+          "salario_corrigido": "3967.41",
+          "teto_vigente": "1869.34",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "HNK BR INDUSTRIA DE BEBIDAS LTDA."
+        },
+        {
+          "competencia": "05/2004",
+          "salario_original": "3289.99",
+          "indice_correcao": "2.111995",
+          "salario_corrigido": "5298.40",
+          "teto_vigente": "2508.72",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "HNK BR INDUSTRIA DE BEBIDAS LTDA."
+        },
+        {
+          "competencia": "05/2013",
+          "salario_original": "3833.33",
+          "indice_correcao": "1.320136",
+          "salario_corrigido": "5060.52",
+          "teto_vigente": "4159.00",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "06/2013",
+          "salario_original": "5000.00",
+          "indice_correcao": "1.314238",
+          "salario_corrigido": "5465.92",
+          "teto_vigente": "4159.00",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "07/2013",
+          "salario_original": "5297.63",
+          "indice_correcao": "1.308340",
+          "salario_corrigido": "5441.39",
+          "teto_vigente": "4159.00",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "08/2013",
+          "salario_original": "5000.00",
+          "indice_correcao": "1.302442",
+          "salario_corrigido": "5416.86",
+          "teto_vigente": "4159.00",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "09/2013",
+          "salario_original": "5000.00",
+          "indice_correcao": "1.296544",
+          "salario_corrigido": "5392.33",
+          "teto_vigente": "4159.00",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "10/2013",
+          "salario_original": "5333.34",
+          "indice_correcao": "1.290646",
+          "salario_corrigido": "5367.80",
+          "teto_vigente": "4159.00",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "11/2013",
+          "salario_original": "5000.00",
+          "indice_correcao": "1.284748",
+          "salario_corrigido": "5343.27",
+          "teto_vigente": "4159.00",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "12/2013",
+          "salario_original": "5872.46",
+          "indice_correcao": "1.278850",
+          "salario_corrigido": "5318.74",
+          "teto_vigente": "4159.00",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "01/2014",
+          "salario_original": "5284.50",
+          "indice_correcao": "1.272952",
+          "salario_corrigido": "5588.56",
+          "teto_vigente": "4390.24",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "02/2014",
+          "salario_original": "7869.47",
+          "indice_correcao": "1.266730",
+          "salario_corrigido": "5561.25",
+          "teto_vigente": "4390.24",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "03/2014",
+          "salario_original": "5833.19",
+          "indice_correcao": "1.260509",
+          "salario_corrigido": "5533.94",
+          "teto_vigente": "4390.24",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "04/2014",
+          "salario_original": "5380.15",
+          "indice_correcao": "1.254288",
+          "salario_corrigido": "5506.63",
+          "teto_vigente": "4390.24",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "05/2014",
+          "salario_original": "5380.15",
+          "indice_correcao": "1.248067",
+          "salario_corrigido": "5479.31",
+          "teto_vigente": "4390.24",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "06/2014",
+          "salario_original": "5380.15",
+          "indice_correcao": "1.241846",
+          "salario_corrigido": "5452.00",
+          "teto_vigente": "4390.24",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "07/2014",
+          "salario_original": "7319.59",
+          "indice_correcao": "1.235625",
+          "salario_corrigido": "5424.69",
+          "teto_vigente": "4390.24",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "08/2014",
+          "salario_original": "5380.15",
+          "indice_correcao": "1.229403",
+          "salario_corrigido": "5397.37",
+          "teto_vigente": "4390.24",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "09/2014",
+          "salario_original": "5380.15",
+          "indice_correcao": "1.223182",
+          "salario_corrigido": "5370.06",
+          "teto_vigente": "4390.24",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "10/2014",
+          "salario_original": "6197.94",
+          "indice_correcao": "1.216961",
+          "salario_corrigido": "5342.75",
+          "teto_vigente": "4390.24",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "11/2014",
+          "salario_original": "5810.56",
+          "indice_correcao": "1.210740",
+          "salario_corrigido": "5315.44",
+          "teto_vigente": "4390.24",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "12/2014",
+          "salario_original": "5810.56",
+          "indice_correcao": "1.204519",
+          "salario_corrigido": "5288.13",
+          "teto_vigente": "4390.24",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "01/2015",
+          "salario_original": "5810.56",
+          "indice_correcao": "1.198298",
+          "salario_corrigido": "5588.56",
+          "teto_vigente": "4663.75",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "02/2015",
+          "salario_original": "9113.12",
+          "indice_correcao": "1.188175",
+          "salario_corrigido": "5541.35",
+          "teto_vigente": "4663.75",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "03/2015",
+          "salario_original": "6682.23",
+          "indice_correcao": "1.178053",
+          "salario_corrigido": "5494.14",
+          "teto_vigente": "4663.75",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "04/2015",
+          "salario_original": "6102.00",
+          "indice_correcao": "1.167931",
+          "salario_corrigido": "5446.94",
+          "teto_vigente": "4663.75",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "05/2015",
+          "salario_original": "6102.00",
+          "indice_correcao": "1.157809",
+          "salario_corrigido": "5399.73",
+          "teto_vigente": "4663.75",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "06/2015",
+          "salario_original": "6102.00",
+          "indice_correcao": "1.147687",
+          "salario_corrigido": "5352.53",
+          "teto_vigente": "4663.75",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "07/2015",
+          "salario_original": "8779.07",
+          "indice_correcao": "1.137564",
+          "salario_corrigido": "5305.31",
+          "teto_vigente": "4663.75",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "08/2015",
+          "salario_original": "6102.00",
+          "indice_correcao": "1.127442",
+          "salario_corrigido": "5258.11",
+          "teto_vigente": "4663.75",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "09/2015",
+          "salario_original": "6102.00",
+          "indice_correcao": "1.117320",
+          "salario_corrigido": "5210.90",
+          "teto_vigente": "4663.75",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "10/2015",
+          "salario_original": "8142.16",
+          "indice_correcao": "1.107198",
+          "salario_corrigido": "5163.69",
+          "teto_vigente": "4663.75",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "11/2015",
+          "salario_original": "6102.00",
+          "indice_correcao": "1.097075",
+          "salario_corrigido": "5116.48",
+          "teto_vigente": "4663.75",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "12/2015",
+          "salario_original": "6102.00",
+          "indice_correcao": "1.086953",
+          "salario_corrigido": "5069.28",
+          "teto_vigente": "4663.75",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "01/2016",
+          "salario_original": "6806.10",
+          "indice_correcao": "1.076831",
+          "salario_corrigido": "5588.56",
+          "teto_vigente": "5189.82",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "02/2016",
+          "salario_original": "14301.37",
+          "indice_correcao": "1.071291",
+          "salario_corrigido": "5559.81",
+          "teto_vigente": "5189.82",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "03/2016",
+          "salario_original": "6706.10",
+          "indice_correcao": "1.065751",
+          "salario_corrigido": "5531.06",
+          "teto_vigente": "5189.82",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "04/2016",
+          "salario_original": "6706.10",
+          "indice_correcao": "1.060211",
+          "salario_corrigido": "5502.30",
+          "teto_vigente": "5189.82",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "05/2016",
+          "salario_original": "6706.10",
+          "indice_correcao": "1.054671",
+          "salario_corrigido": "5473.55",
+          "teto_vigente": "5189.82",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "06/2016",
+          "salario_original": "6706.10",
+          "indice_correcao": "1.049131",
+          "salario_corrigido": "5444.80",
+          "teto_vigente": "5189.82",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "07/2016",
+          "salario_original": "8409.13",
+          "indice_correcao": "1.043591",
+          "salario_corrigido": "5416.05",
+          "teto_vigente": "5189.82",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "08/2016",
+          "salario_original": "6706.10",
+          "indice_correcao": "1.038050",
+          "salario_corrigido": "5387.29",
+          "teto_vigente": "5189.82",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "09/2016",
+          "salario_original": "6706.10",
+          "indice_correcao": "1.032510",
+          "salario_corrigido": "5358.54",
+          "teto_vigente": "5189.82",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "10/2016",
+          "salario_original": "7253.18",
+          "indice_correcao": "1.026970",
+          "salario_corrigido": "5329.79",
+          "teto_vigente": "5189.82",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "11/2016",
+          "salario_original": "6706.10",
+          "indice_correcao": "1.021430",
+          "salario_corrigido": "5301.04",
+          "teto_vigente": "5189.82",
+          "limitado_teto": true,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        },
+        {
+          "competencia": "12/2016",
+          "salario_original": "2906.01",
+          "indice_correcao": "1.015890",
+          "salario_corrigido": "2952.19",
+          "teto_vigente": "5189.82",
+          "limitado_teto": false,
+          "descartado": false,
+          "motivo_descarte": "",
+          "vinculo_nome": "LEROY MERLIN COMPANHIA BRASILEIRA DE"
+        }
+      ],
+      "total_contribuicoes": 138,
+      "total_descartados": 0,
+      "media_80_maiores": "4436.14",
+      "media_100": "4105.91",
+      "media_com_descarte": "0",
+      "descarte": {
+        "aplicado": false,
+        "total_descartados": 0,
+        "economia_mensal": "0",
+        "fundamentacao": "Art. 26, §6º, EC 103/2019"
+      },
+      "fundamentacao": "Art. 29, I e II, Lei 8.213/91; Art. 26 EC 103/2019"
+    }
+  },
+  "arquivo": "RAFAEL_VICENTE_MARCO_PONS_2026-04-06_b7cf96234c0e.json"
+}

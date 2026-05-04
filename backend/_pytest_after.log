@@ -1,0 +1,20 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.2, pluggy-1.6.0
+rootdir: C:\Users\Administrador\OneDrive\Documentos\Documents\previdenciario\backend
+configfile: pytest.ini
+testpaths: tests
+plugins: anyio-4.13.0, asyncio-1.3.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 92 items
+
+tests\test_api.py ..........                                             [ 10%]
+tests\test_correcao_monetaria.py ........                                [ 19%]
+tests\test_fator_previdenciario.py ...........                           [ 31%]
+tests\test_liquidacao.py .......                                         [ 39%]
+tests\test_novos_modulos.py ......................                       [ 63%]
+tests\test_parser_cnis.py .........                                      [ 72%]
+tests\test_regressao_critica.py ..............                           [ 88%]
+tests\test_tempo_contribuicao.py .....                                   [ 93%]
+tests\test_transicao.py ......                                           [100%]
+
+======================== 92 passed in 71.51s (0:01:11) ========================

@@ -9,7 +9,7 @@ echo.
 echo  Iniciando o sistema...
 echo.
 
-cd /d "C:\Users\Administrador\Documents\Documents\previdenciario"
+cd /d "%OneDrive%\Documentos\Documents\previdenciario"
 
 :: Verificar se a porta ja esta em uso
 netstat -ano | findstr ":8001" | findstr "LISTEN" >nul 2>&1

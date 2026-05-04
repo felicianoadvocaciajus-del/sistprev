@@ -954,3 +954,857 @@ def gerar_docx_planejamento(
     doc.save(buffer)
     buffer.seek(0)
     return buffer.getvalue()
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RELATÓRIO PERICIAL — DOCX Feliciano Advocacia (Visual Law)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+def _traduzir_tipo_pericial(tipo_raw: str, der) -> str:
+    """Traduz o tipo interno para rótulo correto conforme marco temporal."""
+    LABELS = {
+        "pre_reforma": "Aposentadoria por TC — Regras Pré-Reforma (Lei 8.213/91)",
+        "transicao_ec103": "Aposentadoria por TC — Regras de Transição (EC 103/2019)",
+        "transicao": None,
+        "idade": "Aposentadoria por Idade",
+        "especial_15": "Aposentadoria Especial — 15 anos",
+        "especial_20": "Aposentadoria Especial — 20 anos",
+        "especial_25": "Aposentadoria Especial — 25 anos",
+        "auxilio_doenca": "Auxílio por Incapacidade Temporária (B31)",
+        "auxilio_doenca_acid": "Auxílio por Incapacidade Acidentário (B91)",
+        "invalidez": "Aposentadoria por Incapacidade Permanente (B32)",
+        "invalidez_acid": "Aposentadoria por Incapacidade Permanente Acidentária (B92)",
+        "pensao_morte": "Pensão por Morte (B21)",
+    }
+    label = LABELS.get(tipo_raw)
+    if label:
+        return label
+    try:
+        if isinstance(der, str) and "/" in der:
+            p = der.split("/")
+            der_date = date(int(p[2]), int(p[1]), int(p[0]))
+        elif isinstance(der, date):
+            der_date = der
+        else:
+            der_date = date.fromisoformat(str(der))
+        if der_date < date(2019, 11, 13):
+            return "Aposentadoria por TC — Regras Pré-Reforma (Lei 8.213/91)"
+        return "Aposentadoria por TC — Regras de Transição (EC 103/2019)"
+    except Exception:
+        return str(tipo_raw)
+
+
+def _requisitos_por_tipo(tipo_raw: str, der) -> List[Dict[str, str]]:
+    """
+    Retorna a lista de requisitos específicos do tipo de benefício.
+    Cada item: {"requisito": str, "fundamento": str, "padrao": str (para ajudar a verificar)}
+    """
+    tipo = (tipo_raw or "").lower()
+
+    # AUXÍLIO POR INCAPACIDADE TEMPORÁRIA (B31)
+    if "auxilio_doenca" in tipo and "acid" not in tipo:
+        return [
+            {"requisito": "Qualidade de segurado mantida na DII (Data de Início da Incapacidade)",
+             "fundamento": "Lei 8.213/91, Art. 15 (períodos de graça)"},
+            {"requisito": "Carência de 12 contribuições mensais",
+             "fundamento": "Lei 8.213/91, Art. 25, I"},
+            {"requisito": "Incapacidade temporária para o trabalho habitual por mais de 15 dias (perícia médica INSS)",
+             "fundamento": "Lei 8.213/91, Art. 59"},
+            {"requisito": "Não estar em gozo de outro benefício por incapacidade incompatível",
+             "fundamento": "Lei 8.213/91, Art. 124"},
+        ]
+    # AUXÍLIO-ACIDENTÁRIO (B91)
+    if "auxilio_doenca_acid" in tipo or tipo == "91":
+        return [
+            {"requisito": "Qualidade de segurado na data do acidente/doença ocupacional",
+             "fundamento": "Lei 8.213/91, Art. 15"},
+            {"requisito": "Carência DISPENSADA",
+             "fundamento": "Lei 8.213/91, Art. 26, II"},
+            {"requisito": "Acidente do trabalho, doença ocupacional ou do trabalho comprovada (CAT)",
+             "fundamento": "Lei 8.213/91, Arts. 19-21"},
+            {"requisito": "Incapacidade temporária para o trabalho habitual",
+             "fundamento": "Lei 8.213/91, Art. 59"},
+        ]
+    # APOSENTADORIA POR INCAPACIDADE PERMANENTE (B32)
+    if "invalidez" in tipo and "acid" not in tipo:
+        return [
+            {"requisito": "Qualidade de segurado mantida na DII",
+             "fundamento": "Lei 8.213/91, Art. 15"},
+            {"requisito": "Carência de 12 contribuições (exceto acidente/doença grave — dispensada)",
+             "fundamento": "Lei 8.213/91, Arts. 25, I e 26, II; Portaria MPAS 2.998/2001"},
+            {"requisito": "Incapacidade TOTAL e PERMANENTE para qualquer atividade laborativa",
+             "fundamento": "Lei 8.213/91, Art. 42"},
+            {"requisito": "Insusceptibilidade de reabilitação profissional (perícia médica)",
+             "fundamento": "Lei 8.213/91, Art. 42 §1º"},
+        ]
+    # APOSENTADORIA POR INCAPACIDADE ACIDENTÁRIA (B92)
+    if "invalidez_acid" in tipo or tipo == "92":
+        return [
+            {"requisito": "Qualidade de segurado",
+             "fundamento": "Lei 8.213/91, Art. 15"},
+            {"requisito": "Carência DISPENSADA",
+             "fundamento": "Lei 8.213/91, Art. 26, II"},
+            {"requisito": "Acidente de trabalho ou doença ocupacional",
+             "fundamento": "Lei 8.213/91, Arts. 19-21"},
+            {"requisito": "Incapacidade total e permanente (perícia INSS)",
+             "fundamento": "Lei 8.213/91, Art. 42"},
+        ]
+    # PENSÃO POR MORTE (B21)
+    if "pensao_morte" in tipo or tipo == "21":
+        return [
+            {"requisito": "Qualidade de segurado do instituidor na data do óbito",
+             "fundamento": "Lei 8.213/91, Arts. 15 e 74"},
+            {"requisito": "Comprovação da condição de dependente (Art. 16 Lei 8.213/91)",
+             "fundamento": "Lei 8.213/91, Art. 16"},
+            {"requisito": "Prova do óbito (certidão) ou morte presumida (sentença)",
+             "fundamento": "Lei 8.213/91, Art. 78"},
+            {"requisito": "Atendimento à carência de 18 meses (se exigida — EC 103/2019 Art. 23)",
+             "fundamento": "EC 103/2019, Art. 23; Lei 13.135/2015"},
+        ]
+    # APOSENTADORIA POR IDADE (urbana)
+    if tipo == "idade" or "idade" in tipo and "progressiva" not in tipo:
+        # distinguir pré e pós EC 103
+        try:
+            if isinstance(der, str) and "/" in der:
+                p = der.split("/")
+                der_date = date(int(p[2]), int(p[1]), int(p[0]))
+            else:
+                der_date = der if isinstance(der, date) else date.fromisoformat(str(der))
+            if der_date >= date(2019, 11, 13):
+                return [
+                    {"requisito": "Idade: 65 anos (homem) ou 62 anos (mulher)",
+                     "fundamento": "EC 103/2019, Art. 18 e 19"},
+                    {"requisito": "Tempo de contribuição mínimo: 15 anos (mulher) ou 20 anos (homem — para filiados após EC 103)",
+                     "fundamento": "EC 103/2019, Art. 19"},
+                    {"requisito": "Carência: 180 contribuições mensais",
+                     "fundamento": "Lei 8.213/91, Art. 25, II"},
+                    {"requisito": "Qualidade de segurado",
+                     "fundamento": "Lei 8.213/91, Art. 15"},
+                ]
+        except Exception:
+            pass
+        return [
+            {"requisito": "Idade: 65 anos (homem) ou 60 anos (mulher) — urbano",
+             "fundamento": "Lei 8.213/91, Art. 48"},
+            {"requisito": "Carência: 180 contribuições mensais",
+             "fundamento": "Lei 8.213/91, Art. 25, II"},
+            {"requisito": "Qualidade de segurado",
+             "fundamento": "Lei 8.213/91, Art. 15"},
+        ]
+    # APOSENTADORIA ESPECIAL
+    if "especial" in tipo:
+        tempo_minimo = "25 anos"
+        if "15" in tipo: tempo_minimo = "15 anos"
+        elif "20" in tipo: tempo_minimo = "20 anos"
+        return [
+            {"requisito": f"Tempo especial mínimo: {tempo_minimo} de exposição a agentes nocivos",
+             "fundamento": "Lei 8.213/91, Art. 57; Decreto 3.048/99 Art. 64-70; EC 103/2019 Art. 19"},
+            {"requisito": "Comprovação por PPP (Perfil Profissiográfico Previdenciário)",
+             "fundamento": "IN INSS 128/2022; Decreto 4.882/2003"},
+            {"requisito": "LTCAT (Laudo Técnico de Condições Ambientais de Trabalho)",
+             "fundamento": "Lei 8.213/91, Art. 58 §2º"},
+            {"requisito": "Carência: 180 contribuições mensais",
+             "fundamento": "Lei 8.213/91, Art. 25, II"},
+            {"requisito": "Após EC 103/2019: idade mínima (55/58/60 conforme categoria)",
+             "fundamento": "EC 103/2019, Art. 19 §1º III"},
+        ]
+    # APOSENTADORIA POR TC — PRÉ-REFORMA
+    if "pre_reforma" in tipo or "85_95" in tipo or "tc_fator" in tipo:
+        return [
+            {"requisito": "Tempo de contribuição: 35 anos (homem) ou 30 anos (mulher)",
+             "fundamento": "Lei 8.213/91, Art. 52"},
+            {"requisito": "Carência: 180 contribuições mensais",
+             "fundamento": "Lei 8.213/91, Art. 25, II"},
+            {"requisito": "Qualidade de segurado",
+             "fundamento": "Lei 8.213/91, Art. 15"},
+            {"requisito": "DER anterior a 13/11/2019 (direito adquirido)",
+             "fundamento": "EC 103/2019, Art. 3º"},
+        ]
+    # TRANSIÇÃO EC 103/2019
+    if "transicao" in tipo or "pontos" in tipo or "progressiva" in tipo or "pedagio" in tipo:
+        return [
+            {"requisito": "Tempo de contribuição mínimo: 35/30 anos (H/M)",
+             "fundamento": "EC 103/2019, Arts. 15-20"},
+            {"requisito": "Carência: 180 contribuições mensais",
+             "fundamento": "Lei 8.213/91, Art. 25, II"},
+            {"requisito": "Requisitos específicos da regra de transição escolhida (pontos, idade progressiva, pedágio 50% ou 100%)",
+             "fundamento": "EC 103/2019, Arts. 15, 16, 17 e 20"},
+            {"requisito": "Estar filiado ao RGPS em 13/11/2019 (data da promulgação da EC 103)",
+             "fundamento": "EC 103/2019, Art. 3º"},
+        ]
+    # Fallback genérico
+    return [
+        {"requisito": "Qualidade de segurado",
+         "fundamento": "Lei 8.213/91, Art. 15"},
+        {"requisito": "Carência mínima conforme o benefício",
+         "fundamento": "Lei 8.213/91, Art. 25"},
+        {"requisito": "Demais requisitos específicos da espécie",
+         "fundamento": "Lei 8.213/91 e EC 103/2019"},
+    ]
+
+
+def _card_visual_law(doc, titulo: str, texto: str, cor_bg: str, cor_borda_hex: str, icone: str = ""):
+    """Cria um card estilo Visual Law — caixa colorida com título em bold e texto explicativo."""
+    tabela = doc.add_table(rows=1, cols=1)
+    cell = tabela.cell(0, 0)
+    p = cell.paragraphs[0]
+    if icone:
+        run_i = p.add_run(f"{icone}  ")
+        run_i.font.size = Pt(11)
+    run_t = p.add_run(f"{titulo}\n")
+    run_t.font.size = Pt(9)
+    run_t.font.bold = True
+    run_t.font.color.rgb = AZUL_ESCURO
+    run_v = p.add_run(texto)
+    run_v.font.size = Pt(10)
+    _set_cell_bg(cell, cor_bg)
+    doc.add_paragraph().paragraph_format.space_after = Pt(2)
+
+
+def gerar_docx_pericial(
+    segurado: Dict,
+    calculo: Dict,
+    nome_advogado: Optional[str] = None,
+    titulo: str = "RELATÓRIO PERICIAL PREVIDENCIÁRIO",
+) -> bytes:
+    """
+    Gera o Relatório Pericial em DOCX Feliciano Advocacia (Visual Law).
+    Inclui análise específica dos requisitos do benefício e cards coloridos.
+    """
+    doc = Document()
+
+    # ── Estilos ──
+    style = doc.styles['Normal']
+    style.font.name = 'Calibri'
+    style.font.size = Pt(10)
+    for level in range(1, 4):
+        hs = doc.styles[f'Heading {level}']
+        hs.font.name = 'Calibri'
+        hs.font.color.rgb = AZUL_ESCURO if level == 1 else AZUL_MEDIO
+
+    # ── Margens ──
+    for section in doc.sections:
+        section.top_margin = Cm(2)
+        section.bottom_margin = Cm(2)
+        section.left_margin = Cm(2.5)
+        section.right_margin = Cm(2.5)
+
+    dp = segurado.get("dados_pessoais", {})
+    vinculos = segurado.get("vinculos") or []
+    hoje = date.today().strftime("%d/%m/%Y")
+    nome = dp.get("nome", "Segurado")
+
+    cenarios = calculo.get("todos_cenarios") or []
+    melhor = calculo.get("melhor_cenario") or {}
+    elegivel = calculo.get("elegivel", False)
+    der = calculo.get("der", "—")
+    tipo_raw = calculo.get("tipo", "—")
+    tipo_label = _traduzir_tipo_pericial(tipo_raw, der)
+    rmi_str = calculo.get("rmi", "0")
+    rmi_formatada = calculo.get("rmi_formatada") or _fmt_brl(rmi_str)
+    modo_revisao = calculo.get("modo_revisao", False)
+    nb_ativo = calculo.get("nb_ativo")
+    alertas = calculo.get("alertas_consistencia") or []
+
+    # ═══════════════════════════════════════════════════════════════════════
+    # CAPA
+    # ═══════════════════════════════════════════════════════════════════════
+    _add_para(doc, "", size=6, space_after=0)
+    _add_para(doc, "", size=6, space_after=0)
+
+    p_logo = doc.add_paragraph()
+    p_logo.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run_logo = p_logo.add_run("FELICIANO ADVOCACIA")
+    run_logo.font.size = Pt(28)
+    run_logo.font.bold = True
+    run_logo.font.color.rgb = AZUL_ESCURO
+    run_logo.font.name = "Calibri"
+
+    p_sub = doc.add_paragraph()
+    p_sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run_sub = p_sub.add_run("Assessoria Jurídica Previdenciária")
+    run_sub.font.size = Pt(12)
+    run_sub.font.color.rgb = AZUL_MEDIO
+    run_sub.font.name = "Calibri"
+    p_sub.paragraph_format.space_after = Pt(40)
+
+    p_line = doc.add_paragraph()
+    p_line.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run_line = p_line.add_run("━" * 60)
+    run_line.font.color.rgb = AZUL_MEDIO
+    run_line.font.size = Pt(8)
+    p_line.paragraph_format.space_after = Pt(30)
+
+    p_titulo = doc.add_paragraph()
+    p_titulo.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run_t = p_titulo.add_run(titulo)
+    run_t.font.size = Pt(22)
+    run_t.font.bold = True
+    run_t.font.color.rgb = AZUL_ESCURO
+    p_titulo.paragraph_format.space_after = Pt(8)
+
+    p_nome_cli = doc.add_paragraph()
+    p_nome_cli.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run_nc = p_nome_cli.add_run(nome.upper())
+    run_nc.font.size = Pt(16)
+    run_nc.font.bold = True
+    run_nc.font.color.rgb = AZUL_MEDIO
+    p_nome_cli.paragraph_format.space_after = Pt(30)
+
+    # Quadro de capa
+    tabela_capa = doc.add_table(rows=6, cols=2)
+    tabela_capa.alignment = WD_TABLE_ALIGNMENT.CENTER
+    dados_capa = [
+        ("CPF:", dp.get("cpf", "—")),
+        ("Data de Nascimento:", dp.get("data_nascimento", "—")),
+        ("NIT/PIS:", dp.get("nit", "—")),
+        ("DER (Data de Entrada do Requerimento):", der),
+        ("Tipo de Benefício Analisado:", tipo_label),
+        ("Data do Relatório:", hoje),
+    ]
+    for i, (label, valor) in enumerate(dados_capa):
+        cell_l = tabela_capa.cell(i, 0)
+        cell_v = tabela_capa.cell(i, 1)
+        cell_l.text = label
+        cell_v.text = str(valor) if valor else "—"
+        for p in cell_l.paragraphs:
+            if p.runs:
+                p.runs[0].font.bold = True
+                p.runs[0].font.size = Pt(10)
+                p.runs[0].font.color.rgb = AZUL_ESCURO
+        for p in cell_v.paragraphs:
+            if p.runs:
+                p.runs[0].font.size = Pt(10)
+
+    doc.add_page_break()
+
+    # ═══════════════════════════════════════════════════════════════════════
+    # 1. IDENTIFICAÇÃO DO SEGURADO
+    # ═══════════════════════════════════════════════════════════════════════
+    _add_heading(doc, "1. Identificação do Segurado", level=1)
+
+    sexo = dp.get("sexo", "—")
+    modalidade = "Revisão de benefício em manutenção" if modo_revisao else "Cálculo inicial de concessão"
+    tabela_id = doc.add_table(rows=8, cols=2)
+    tabela_id.style = 'Light List Accent 1'
+    dados_id = [
+        ("Nome Completo", nome),
+        ("CPF", dp.get("cpf", "—")),
+        ("NIT / PIS-PASEP", dp.get("nit", "—")),
+        ("Data de Nascimento", dp.get("data_nascimento", "—")),
+        ("Sexo", sexo),
+        ("Data de Entrada do Requerimento (DER)", der),
+        ("Modalidade do Cálculo", modalidade),
+        ("Data do Relatório", hoje),
+    ]
+    for i, (label, valor) in enumerate(dados_id):
+        tabela_id.cell(i, 0).text = label
+        tabela_id.cell(i, 1).text = str(valor) if valor else "—"
+        for p in tabela_id.cell(i, 0).paragraphs:
+            for r in p.runs:
+                r.font.bold = True
+                r.font.size = Pt(10)
+                r.font.color.rgb = AZUL_ESCURO
+        for p in tabela_id.cell(i, 1).paragraphs:
+            for r in p.runs:
+                r.font.size = Pt(10)
+    doc.add_paragraph()
+
+    # ═══════════════════════════════════════════════════════════════════════
+    # 2. RESUMO EXECUTIVO — Cards Visual Law
+    # ═══════════════════════════════════════════════════════════════════════
+    _add_heading(doc, "2. Resumo Executivo", level=1)
+
+    # Card 1: SITUAÇÃO (azul claro)
+    situacao_texto = (
+        f"Análise de {tipo_label} para o(a) segurado(a) {nome}, "
+        f"com DER em {der}. "
+        + ("Cálculo de REVISÃO de benefício em manutenção." if modo_revisao else "Cálculo de CONCESSÃO inicial.")
+    )
+    _card_visual_law(doc, "SITUAÇÃO ANALISADA", situacao_texto,
+                     cor_bg="DBE5F1", cor_borda_hex="1a3c6e", icone="📋")
+
+    # Card 2: RESULTADO (verde se elegível / amarelo se não)
+    if elegivel:
+        resultado_texto = (
+            f"O(a) segurado(a) PREENCHE todos os requisitos do benefício. "
+            f"RMI apurada: {rmi_formatada}. "
+            "Recomenda-se a protocolização do requerimento administrativo no INSS."
+        )
+        cor_bg_res = "E2EFDA"; icone_res = "✅"
+    else:
+        resultado_texto = (
+            f"O(a) segurado(a) NÃO preenche atualmente os requisitos para {tipo_label} na DER indicada. "
+            "Consultar a seção 'Análise de Requisitos' para ver quais itens faltam e orientações de planejamento."
+        )
+        cor_bg_res = "FFF2CC"; icone_res = "⚠"
+    _card_visual_law(doc, "RESULTADO DA ANÁLISE", resultado_texto,
+                     cor_bg=cor_bg_res, cor_borda_hex="1a3c6e", icone=icone_res)
+
+    # Card 3: AÇÃO IMEDIATA
+    if elegivel:
+        acao_texto = (
+            "1) Reunir documentação probatória (CNIS, CTPS, PPP/LTCAT se aplicável); "
+            "2) Protocolar pedido administrativo via Meu INSS; "
+            "3) Aguardar resposta em até 45 dias úteis; "
+            "4) Em caso de indeferimento, propor ação judicial."
+        )
+    else:
+        acao_texto = (
+            "1) Verificar requisitos faltantes na seção 4; "
+            "2) Avaliar alternativas (outras regras de transição, complementação MEI, averbação especial); "
+            "3) Elaborar plano previdenciário para futura elegibilidade; "
+            "4) Manter contribuições em dia para preservar qualidade de segurado."
+        )
+    _card_visual_law(doc, "AÇÃO RECOMENDADA", acao_texto,
+                     cor_bg="E8DAEF", cor_borda_hex="5b21b6", icone="🎯")
+
+    # Card 4: VALOR FINANCEIRO (se elegível)
+    if elegivel:
+        valor_texto = (
+            f"RMI (Renda Mensal Inicial): {rmi_formatada}. "
+            "Valor sujeito a reajustes anuais conforme INPC (Art. 41-A Lei 8.213/91) e limitado ao teto do RGPS."
+        )
+        _card_visual_law(doc, "VALOR DO BENEFÍCIO", valor_texto,
+                         cor_bg="DCFCE7", cor_borda_hex="065f46", icone="💰")
+    doc.add_paragraph()
+
+    # ═══════════════════════════════════════════════════════════════════════
+    # 3. ANÁLISE DE REQUISITOS — CHECKLIST ESPECÍFICO DO BENEFÍCIO
+    # ═══════════════════════════════════════════════════════════════════════
+    _add_heading(doc, f"3. Análise Específica dos Requisitos — {tipo_label}", level=1)
+
+    _add_para(doc, (
+        "A tabela abaixo lista os requisitos exigidos por lei para a concessão deste benefício. "
+        "Cada item é avaliado conforme os dados do CNIS e documentos juntados. Requisitos marcados em verde "
+        "foram atendidos; em vermelho, precisam ser comprovados ou atendidos."
+    ), size=10, color=CINZA)
+
+    requisitos = _requisitos_por_tipo(tipo_raw, der)
+
+    # Cabeçalho da tabela
+    tabela_req = doc.add_table(rows=len(requisitos) + 1, cols=3)
+    tabela_req.style = 'Light List Accent 1'
+    headers_req = ["Requisito Legal", "Fundamento", "Situação"]
+    for j, h in enumerate(headers_req):
+        cell = tabela_req.cell(0, j)
+        cell.text = h
+        _set_cell_bg(cell, "1a3c6e")
+        for p in cell.paragraphs:
+            for r in p.runs:
+                r.font.color.rgb = BRANCO
+                r.font.bold = True
+                r.font.size = Pt(9)
+
+    for i, req in enumerate(requisitos):
+        row = i + 1
+        tabela_req.cell(row, 0).text = req["requisito"]
+        tabela_req.cell(row, 1).text = req["fundamento"]
+        # A análise de "situação" aqui é heurística: se elegível = todos verdes;
+        # se não elegível = marca como "a verificar" (amarelo) para o advogado conferir
+        if elegivel:
+            tabela_req.cell(row, 2).text = "✓ ATENDIDO"
+            _set_cell_bg(tabela_req.cell(row, 2), "dcfce7")
+            for p in tabela_req.cell(row, 2).paragraphs:
+                for r in p.runs:
+                    r.font.color.rgb = VERDE
+                    r.font.bold = True
+                    r.font.size = Pt(9)
+        else:
+            tabela_req.cell(row, 2).text = "⚠ VERIFICAR"
+            _set_cell_bg(tabela_req.cell(row, 2), "fef3c7")
+            for p in tabela_req.cell(row, 2).paragraphs:
+                for r in p.runs:
+                    r.font.color.rgb = LARANJA
+                    r.font.bold = True
+                    r.font.size = Pt(9)
+
+        # Estilo das outras colunas
+        for j in [0, 1]:
+            for p in tabela_req.cell(row, j).paragraphs:
+                for r in p.runs:
+                    r.font.size = Pt(9)
+        # Fundamento em itálico cinza
+        for p in tabela_req.cell(row, 1).paragraphs:
+            for r in p.runs:
+                r.font.color.rgb = CINZA
+                r.font.italic = True
+
+    # Card explicativo
+    _add_para(doc, "", size=4)
+    if elegivel:
+        _card_visual_law(doc,
+            "CONCLUSÃO DA ANÁLISE DE REQUISITOS",
+            f"Todos os requisitos legais para {tipo_label} estão preenchidos conforme os dados apresentados. "
+            "Confirme a documentação probatória antes da protocolização.",
+            cor_bg="E2EFDA", cor_borda_hex="065f46", icone="✅")
+    else:
+        _card_visual_law(doc,
+            "CONCLUSÃO DA ANÁLISE DE REQUISITOS",
+            f"Um ou mais requisitos para {tipo_label} não foram preenchidos na DER indicada. "
+            "Consultar a seção 'Comparativo de Regras' para identificar uma alternativa viável.",
+            cor_bg="FEF3C7", cor_borda_hex="b45309", icone="⚠")
+    doc.add_paragraph()
+
+    # ═══════════════════════════════════════════════════════════════════════
+    # 4. ALERTAS DE CONSISTÊNCIA (se houver)
+    # ═══════════════════════════════════════════════════════════════════════
+    if alertas:
+        _add_heading(doc, "4. Alertas de Consistência", level=1)
+        _add_para(doc, (
+            "Os pontos abaixo foram detectados pela análise automática e "
+            "devem ser verificados antes da protocolização do pedido."
+        ), size=9, color=CINZA)
+
+        for alerta in alertas:
+            tabela_a = doc.add_table(rows=1, cols=1)
+            cell = tabela_a.cell(0, 0)
+            p = cell.paragraphs[0]
+            run = p.add_run(f"⚠  {alerta}")
+            run.font.size = Pt(10)
+            run.font.color.rgb = VERMELHO
+            _set_cell_bg(cell, "fef2f2")
+            doc.add_paragraph().paragraph_format.space_after = Pt(2)
+        doc.add_paragraph()
+
+    # ═══════════════════════════════════════════════════════════════════════
+    # MODO REVISÃO — explicação (se aplicável)
+    # ═══════════════════════════════════════════════════════════════════════
+    if modo_revisao and nb_ativo:
+        _add_heading(doc, "Análise de Revisão", level=1)
+        tabela_rev = doc.add_table(rows=1, cols=1)
+        cell = tabela_rev.cell(0, 0)
+        p = cell.paragraphs[0]
+        run1 = p.add_run(f"Benefício em manutenção: NB {nb_ativo}\n")
+        run1.font.bold = True
+        run1.font.size = Pt(11)
+        run1.font.color.rgb = AZUL_ESCURO
+        run2 = p.add_run(
+            "Este cálculo simula a aposentadoria como se o requerimento tivesse sido feito na DER indicada, "
+            "para fins de comparação com o benefício atualmente pago. A diferença apontada no item 'Resultado' "
+            "representa o ganho (ou perda) mensal que justifica (ou afasta) o pedido de revisão."
+        )
+        run2.font.size = Pt(10)
+        _set_cell_bg(cell, "eff6ff")
+        doc.add_paragraph()
+
+    # ═══════════════════════════════════════════════════════════════════════
+    # 5. VÍNCULOS EMPREGATÍCIOS
+    # ═══════════════════════════════════════════════════════════════════════
+    _add_heading(doc, "5. Vínculos Empregatícios e Contribuições", level=1)
+
+    if not vinculos:
+        _add_para(doc, "Nenhum vínculo empregatício informado.", size=10, color=CINZA)
+    else:
+        tabela_v = doc.add_table(rows=len(vinculos) + 1, cols=6)
+        tabela_v.style = 'Light List Accent 1'
+        headers_v = ["Empregador", "CNPJ", "Tipo", "Início", "Fim", "Competências"]
+        for j, h in enumerate(headers_v):
+            cell = tabela_v.cell(0, j)
+            cell.text = h
+            _set_cell_bg(cell, "1a3c6e")
+            for p in cell.paragraphs:
+                for r in p.runs:
+                    r.font.color.rgb = BRANCO
+                    r.font.bold = True
+                    r.font.size = Pt(9)
+
+        for i, v in enumerate(vinculos):
+            row = i + 1
+            n_comp = 0
+            contribs = v.get("contribuicoes") or []
+            n_comp = sum(1 for c in contribs if c.get("valida_tc", True))
+            fim = v.get("data_fim") or "Em aberto"
+            tabela_v.cell(row, 0).text = str(v.get("empregador_nome", "—"))[:45]
+            tabela_v.cell(row, 1).text = str(v.get("empregador_cnpj", "—"))
+            tabela_v.cell(row, 2).text = str(v.get("tipo_vinculo", "—"))
+            tabela_v.cell(row, 3).text = str(v.get("data_inicio", "—"))
+            tabela_v.cell(row, 4).text = str(fim)
+            tabela_v.cell(row, 5).text = str(n_comp)
+            for j in range(6):
+                for p in tabela_v.cell(row, j).paragraphs:
+                    for r in p.runs:
+                        r.font.size = Pt(8)
+
+        total_comp = sum(
+            sum(1 for c in (v.get("contribuicoes") or []) if c.get("valida_tc", True))
+            for v in vinculos
+        )
+        p_total = doc.add_paragraph()
+        run_t = p_total.add_run(f"Total de competências registradas: {total_comp}")
+        run_t.font.bold = True
+        run_t.font.size = Pt(10)
+        run_t.font.color.rgb = AZUL_ESCURO
+    doc.add_paragraph()
+
+    # ═══════════════════════════════════════════════════════════════════════
+    # 6. RESULTADO DO CÁLCULO — DESTAQUE
+    # ═══════════════════════════════════════════════════════════════════════
+    _add_heading(doc, "6. Resultado do Cálculo", level=1)
+
+    # Status destacado
+    status_texto = "ELEGÍVEL (conforme dados informados)" if elegivel else "NÃO ELEGÍVEL na DER"
+    status_cor = VERDE if elegivel else VERMELHO
+    status_bg = "dcfce7" if elegivel else "fef2f2"
+
+    tabela_st = doc.add_table(rows=1, cols=1)
+    cell_st = tabela_st.cell(0, 0)
+    p_st = cell_st.paragraphs[0]
+    p_st.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run_st = p_st.add_run(status_texto)
+    run_st.font.size = Pt(14)
+    run_st.font.bold = True
+    run_st.font.color.rgb = status_cor
+    _set_cell_bg(cell_st, status_bg)
+    doc.add_paragraph()
+
+    # RMI em destaque
+    p_rmi = doc.add_paragraph()
+    p_rmi.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run_r = p_rmi.add_run(rmi_formatada)
+    run_r.font.size = Pt(32)
+    run_r.font.bold = True
+    run_r.font.color.rgb = VERDE if elegivel else CINZA
+    p_rmi_lbl = doc.add_paragraph()
+    p_rmi_lbl.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run_lbl = p_rmi_lbl.add_run("Renda Mensal Inicial (RMI)")
+    run_lbl.font.size = Pt(10)
+    run_lbl.font.color.rgb = CINZA
+    p_rmi_lbl.paragraph_format.space_after = Pt(16)
+
+    # Tabela detalhada do cálculo (a partir do melhor cenário)
+    base_legal = melhor.get("base_legal") or melhor.get("fundamento_legal") or "Lei 8.213/91"
+    sb = melhor.get("salario_beneficio") or melhor.get("sb") or "—"
+    coef = melhor.get("coeficiente") or melhor.get("fator") or "—"
+    tc_apurado = melhor.get("tempo_contribuicao") or melhor.get("tc") or "—"
+    regra_nome = melhor.get("nome_regra") or melhor.get("regra") or tipo_label
+
+    tabela_res = doc.add_table(rows=6, cols=2)
+    tabela_res.style = 'Light List Accent 1'
+    dados_res = [
+        ("Melhor Regra Identificada", regra_nome),
+        ("Base Legal", base_legal),
+        ("Tempo de Contribuição Apurado", str(tc_apurado)),
+        ("Salário de Benefício (SB)", _fmt_brl(sb) if sb != "—" else "—"),
+        ("Coeficiente / Fator Aplicado", str(coef)),
+        ("RMI — Renda Mensal Inicial", rmi_formatada),
+    ]
+    for i, (label, valor) in enumerate(dados_res):
+        tabela_res.cell(i, 0).text = label
+        tabela_res.cell(i, 1).text = str(valor)
+        for p in tabela_res.cell(i, 0).paragraphs:
+            for r in p.runs:
+                r.font.bold = True
+                r.font.size = Pt(10)
+                r.font.color.rgb = AZUL_ESCURO
+        for p in tabela_res.cell(i, 1).paragraphs:
+            for r in p.runs:
+                r.font.size = Pt(10)
+        # Destacar linha da RMI
+        if i == 5:
+            _set_cell_bg(tabela_res.cell(i, 1), "dcfce7" if elegivel else "f3f4f6")
+            for p in tabela_res.cell(i, 1).paragraphs:
+                for r in p.runs:
+                    r.font.bold = True
+                    r.font.color.rgb = VERDE if elegivel else CINZA
+    doc.add_paragraph()
+
+    # ═══════════════════════════════════════════════════════════════════════
+    # 7. ANÁLISE POR REGRA (Comparativo de cenários)
+    # ═══════════════════════════════════════════════════════════════════════
+    if cenarios and len(cenarios) > 1:
+        _add_heading(doc, "7. Comparativo de Todas as Regras Analisadas", level=1)
+        _add_para(doc, (
+            "O sistema avaliou todas as regras aplicáveis ao caso, sem pré-seleção. "
+            "A tabela abaixo mostra o resultado para cada uma — a regra mais vantajosa "
+            "está destacada na seção anterior."
+        ), size=9, color=CINZA)
+
+        tabela_c = doc.add_table(rows=len(cenarios) + 1, cols=4)
+        tabela_c.style = 'Light List Accent 1'
+        headers_c = ["Regra", "Elegível", "RMI", "Fundamento"]
+        for j, h in enumerate(headers_c):
+            cell = tabela_c.cell(0, j)
+            cell.text = h
+            _set_cell_bg(cell, "1a3c6e")
+            for p in cell.paragraphs:
+                for r in p.runs:
+                    r.font.color.rgb = BRANCO
+                    r.font.bold = True
+                    r.font.size = Pt(9)
+
+        for i, c in enumerate(cenarios):
+            row = i + 1
+            nome_r = c.get("nome_regra") or c.get("regra") or "—"
+            eleg = c.get("elegivel", False)
+            rmi_c = c.get("rmi") or "—"
+            fund = (c.get("base_legal") or c.get("fundamento_legal") or "—")[:80]
+
+            tabela_c.cell(row, 0).text = str(nome_r)
+            tabela_c.cell(row, 1).text = "✓ SIM" if eleg else "✗ NÃO"
+            tabela_c.cell(row, 2).text = _fmt_brl(rmi_c) if rmi_c not in ("—", None) else "—"
+            tabela_c.cell(row, 3).text = str(fund)
+
+            if eleg:
+                _set_cell_bg(tabela_c.cell(row, 1), "dcfce7")
+            else:
+                _set_cell_bg(tabela_c.cell(row, 1), "fef2f2")
+
+            for j in range(4):
+                for p in tabela_c.cell(row, j).paragraphs:
+                    for r in p.runs:
+                        r.font.size = Pt(9)
+                        if j == 1:
+                            r.font.bold = True
+                            r.font.color.rgb = VERDE if eleg else VERMELHO
+        doc.add_paragraph()
+
+    # ═══════════════════════════════════════════════════════════════════════
+    # 8. MEMÓRIA DE CÁLCULO (a partir do melhor cenário)
+    # ═══════════════════════════════════════════════════════════════════════
+    memoria = melhor.get("memoria") or []
+    if memoria:
+        _add_heading(doc, "8. Memória de Cálculo", level=1)
+        _add_para(doc, (
+            "Passo a passo do cálculo conforme metodologia oficial (Lei 9.876/99, "
+            "EC 103/2019 Art. 26 e CJF Res. 963/2025)."
+        ), size=9, color=CINZA)
+
+        # Mostrar até 30 passos — se for muito longo, avisa
+        for i, passo in enumerate(memoria[:30]):
+            if isinstance(passo, dict):
+                etapa = passo.get("etapa") or passo.get("passo") or passo.get("descricao") or f"Passo {i+1}"
+                valor = passo.get("valor") or passo.get("resultado") or ""
+                obs = passo.get("observacao") or passo.get("base_legal") or ""
+                p = doc.add_paragraph(style='List Number')
+                run1 = p.add_run(f"{etapa}")
+                run1.font.bold = True
+                run1.font.size = Pt(10)
+                if valor:
+                    run2 = p.add_run(f" → {valor}")
+                    run2.font.size = Pt(10)
+                    run2.font.color.rgb = AZUL_ESCURO
+                if obs:
+                    run3 = p.add_run(f"\n   {obs}")
+                    run3.font.size = Pt(9)
+                    run3.font.italic = True
+                    run3.font.color.rgb = CINZA
+            else:
+                p = doc.add_paragraph(style='List Number')
+                run = p.add_run(str(passo))
+                run.font.size = Pt(10)
+
+        if len(memoria) > 30:
+            _add_para(doc, f"... e mais {len(memoria) - 30} passos de memória de cálculo.",
+                     size=9, color=CINZA)
+        doc.add_paragraph()
+
+    # ═══════════════════════════════════════════════════════════════════════
+    # 9. FUNDAMENTAÇÃO LEGAL
+    # ═══════════════════════════════════════════════════════════════════════
+    _add_heading(doc, "9. Fundamentação Legal", level=1)
+
+    fundamentos = [
+        "Constituição Federal, Art. 201 — Princípios da Previdência Social.",
+        "Lei 8.213/91 — Plano de Benefícios da Previdência Social (arts. 18, 25, 29, 48, 52, 57, 59-63).",
+        "Lei 9.876/99 — Fator Previdenciário e Art. 29-C (Regra 85/95).",
+        "Decreto 3.048/99 — Regulamento da Previdência Social.",
+        "Emenda Constitucional 103/2019 — Reforma da Previdência (arts. 15-20, 26).",
+        "Decreto 10.410/2020 — Alterações pós-EC 103.",
+        "CJF Resolução 963/2025 — Manual de Cálculos da Justiça Federal.",
+        "STJ Tema 692 / Súmula 576 — Cessação de auxílio-doença.",
+        "STJ Tema 862 — Termo inicial do restabelecimento (DCB + 1 dia).",
+        "STF Tema 334 — Direito adquirido no regime anterior.",
+    ]
+    for f in fundamentos:
+        p = doc.add_paragraph(style='List Bullet')
+        run = p.add_run(f)
+        run.font.size = Pt(9)
+
+    doc.add_paragraph()
+
+    # ═══════════════════════════════════════════════════════════════════════
+    # 10. CONCLUSÃO E RECOMENDAÇÃO
+    # ═══════════════════════════════════════════════════════════════════════
+    _add_heading(doc, "10. Conclusão e Recomendação", level=1)
+
+    if elegivel:
+        conclusao_principal = (
+            f"Com base na análise completa do histórico previdenciário de {nome} "
+            f"e conforme legislação vigente, o(a) segurado(a) FAZ JUS ao benefício "
+            f"{tipo_label}, com RMI de {rmi_formatada}, "
+            f"na DER de {der}, pela regra {regra_nome}."
+        )
+        cor_conc = VERDE
+    else:
+        conclusao_principal = (
+            f"Com base na análise completa do histórico previdenciário de {nome} "
+            f"e conforme legislação vigente, o(a) segurado(a) NÃO preenche os requisitos "
+            f"para {tipo_label} na DER de {der}. Recomenda-se a análise de outras regras de transição "
+            f"ou o planejamento previdenciário para futura elegibilidade."
+        )
+        cor_conc = LARANJA
+
+    _add_para(doc, conclusao_principal, size=11, bold=True, color=cor_conc)
+
+    pontos_conc = []
+    if elegivel:
+        pontos_conc = [
+            f"A RMI apurada é {rmi_formatada}, já observados o teto e o piso previdenciário vigentes.",
+            "Recomenda-se o protocolo do requerimento administrativo no INSS (via Meu INSS ou presencial) com toda a documentação probatória (CNIS, CTPS, PPP/LTCAT se aplicável).",
+            "Em caso de indeferimento administrativo, cabe ação judicial nos termos da Lei 8.213/91.",
+            "Os valores da RMI são calculados com base nos salários constantes no CNIS e podem ser revistos mediante averbação de períodos adicionais.",
+        ]
+    else:
+        pontos_conc = [
+            "Recomenda-se planejamento previdenciário para identificar a regra mais vantajosa e a data provável de elegibilidade.",
+            "Manter as contribuições em dia evita perda da qualidade de segurado (Art. 15 Lei 8.213/91).",
+            "Em caso de desemprego, o recolhimento como Segurado Facultativo (20% sobre o salário-mínimo) preserva o tempo de contribuição em curso.",
+            "Averbação de tempo especial, rural ou de serviço público pode alterar a elegibilidade — juntar PPP, LTCAT, CTC ou documento equivalente.",
+        ]
+
+    for c in pontos_conc:
+        p = doc.add_paragraph(style='List Bullet')
+        run = p.add_run(c)
+        run.font.size = Pt(10)
+
+    doc.add_paragraph()
+    doc.add_paragraph()
+
+    # ═══════════════════════════════════════════════════════════════════════
+    # ASSINATURA
+    # ═══════════════════════════════════════════════════════════════════════
+    p_line2 = doc.add_paragraph()
+    p_line2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run_line2 = p_line2.add_run("━" * 40)
+    run_line2.font.color.rgb = AZUL_MEDIO
+    run_line2.font.size = Pt(8)
+
+    adv_nome = nome_advogado or "Advogado(a) / Consultor(a) Previdenciário(a)"
+    p_adv = doc.add_paragraph()
+    p_adv.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run_adv = p_adv.add_run(adv_nome)
+    run_adv.font.size = Pt(12)
+    run_adv.font.bold = True
+    run_adv.font.color.rgb = AZUL_ESCURO
+
+    p_data = doc.add_paragraph()
+    p_data.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run_data = p_data.add_run(hoje)
+    run_data.font.size = Pt(10)
+    run_data.font.color.rgb = CINZA
+
+    p_rodape = doc.add_paragraph()
+    p_rodape.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run_rod = p_rodape.add_run(
+        "Documento gerado pelo SistPrev — Cálculos conforme Lei 8.213/91, EC 103/2019 e CJF Res. 963/2025"
+    )
+    run_rod.font.size = Pt(8)
+    run_rod.font.color.rgb = CINZA
+    run_rod.font.italic = True
+
+    # ── Salvar em bytes ──
+    buffer = BytesIO()
+    doc.save(buffer)
+    buffer.seek(0)
+    return buffer.getvalue()

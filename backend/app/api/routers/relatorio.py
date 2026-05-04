@@ -106,3 +106,35 @@ def gerar_relatorio_planejamento_docx(req: RelatorioPlanejamentoRequest):
         media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
+
+
+class RelatorioPericialDocxRequest(BaseModel):
+    segurado: Dict[str, Any]
+    calculo: Dict[str, Any]
+    nome_advogado: Optional[str] = None
+    titulo: str = "RELATÓRIO PERICIAL PREVIDENCIÁRIO"
+
+
+@router.post("/docx")
+def gerar_relatorio_pericial_docx(req: RelatorioPericialDocxRequest):
+    """Gera o Relatório Pericial em DOCX Feliciano Advocacia (Visual Law)."""
+    try:
+        from ...relatorio.gerador_docx import gerar_docx_pericial
+    except ImportError as e:
+        raise HTTPException(status_code=503, detail=str(e))
+
+    try:
+        docx_bytes = gerar_docx_pericial(
+            req.segurado, req.calculo, req.nome_advogado, req.titulo
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erro ao gerar DOCX pericial: {e}")
+
+    nome_seg = req.segurado.get("dados_pessoais", {}).get("nome", "Cliente").replace(" ", "_")
+    filename = f"Relatorio_Pericial_{nome_seg}.docx"
+
+    return StreamingResponse(
+        io.BytesIO(docx_bytes),
+        media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )

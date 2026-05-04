@@ -1,0 +1,32 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.2, pluggy-1.6.0
+rootdir: C:\Users\Administrador\OneDrive\Documentos\Documents\previdenciario\backend
+configfile: pytest.ini
+testpaths: tests
+plugins: anyio-4.13.0, asyncio-1.3.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 184 items
+
+tests\test_api.py ..........                                             [  5%]
+tests\test_beneficios.py .........................                       [ 19%]
+tests\test_correcao_monetaria.py ........                                [ 23%]
+tests\test_fator_previdenciario.py ...........                           [ 29%]
+tests\test_liquidacao.py .......                                         [ 33%]
+tests\test_novos_modulos.py ......................                       [ 45%]
+tests\test_parser_cnis.py .........                                      [ 50%]
+tests\test_pbc_salario.py ................                               [ 58%]
+tests\test_regressao_critica.py ..............                           [ 66%]
+tests\test_tempo_contribuicao.py .....                                   [ 69%]
+tests\test_transicao.py ......                                           [ 72%]
+tests\test_validacao_oficial.py .........................XXXXXX.F.....xx [ 94%]
+xxxx.......                                                              [100%]
+
+================================== FAILURES ===================================
+_____ TestExpectativaSobrevidaOficial.test_es_tabela_cobre_apenas_60_a_75 _____
+tests\test_validacao_oficial.py:239: in test_es_tabela_cobre_apenas_60_a_75
+    assert es_50 == es_60, (
+E   AssertionError: Atualmente idade<60 retorna ES_60 (fallback). Cobertura pra idades < 60 e > 75 falta na tabela.
+E   assert Decimal('30.08') == Decimal('21.90')
+=========================== short test summary info ===========================
+FAILED tests/test_validacao_oficial.py::TestExpectativaSobrevidaOficial::test_es_tabela_cobre_apenas_60_a_75
+============ 1 failed, 171 passed, 6 xfailed, 6 xpassed in 55.41s =============

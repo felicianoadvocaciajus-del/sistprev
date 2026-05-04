@@ -101,6 +101,7 @@ class Contribuicao:
     valida_carencia: bool = True
     valida_tc: bool = True
     observacao: Optional[str] = None  # ex: "MATERNIDADE", "INVALIDEZ", "ABAIXO_MINIMO"
+    complementavel_mei: bool = False  # True quando MEI 5% (pode ser complementada para contar TC)
 
     def __post_init__(self):
         # Garantir que competência sempre seja dia 1

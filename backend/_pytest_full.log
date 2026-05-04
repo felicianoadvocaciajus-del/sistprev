@@ -1,0 +1,195 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.2, pluggy-1.6.0
+rootdir: C:\Users\Administrador\OneDrive\Documentos\Documents\previdenciario\backend
+configfile: pytest.ini
+testpaths: tests
+plugins: anyio-4.13.0, asyncio-1.3.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 92 items
+
+tests\test_api.py ........F.                                             [ 10%]
+tests\test_correcao_monetaria.py ...F....                                [ 19%]
+tests\test_fator_previdenciario.py ....FFFF...                           [ 31%]
+tests\test_liquidacao.py F...F..                                         [ 39%]
+tests\test_novos_modulos.py FFFFFFFFFFFFFFFFFFFFFF                       [ 63%]
+tests\test_parser_cnis.py .........                                      [ 72%]
+tests\test_regressao_critica.py ..............                           [ 88%]
+tests\test_tempo_contribuicao.py FF...                                   [ 93%]
+tests\test_transicao.py FF....                                           [100%]
+
+================================== FAILURES ===================================
+____________________ TestAtrasados.test_atrasados_simples _____________________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_api.py:145: in test_atrasados_simples
+    ???
+E   assert 49 == 48
+E    +  where 49 = int(49)
+_____________ TestFatorAcumulado.test_fator_invertido_menor_que_1 _____________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_correcao_monetaria.py:32: in test_fator_invertido_menor_que_1
+    ???
+E   AssertionError: assert Decimal('1') < Decimal('1')
+E    +  where Decimal('1') = Decimal('1')
+_________________ TestFatorPrevidenciario.test_rmi_com_fator __________________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_fator_previdenciario.py:46: in test_rmi_com_fator
+    ???
+E   TypeError: rmi_com_fator() got an unexpected keyword argument 'piso'
+______________ TestFatorPrevidenciario.test_rmi_limitada_ao_piso ______________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_fator_previdenciario.py:56: in test_rmi_limitada_ao_piso
+    ???
+E   TypeError: rmi_com_fator() got an unexpected keyword argument 'piso'
+______________ TestFatorPrevidenciario.test_rmi_limitada_ao_teto ______________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_fator_previdenciario.py:66: in test_rmi_limitada_ao_teto
+    ???
+E   TypeError: rmi_com_fator() got an unexpected keyword argument 'piso'
+_________________ TestCoeficiente.test_coeficiente_minimo_60 __________________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_fator_previdenciario.py:80: in test_coeficiente_minimo_60
+    ???
+E   AssertionError: assert Decimal('0.7000') == Decimal('0.60')
+E    +  where Decimal('0.60') = Decimal('0.60')
+________________ TestLiquidacao.test_parcelas_contagem_correta ________________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_liquidacao.py:19: in test_parcelas_contagem_correta
+    ???
+E   assert 49 == 48
+__________ TestLiquidacao.test_sem_prescricao_quando_sem_ajuizamento __________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_liquidacao.py:66: in test_sem_prescricao_quando_sem_ajuizamento
+    ???
+E   assert 121 == 120
+____________ TestAcordoInternacional.test_verificar_acordo_espanha ____________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_novos_modulos.py:22: in test_verificar_acordo_espanha
+    ???
+E   ModuleNotFoundError: No module named 'backend'
+___________ TestAcordoInternacional.test_verificar_acordo_portugal ____________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_novos_modulos.py:29: in test_verificar_acordo_portugal
+    ???
+E   ModuleNotFoundError: No module named 'backend'
+__________ TestAcordoInternacional.test_verificar_acordo_inexistente __________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_novos_modulos.py:35: in test_verificar_acordo_inexistente
+    ???
+E   ModuleNotFoundError: No module named 'backend'
+_________ TestAcordoInternacional.test_documentos_necessarios_espanha _________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_novos_modulos.py:40: in test_documentos_necessarios_espanha
+    ???
+E   ModuleNotFoundError: No module named 'backend'
+_________________ TestAcordoInternacional.test_listar_acordos _________________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_novos_modulos.py:46: in test_listar_acordos
+    ???
+E   ModuleNotFoundError: No module named 'backend'
+_______________ TestAcordoInternacional.test_totalizacao_basica _______________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_novos_modulos.py:52: in test_totalizacao_basica
+    ???
+E   ModuleNotFoundError: No module named 'backend'
+_______________ TestRetroativos.test_calculo_basico_retroativos _______________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_novos_modulos.py:111: in test_calculo_basico_retroativos
+    ???
+E   ModuleNotFoundError: No module named 'backend'
+_________________ TestRetroativos.test_prescricao_quinquenal __________________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_novos_modulos.py:125: in test_prescricao_quinquenal
+    ???
+E   ModuleNotFoundError: No module named 'backend'
+______________ TestRetroativos.test_correcao_monetaria_positiva _______________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_novos_modulos.py:141: in test_correcao_monetaria_positiva
+    ???
+E   ModuleNotFoundError: No module named 'backend'
+_______________________ TestRetroativos.test_juros_mora _______________________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_novos_modulos.py:149: in test_juros_mora
+    ???
+E   ModuleNotFoundError: No module named 'backend'
+___________ TestRetroativos.test_beneficio_negado_rmi_original_zero ___________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_novos_modulos.py:156: in test_beneficio_negado_rmi_original_zero
+    ???
+E   ModuleNotFoundError: No module named 'backend'
+__________________ TestRetroativos.test_disclaimer_presente ___________________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_novos_modulos.py:168: in test_disclaimer_presente
+    ???
+E   ModuleNotFoundError: No module named 'backend'
+_____ TestClassificacaoDados.test_classificacao_presente_no_planejamento ______
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_novos_modulos.py:217: in test_classificacao_presente_no_planejamento
+    ???
+E   ModuleNotFoundError: No module named 'backend'
+___________ TestClassificacaoDados.test_fatos_tem_tc_carencia_idade ___________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_novos_modulos.py:228: in test_fatos_tem_tc_carencia_idade
+    ???
+E   ModuleNotFoundError: No module named 'backend'
+____________ TestClassificacaoDados.test_projecoes_tem_disclaimer _____________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_novos_modulos.py:238: in test_projecoes_tem_disclaimer
+    ???
+E   ModuleNotFoundError: No module named 'backend'
+_____________ TestClassificacaoDados.test_cada_item_tem_confianca _____________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_novos_modulos.py:247: in test_cada_item_tem_confianca
+    ???
+E   ModuleNotFoundError: No module named 'backend'
+_____________ TestEvidenciasEspeciais.test_ppp_ltcat_nivel_forte ______________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_novos_modulos.py:263: in test_ppp_ltcat_nivel_forte
+    ???
+E   ModuleNotFoundError: No module named 'backend'
+________ TestEvidenciasEspeciais.test_nome_empresa_sozinho_nao_e_forte ________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_novos_modulos.py:280: in test_nome_empresa_sozinho_nao_e_forte
+    ???
+E   ModuleNotFoundError: No module named 'backend'
+___________ TestEvidenciasEspeciais.test_sem_nada_nivel_sem_lastro ____________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_novos_modulos.py:293: in test_sem_nada_nivel_sem_lastro
+    ???
+E   ModuleNotFoundError: No module named 'backend'
+_________________ TestRoteamento.test_sem_dados_nao_e_revisao _________________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_novos_modulos.py:312: in test_sem_dados_nao_e_revisao
+    ???
+E   ModuleNotFoundError: No module named 'backend'
+_______________ TestRoteamento.test_revisao_com_beneficio_ativo _______________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_novos_modulos.py:321: in test_revisao_com_beneficio_ativo
+    ???
+E   ModuleNotFoundError: No module named 'backend'
+_____________ TestRoteamento.test_revisao_detecta_beneficio_ativo _____________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_novos_modulos.py:330: in test_revisao_detecta_beneficio_ativo
+    ???
+E   ModuleNotFoundError: No module named 'backend'
+______________________ TestContagem.test_vinculo_10_anos ______________________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_tempo_contribuicao.py:51: in test_vinculo_10_anos
+    ???
+E   AttributeError: 'TempoContribuicao' object has no attribute 'total_dias'
+_____________________ TestContagem.test_vinculo_zero_dias _____________________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_tempo_contribuicao.py:59: in test_vinculo_zero_dias
+    ???
+E   AttributeError: 'TempoContribuicao' object has no attribute 'total_dias'
+_______ TestRegrasTransicao.test_homem_35_anos_tc_elegivel_alguma_regra _______
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_transicao.py:55: in test_homem_35_anos_tc_elegivel_alguma_regra
+    ???
+E   assert None is not None
+_____________ TestRegrasTransicao.test_mulher_30_anos_tc_elegivel _____________
+C:\Users\Administrador\Documents\Documents\previdenciario\backend\tests\test_transicao.py:65: in test_mulher_30_anos_tc_elegivel
+    ???
+E   assert None is not None
+=========================== short test summary info ===========================
+FAILED tests/test_api.py::TestAtrasados::test_atrasados_simples - assert 49 =...
+FAILED tests/test_correcao_monetaria.py::TestFatorAcumulado::test_fator_invertido_menor_que_1
+FAILED tests/test_fator_previdenciario.py::TestFatorPrevidenciario::test_rmi_com_fator
+FAILED tests/test_fator_previdenciario.py::TestFatorPrevidenciario::test_rmi_limitada_ao_piso
+FAILED tests/test_fator_previdenciario.py::TestFatorPrevidenciario::test_rmi_limitada_ao_teto
+FAILED tests/test_fator_previdenciario.py::TestCoeficiente::test_coeficiente_minimo_60
+FAILED tests/test_liquidacao.py::TestLiquidacao::test_parcelas_contagem_correta
+FAILED tests/test_liquidacao.py::TestLiquidacao::test_sem_prescricao_quando_sem_ajuizamento
+FAILED tests/test_novos_modulos.py::TestAcordoInternacional::test_verificar_acordo_espanha
+FAILED tests/test_novos_modulos.py::TestAcordoInternacional::test_verificar_acordo_portugal
+FAILED tests/test_novos_modulos.py::TestAcordoInternacional::test_verificar_acordo_inexistente
+FAILED tests/test_novos_modulos.py::TestAcordoInternacional::test_documentos_necessarios_espanha
+FAILED tests/test_novos_modulos.py::TestAcordoInternacional::test_listar_acordos
+FAILED tests/test_novos_modulos.py::TestAcordoInternacional::test_totalizacao_basica
+FAILED tests/test_novos_modulos.py::TestRetroativos::test_calculo_basico_retroativos
+FAILED tests/test_novos_modulos.py::TestRetroativos::test_prescricao_quinquenal
+FAILED tests/test_novos_modulos.py::TestRetroativos::test_correcao_monetaria_positiva
+FAILED tests/test_novos_modulos.py::TestRetroativos::test_juros_mora - Module...
+FAILED tests/test_novos_modulos.py::TestRetroativos::test_beneficio_negado_rmi_original_zero
+FAILED tests/test_novos_modulos.py::TestRetroativos::test_disclaimer_presente
+FAILED tests/test_novos_modulos.py::TestClassificacaoDados::test_classificacao_presente_no_planejamento
+FAILED tests/test_novos_modulos.py::TestClassificacaoDados::test_fatos_tem_tc_carencia_idade
+FAILED tests/test_novos_modulos.py::TestClassificacaoDados::test_projecoes_tem_disclaimer
+FAILED tests/test_novos_modulos.py::TestClassificacaoDados::test_cada_item_tem_confianca
+FAILED tests/test_novos_modulos.py::TestEvidenciasEspeciais::test_ppp_ltcat_nivel_forte
+FAILED tests/test_novos_modulos.py::TestEvidenciasEspeciais::test_nome_empresa_sozinho_nao_e_forte
+FAILED tests/test_novos_modulos.py::TestEvidenciasEspeciais::test_sem_nada_nivel_sem_lastro
+FAILED tests/test_novos_modulos.py::TestRoteamento::test_sem_dados_nao_e_revisao
+FAILED tests/test_novos_modulos.py::TestRoteamento::test_revisao_com_beneficio_ativo
+FAILED tests/test_novos_modulos.py::TestRoteamento::test_revisao_detecta_beneficio_ativo
+FAILED tests/test_tempo_contribuicao.py::TestContagem::test_vinculo_10_anos
+FAILED tests/test_tempo_contribuicao.py::TestContagem::test_vinculo_zero_dias
+FAILED tests/test_transicao.py::TestRegrasTransicao::test_homem_35_anos_tc_elegivel_alguma_regra
+FAILED tests/test_transicao.py::TestRegrasTransicao::test_mulher_30_anos_tc_elegivel
+======================= 34 failed, 58 passed in 31.91s ========================

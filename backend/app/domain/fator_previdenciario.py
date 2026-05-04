@@ -96,11 +96,15 @@ def rmi_com_fator(
     salario_beneficio: Decimal,
     fator: Decimal,
     teto: Decimal,
+    piso: Optional[Decimal] = None,
 ) -> Decimal:
-    """Aplica o fator previdenciário ao SB e limita ao teto."""
+    """Aplica o fator previdenciário ao SB, limita ao teto e respeita o piso (salário mínimo)."""
     rmi = salario_beneficio * fator
     rmi = rmi.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
-    return min(rmi, teto)
+    rmi = min(rmi, teto)
+    if piso is not None:
+        rmi = max(rmi, piso)
+    return rmi
 
 
 def rmi_com_coeficiente(
